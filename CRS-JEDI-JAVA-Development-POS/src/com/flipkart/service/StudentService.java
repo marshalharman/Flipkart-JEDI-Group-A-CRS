@@ -10,7 +10,7 @@ public class StudentService {
 
     }
 
-    public int semesterRegister(){
+    public void semesterRegister(){
 
     }
 
