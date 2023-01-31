@@ -6,7 +6,7 @@ public class CRSProfessorMenu {
 
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
-    public void ProfessorMenu()
+    public void professorMenu()
     {
         System.out.println("Professor Menu!\n");
         System.out.println("Choose one of the options\n");
