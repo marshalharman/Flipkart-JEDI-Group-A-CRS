@@ -2,7 +2,7 @@ package com.flipkart.client;
 
 import com.flipkart.service.ProfessorService;
 
-public class ProfessorApplication {
+public class CRSProfessorMenu {
 
 
     ProfessorService service = new ProfessorService();
