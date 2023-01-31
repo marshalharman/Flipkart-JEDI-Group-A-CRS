@@ -17,7 +17,6 @@ public class Catalog {
     public List<Integer> getCourseIDs() {
         return courseIDs;
     }
-    private int semID;
     public void setCourseIDs(List<Integer> courseIDs) {
         this.courseIDs = courseIDs;
     }
