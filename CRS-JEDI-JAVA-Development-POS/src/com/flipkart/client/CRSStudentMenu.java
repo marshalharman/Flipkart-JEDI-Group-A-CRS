@@ -57,7 +57,7 @@ public class CRSStudentMenu {
                     System.out.println("Please enter a valid input\n");
             }
 
-            if( choice == 7 ){
+            if( choice == 8 ){
                 break;
             }
         }
