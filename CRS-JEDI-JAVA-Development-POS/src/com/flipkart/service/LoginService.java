@@ -1,2 +1,4 @@
-package com.flipkart.service;public class LoginService {
+package com.flipkart.service;
+
+public class LoginService {
 }

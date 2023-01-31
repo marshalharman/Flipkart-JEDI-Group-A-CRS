@@ -4,7 +4,7 @@ public class Course {
     private int courseID;
     private String courseName;
     private int profID;
-
+    private String profName;
     public int getCourseID() {
         return courseID;
     }
@@ -36,7 +36,4 @@ public class Course {
     public void setProfName(String profName) {
         this.profName = profName;
     }
-
-    private String profName;
-
 }

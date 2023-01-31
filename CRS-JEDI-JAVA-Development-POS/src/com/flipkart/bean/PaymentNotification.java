@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-public class Notification {
+public class PaymentNotification {
 
     private int studentID;
     private int transactionID;
