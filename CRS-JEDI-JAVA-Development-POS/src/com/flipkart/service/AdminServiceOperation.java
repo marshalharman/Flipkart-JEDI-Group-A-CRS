@@ -1,7 +1,6 @@
 package com.flipkart.service;
 
-
-public class AdminServiceOperation {
+public class AdminServiceOperation implements AdminService {
 
     public void login() {
 
