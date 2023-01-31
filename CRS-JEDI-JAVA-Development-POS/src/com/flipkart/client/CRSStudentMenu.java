@@ -6,6 +6,10 @@ public class CRSStudentMenu {
 
     StudentOperation service = new StudentOperation();
 
+    public void studentMenu(){
+        System.out.println("Welcome to Student Menu");
+    }
+
     private void register(){
 
     }
