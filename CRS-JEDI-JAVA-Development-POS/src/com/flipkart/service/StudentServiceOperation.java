@@ -1,6 +1,6 @@
 package com.flipkart.service;
 
-public class StudentService {
+public class StudentServiceOperation {
 
     public void register(){
 

@@ -1,6 +1,15 @@
 package com.flipkart.client;
 
-public class StudentApplication {
+import com.flipkart.service.StudentServiceOperation;
+
+public class CRSStudentMenu {
+
+    StudentServiceOperation service = new StudentServiceOperation();
+
+    private void register(){
+
+    }
+
     private void addCourse(){
 
     }
