@@ -21,7 +21,7 @@ public class CRSStudentMenu {
             System.out.println("4. View Course");
             System.out.println("5. View grades");
             System.out.println("6. Make Payment");
-            System.out.println("7. Log out");
+            System.out.println("7. Logout");
 
             Scanner obj = new Scanner(System.in);
 
