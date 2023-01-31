@@ -9,29 +9,46 @@ public class CRSAdminMenu {
     AdminServiceOperation service = new AdminServiceOperation();
     public void adminMenu()
     {
-        System.out.println("Admin Menu!\n");
-        System.out.println("Choose one of the options\n");
-        System.out.println("1. Approve Student Registration\n");
-        System.out.println("2. Add Professor\n");
-        System.out.println("3. Remove Professor\n");
-        System.out.println("4. Add Courses\n");
-        System.out.println("5. Delete Courses\n");
-        Scanner obj = new Scanner(System.in);
-        String choice;
-        choice = obj.nextLine();
-        switch(choice) {
-            case "1":
-                approvedStudentRegistration();
-            case "2":
-                addProfessor();
-            case "3":
-                removeProfessor();
-            case "4":
-                addCourses();
-            case "5":
-                deleteCourses();
-            default:
-                System.out.println("Menu\n");
+        System.out.println("Admin Menu!");
+        System.out.println("Choose one of the options");
+        System.out.println("1. Approve Student Registration");
+        System.out.println("2. Add Professor");
+        System.out.println("3. Remove Professor");
+        System.out.println("4. Add Courses");
+        System.out.println("5. Delete Courses");
+        System.out.println("6. Generate Grade Card");
+        System.out.println("7. Logout");
+        while(true) {
+            Scanner obj = new Scanner(System.in);
+            int choice = Integer.parseInt(obj.nextLine());
+
+            switch (choice) {
+                case 1:
+                    approvedStudentRegistration();
+                    break;
+                case 2:
+                    addProfessor();
+                    break;
+                case 3:
+                    removeProfessor();
+                    break;
+                case 4:
+                    addCourses();
+                    break;
+                case 5:
+                    deleteCourses();
+                    break;
+                case 6:
+                    System.out.println("Generated Grade Card\n");
+                    break;
+                case 7:
+                    System.out.println("Logged out\n");
+                    break;
+                default:
+                    System.out.println("Choose in the given options\n");
+            }
+
+            if(choice == 7){break;}
         }
     }
 	private void approvedStudentRegistration(){
