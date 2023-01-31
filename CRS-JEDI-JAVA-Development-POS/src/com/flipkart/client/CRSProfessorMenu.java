@@ -11,8 +11,8 @@ public class CRSProfessorMenu {
         System.out.println("Professor Menu!");
         System.out.println("Choose one of the options");
         System.out.println("1. View Courses");
-        System.out.println("2. Register for a course");
-        System.out.println("3. De-register from a course");
+        System.out.println("2. Give course preference");
+        //System.out.println("3. De-register from a course");
         System.out.println("4. View enrolled students");
         System.out.println("5. Add grade");
 
