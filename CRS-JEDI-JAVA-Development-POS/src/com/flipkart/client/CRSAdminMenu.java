@@ -16,26 +16,37 @@ public class CRSAdminMenu {
         System.out.println("3. Remove Professor");
         System.out.println("4. Add Courses");
         System.out.println("5. Delete Courses");
-        System.out.println("6. Logout");
-
-        Scanner obj = new Scanner(System.in);
-        String choice;
-        choice = obj.nextLine();
-        switch(choice) {
-            case "1":
-                approvedStudentRegistration();
-            case "2":
-                addProfessor();
-            case "3":
-                removeProfessor();
-            case "4":
-                addCourses();
-            case "5":
-                deleteCourses();
-            case "6":
-                System.out.println("Logged out\n");
-            default:
-                System.out.println("Menu\n");
+        System.out.println("6. Generate Grade Card");
+        System.out.println("7. Logout");
+        while(true) {
+            Scanner obj = new Scanner(System.in);
+            String choice;
+            choice = obj.nextLine();
+            switch (choice) {
+                case "1":
+                    approvedStudentRegistration();
+                    break;
+                case "2":
+                    addProfessor();
+                    break;
+                case "3":
+                    removeProfessor();
+                    break;
+                case "4":
+                    addCourses();
+                    break;
+                case "5":
+                    deleteCourses();
+                    break;
+                case "6":
+                    System.out.println("Generated Grade Card\n");
+                    break;
+                case "7":
+                    System.out.println("Logged out\n");
+                    break;
+                default:
+                    System.out.println("Choose in the given options\n");
+            }
         }
     }
 	private void approvedStudentRegistration(){
