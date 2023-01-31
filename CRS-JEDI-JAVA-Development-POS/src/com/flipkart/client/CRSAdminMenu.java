@@ -20,33 +20,35 @@ public class CRSAdminMenu {
         System.out.println("7. Logout");
         while(true) {
             Scanner obj = new Scanner(System.in);
-            String choice;
-            choice = obj.nextLine();
+            int choice = Integer.parseInt(obj.nextLine());
+
             switch (choice) {
-                case "1":
+                case 1:
                     approvedStudentRegistration();
                     break;
-                case "2":
+                case 2:
                     addProfessor();
                     break;
-                case "3":
+                case 3:
                     removeProfessor();
                     break;
-                case "4":
+                case 4:
                     addCourses();
                     break;
-                case "5":
+                case 5:
                     deleteCourses();
                     break;
-                case "6":
+                case 6:
                     System.out.println("Generated Grade Card\n");
                     break;
-                case "7":
+                case 7:
                     System.out.println("Logged out\n");
                     break;
                 default:
                     System.out.println("Choose in the given options\n");
             }
+
+            if(choice == 7){break;}
         }
     }
 	private void approvedStudentRegistration(){
