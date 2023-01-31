@@ -21,7 +21,8 @@ public class CRSStudentMenu {
             System.out.println("4. View Course");
             System.out.println("5. View grades");
             System.out.println("6. Make Payment");
-            System.out.println("7. Logout");
+            System.out.println("7. View Registered Courses");
+            System.out.println("8. Logout");
 
             Scanner obj = new Scanner(System.in);
 
@@ -48,6 +49,9 @@ public class CRSStudentMenu {
                     payFees();
                     break;
                 case 7:
+                    viewRegisteredCourses();
+                    break;
+                case 8:
                     System.out.println("Logged out");
                 default:
                     System.out.println("Please enter a valid input\n");
@@ -57,6 +61,9 @@ public class CRSStudentMenu {
                 break;
             }
         }
+    }
+
+    private void viewRegisteredCourses() {
     }
 
 
