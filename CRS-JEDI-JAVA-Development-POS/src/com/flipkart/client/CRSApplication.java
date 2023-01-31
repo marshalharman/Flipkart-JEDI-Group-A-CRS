@@ -22,6 +22,20 @@ public class CRSApplication {
 
                 System.out.println("ENTER ROLE");
                 String role = sc.nextLine();
+
+                if(role.equalsIgnoreCase("student")){
+                    CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
+                    crsStudentMenu.createMenu(101);
+                }
+                else if( role.equalsIgnoreCase("professor")){
+                    CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
+                    crsProfessorMenu.ProfessorMenu();
+                }
+                else if( role.equalsIgnoreCase("admin")){
+                    CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
+                    crsAdminMenu.adminMenu();
+
+                }
                 break;
             }
             case 2:{
