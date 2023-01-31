@@ -1,11 +1,11 @@
 package com.flipkart.client;
 
-import com.flipkart.service.ProfessorServiceOperation;
+import com.flipkart.service.ProfessorOperation;
 
 public class CRSProfessorMenu {
 
 
-    ProfessorServiceOperation service = new ProfessorServiceOperation();
+    ProfessorOperation service = new ProfessorOperation();
 	private void viewCourses(){
 
     }

@@ -1,6 +1,6 @@
 package com.flipkart.service;
 
-public class ProfessorServiceOperation {
+public class ProfessorOperation {
     public void login(){
 
     }
