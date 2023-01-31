@@ -9,13 +9,13 @@ public class CRSAdminMenu {
     AdminServiceOperation service = new AdminServiceOperation();
     public void adminMenu()
     {
-        System.out.println("Admin Menu!\n");
-        System.out.println("Choose one of the options\n");
-        System.out.println("1. Approve Student Registration\n");
-        System.out.println("2. Add Professor\n");
-        System.out.println("3. Remove Professor\n");
-        System.out.println("4. Add Courses\n");
-        System.out.println("5. Delete Courses\n");
+        System.out.println("Admin Menu!");
+        System.out.println("Choose one of the options");
+        System.out.println("1. Approve Student Registration");
+        System.out.println("2. Add Professor");
+        System.out.println("3. Remove Professor");
+        System.out.println("4. Add Courses");
+        System.out.println("5. Delete Courses");
         Scanner obj = new Scanner(System.in);
         String choice;
         choice = obj.nextLine();

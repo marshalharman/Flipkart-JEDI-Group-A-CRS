@@ -8,13 +8,13 @@ public class CRSProfessorMenu {
     ProfessorServiceOperation service = new ProfessorServiceOperation();
     public void professorMenu()
     {
-        System.out.println("Professor Menu!\n");
-        System.out.println("Choose one of the options\n");
-        System.out.println("1. View Courses\n");
-        System.out.println("2. Register for a course\n");
-        System.out.println("3. De-register from a course\n");
-        System.out.println("4. View enrolled students\n");
-        System.out.println("5. Add grade\n");
+        System.out.println("Professor Menu!");
+        System.out.println("Choose one of the options");
+        System.out.println("1. View Courses");
+        System.out.println("2. Register for a course");
+        System.out.println("3. De-register from a course");
+        System.out.println("4. View enrolled students");
+        System.out.println("5. Add grade");
 
         Scanner obj = new Scanner(System.in);
         String choice;
