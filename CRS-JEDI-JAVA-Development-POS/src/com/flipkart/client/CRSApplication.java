@@ -25,11 +25,10 @@ public class CRSApplication {
 
                 if(role.equalsIgnoreCase("student")){
                     CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
-                    crsStudentMenu.createMenu(101);
                 }
                 else if( role.equalsIgnoreCase("professor")){
                     CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
-                    crsProfessorMenu.ProfessorMenu();
+                    crsProfessorMenu.professorMenu();
                 }
                 else if( role.equalsIgnoreCase("admin")){
                     CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
