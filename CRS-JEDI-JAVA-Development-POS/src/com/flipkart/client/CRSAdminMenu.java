@@ -1,9 +1,10 @@
 package com.flipkart.client;
 
-import com.flipkart.service.AdminOperation;
+
+import com.flipkart.service.AdminServiceOperation;
 
 public class CRSAdminMenu {
-    AdminOperation service = new AdminOperation();
+    AdminServiceOperation service = new AdminServiceOperation();
 	private void approvedStudentRegistration(){
     }
     private void addProfessor(){

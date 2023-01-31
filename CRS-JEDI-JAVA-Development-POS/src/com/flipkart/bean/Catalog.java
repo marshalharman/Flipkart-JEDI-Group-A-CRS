@@ -3,6 +3,16 @@ import java.util.*;
 
 public class Catalog {
     private List<Integer> courseIDs;
+    private List<String> courseNames;
+    private int semID;
+
+    public List<String> getCourseNames() {
+        return courseNames;
+    }
+
+    public void setCourseNames(List<String> courseNames) {
+        this.courseNames = courseNames;
+    }
 
     public List<Integer> getCourseIDs() {
         return courseIDs;
@@ -20,5 +30,4 @@ public class Catalog {
         this.semID = semID;
     }
 
-    private int semID;
 }
