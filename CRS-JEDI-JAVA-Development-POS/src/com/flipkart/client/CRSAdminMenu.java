@@ -16,6 +16,8 @@ public class CRSAdminMenu {
         System.out.println("3. Remove Professor");
         System.out.println("4. Add Courses");
         System.out.println("5. Delete Courses");
+        System.out.println("6. Logout");
+
         Scanner obj = new Scanner(System.in);
         String choice;
         choice = obj.nextLine();
@@ -30,6 +32,8 @@ public class CRSAdminMenu {
                 addCourses();
             case "5":
                 deleteCourses();
+            case "6":
+                System.out.println("Logged out\n");
             default:
                 System.out.println("Menu\n");
         }
