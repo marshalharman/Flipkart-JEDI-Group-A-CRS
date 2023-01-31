@@ -3,6 +3,7 @@ package com.flipkart.client;
 import com.flipkart.service.StudentServiceOperation;
 
 import java.util.Scanner;
+import java.util.spi.AbstractResourceBundleProvider;
 
 
 public class CRSStudentMenu {
@@ -10,32 +11,51 @@ public class CRSStudentMenu {
     StudentServiceOperation service = new StudentServiceOperation();
 
     public void studentMenu(int id) {
-        System.out.println("Student Menu!");
-        System.out.println("Choose one of the options");
-        System.out.println("1. Course Registration");
-        System.out.println("2. Add Course");
-        System.out.println("3. Drop Course");
-        System.out.println("4. View Course");
-        System.out.println("5. View grades");
-        System.out.println("6. Make Payment");
-        Scanner obj = new Scanner(System.in);
-        String choice;
-        choice = obj.nextLine();
-        switch (choice) {
-            case "1":
-                register();
-            case "2":
-                addCourse();
-            case "3":
-                deleteCourse();
-            case "4":
-                viewCourses();
-            case "5":
-                viewGrades();
-            case "6":
-                payFees();
-            default:
-                System.out.println("Menu\n");
+
+        while(true) {
+            System.out.println("Student Menu!");
+            System.out.println("Choose one of the options");
+            System.out.println("1. Semester Registration");
+            System.out.println("2. Add Course");
+            System.out.println("3. Drop Course");
+            System.out.println("4. View Course");
+            System.out.println("5. View grades");
+            System.out.println("6. Make Payment");
+            System.out.println("7. Log out");
+
+            Scanner obj = new Scanner(System.in);
+
+            int choice;
+            choice = Integer.parseInt(obj.nextLine());
+
+            switch (choice) {
+                case 1:
+                    register();
+                    break;
+                case 2:
+                    addCourse();
+                    break;
+                case 3:
+                    deleteCourse();
+                    break;
+                case 4:
+                    viewCourses();
+                    break;
+                case 5:
+                    viewGrades();
+                    break;
+                case 6:
+                    payFees();
+                    break;
+                case 7:
+                    System.out.println("Logged out");
+                default:
+                    System.out.println("Please enter a valid input\n");
+            }
+
+            if( choice == 7 ){
+                break;
+            }
         }
     }
 
