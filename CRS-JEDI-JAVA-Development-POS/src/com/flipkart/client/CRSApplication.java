@@ -52,6 +52,8 @@ public class CRSApplication {
                     System.out.println("Thank you!");
                     break;
                 }
+                default:
+                    System.out.println("Please give a valid input\n");
             }
 
             if(choice == 4){break;}
