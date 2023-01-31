@@ -14,7 +14,7 @@ public class CRSProfessorMenu {
         System.out.println("2. Register for a course\n");
         System.out.println("3. De-register from a course\n");
         System.out.println("4. View enrolled students\n");
-        System.out.println("5. Add course to the catalogue\n");
+        System.out.println("5. Add grade\n");
 
         Scanner obj = new Scanner(System.in);
         String choice;
