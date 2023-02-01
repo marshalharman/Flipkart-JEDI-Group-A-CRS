@@ -42,10 +42,12 @@ public class CRSApplication {
                 case 2: {
                     CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                     System.out.println("ENTER STUDENT ID");
+                    String studentId = sc.nextLine();
                     break;
                 }
                 case 3: {
                     System.out.println("Update password");
+                    String updatedPassword = sc.nextLine();
                     break;
                 }
                 case 4: {
