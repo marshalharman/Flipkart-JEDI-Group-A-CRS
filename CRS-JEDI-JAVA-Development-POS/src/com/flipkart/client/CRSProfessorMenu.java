@@ -52,9 +52,6 @@ public class CRSProfessorMenu {
     private void registerCourse(){
 
     }
-    private void deRegisterCourse(){
-
-    }
     private void viewEnrolledStudent(){
 
     }
