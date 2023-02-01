@@ -1,6 +1,6 @@
 package com.flipkart.service;
 
-public interface Payment {
+public interface PaymentInterface {
 
     public void pay();
     public void sendNotification();

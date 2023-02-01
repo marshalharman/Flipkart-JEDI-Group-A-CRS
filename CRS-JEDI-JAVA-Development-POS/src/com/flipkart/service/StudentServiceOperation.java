@@ -2,7 +2,7 @@ package com.flipkart.service;
 
 public class StudentServiceOperation implements StudentInterface {
 
-    public void register(){
+    public void register(String name, String studentID, String password){
 
     }
 

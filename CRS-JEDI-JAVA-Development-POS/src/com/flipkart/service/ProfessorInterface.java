@@ -1,6 +1,6 @@
 package com.flipkart.service;
 
-public interface ProfessorService {
+public interface ProfessorInterface {
     public void login();
 
     public void viewCourse();
