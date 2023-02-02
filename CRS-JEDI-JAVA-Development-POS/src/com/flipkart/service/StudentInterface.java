@@ -12,7 +12,6 @@ public interface StudentInterface {
     public void addCourse();
     public void dropCourse();
     public void getRegisteredCourses();
-    public void payFees();
     public void viewGrades();
 
 }
