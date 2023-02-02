@@ -26,13 +26,24 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void approveStudentRegistration() {
-        List<Student> unapprostudents =Data.unapprovedStudents;
-        for(Student s:unapprostudents)
-        {
-            s.setApproved(true);
-            Data.students.add(s);
+        Data d= new Data();
+        Scanner sc = new Scanner(System.in);
+        List<Student> unapprovedStudents =d.unapprovedStudents;
+        System.out.println("List of unapproved students : ");
+        for(Student s: unapprovedStudents){
+            System.out.println(s.getUserID() + " - " + s.getUsername());
         }
-        Data.unapprovedStudents.clear();
+
+        System.out.println("Enter the student ID to approve : ");
+        int studentID = Integer.parseInt(sc.nextLine());
+
+        for(Student s: unapprovedStudents){
+            if( s.getUserID() == studentID ){
+                d.students.add(s);
+                d.unapprovedStudents.remove(s);
+                break;
+            }
+        }
 
     }
 
