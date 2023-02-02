@@ -32,7 +32,8 @@ public class Data {
     // courseId - count
     public static HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
 
-
+    // studentID - gradeCard
+    public static HashMap<Integer, GradeCard> gradeCards = new HashMap<>();
 
     static {
         Student st1 = new Student();
