@@ -75,7 +75,7 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("List of courses");
         for(int i=0;i<c.size();i++)
         {
-            System.out.println(c.get(i)+"\n");
+            System.out.println(c.get(i).getCourseName()+"\n");
         }
         return c;
     }
@@ -129,12 +129,17 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
     }
-    public void dropCourse(){
-//        for(Course course: student.getPrimaryCourses()){
-//            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-//                student.removePrimaryCourse(course);
-//            }
-//        }
+    public void dropCourse(Student student){
+        System.out.println("Please enter the name of the course to be dropped : ");
+        String courseName = sc.nextLine();
+
+        for(Course course: Data.semCourseList.get(student.getSemID()) ){
+            if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                Data.registeredCourses.get(student.getUserID()).remove(course);
+                Data.courseEnrollmentCount.put(course.getCourseID(), Data.courseEnrollmentCount.get(course.getCourseID())-1 );
+                break;
+            }
+        }
     }
 
     public void submitPreferences(Student student){
@@ -146,8 +151,11 @@ public class StudentServiceOperation implements StudentInterface {
             if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
                 Data.courseEnrollmentCount.put(course.getCourseID(), 0);
             }
-            if(Data.courseEnrollmentCount.get(course.getCourseID()) < 10){
+            int currentCount = Data.courseEnrollmentCount.get(course.getCourseID());
+            if(currentCount < 10){
                 Data.registeredCourses.get(student.getUserID()).add(course);
+                currentCount++;
+                Data.courseEnrollmentCount.put(course.getCourseID(), currentCount);
                 registeredCourseCount++;
             }
         }
@@ -156,8 +164,11 @@ public class StudentServiceOperation implements StudentInterface {
             if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
                 Data.courseEnrollmentCount.put(course.getCourseID(), 0);
             }
-            if(registeredCourseCount < 4 && Data.courseEnrollmentCount.get(course.getCourseID()) < 10){
+            int currentCount = Data.courseEnrollmentCount.get(course.getCourseID());
+            if(registeredCourseCount < 4 && currentCount < 10){
                 Data.registeredCourses.get(student.getUserID()).add(course);
+                currentCount++;
+                Data.courseEnrollmentCount.put(course.getCourseID(), currentCount);
                 registeredCourseCount++;
             }
         }
@@ -176,6 +187,7 @@ public class StudentServiceOperation implements StudentInterface {
             System.out.println(course.getCourseName());
         }
     }
+
 
 
     public void viewGrades(int studentId){

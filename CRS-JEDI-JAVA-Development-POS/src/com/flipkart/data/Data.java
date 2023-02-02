@@ -75,6 +75,7 @@ public class Data {
         sem2List.add(c6);
 
         semCourseList.put(1, sem1List);
+        semCourseList.put(2, sem2List);
 
         List<Grade> tempGrades=new ArrayList<Grade>();
         Grade g1=new Grade();
@@ -102,8 +103,7 @@ public class Data {
         tempGrades.add(g4);
 
         gradeList.put(1,tempGrades);
-
-        //semCourseList.put(2, sem2List);
+;
     }
 
 

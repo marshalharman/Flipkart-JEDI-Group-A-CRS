@@ -4,6 +4,7 @@ import com.flipkart.data.Data;
 import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.lang.Math;
 import java.util.Map;
+import java.util.Scanner;
 
 public class PaymentServiceOperation implements PaymentInterface {
 
@@ -16,8 +17,9 @@ public class PaymentServiceOperation implements PaymentInterface {
         int fee_amount = 1000*reg_courses_number;
         System.out.println("Your fee amount = "+fee_amount);
         System.out.println("Select a method to pay -");
+        Scanner sc = new Scanner(System.in);
         System.out.println("1.UPI   2.Cheque");
-
+        int paymentMethod = Integer.parseInt(sc.nextLine());
         System.out.println("Payment done");
 
 
