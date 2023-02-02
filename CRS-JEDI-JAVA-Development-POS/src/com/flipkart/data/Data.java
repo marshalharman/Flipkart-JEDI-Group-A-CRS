@@ -23,6 +23,12 @@ public class Data {
     // studentID - Courses
     public static HashMap<Integer, List<Course>> registeredCourses = new HashMap<>();
 
+    //studentId - upiID
+    public static HashMap<Integer, Integer> upiIDS = new HashMap<Integer, Integer>();
+
+    //studentID - card details
+    public static HashMap<Integer, List<String>> cardDetails = new HashMap<Integer, List<String>>();
+
     // courseId - count
     public static HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
 
