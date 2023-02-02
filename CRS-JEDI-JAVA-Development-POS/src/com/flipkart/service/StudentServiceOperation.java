@@ -45,12 +45,12 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Student registered successfully.");
     }
 
-    public int login(String studentname, String password){
+    public int login(String studentName, String password){
         List<Student> studentsList= studentsdata.students;
         int userId = -1;
         for(Student s:studentsList)
         {
-            if(s.getName().equals(studentname) && s.getPassword().equals(password)) {
+            if(s.getName().equals(studentName) && s.getPassword().equals(password)) {
                 userId = s.getUserID();
                 break;
             }
