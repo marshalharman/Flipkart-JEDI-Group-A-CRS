@@ -17,5 +17,6 @@ public interface StudentInterface {
     public void submitPreferences(Student student);
     public void getRegisteredCourses(Student student);
     public void payFees();
-    public void viewGrades();
+    public void viewGrades(int studentId);
+
 }

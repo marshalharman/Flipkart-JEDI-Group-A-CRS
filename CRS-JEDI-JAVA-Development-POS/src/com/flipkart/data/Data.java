@@ -1,9 +1,9 @@
 package com.flipkart.data;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-
 import java.util.*;
 
 public class Data {
@@ -13,6 +13,7 @@ public class Data {
 
     public static Student s1,s2, s3,s4 = new Student();
 
+    public static HashMap<Integer,List<Grade> > gradeList=new HashMap<Integer,List<Grade>>();
     // semID - courses
     public static TreeMap<Integer,List<Course>> semCourseList=new TreeMap<Integer,List<Course>>();
 
@@ -28,6 +29,7 @@ public class Data {
         st1.setUserID(101);
         st1.setName("Harman");
         st1.setPassword("abcd");
+        st1.setUserID(1);
 
         Student st2 = new Student();
         st1.setUserID(102);
@@ -73,7 +75,35 @@ public class Data {
         sem2List.add(c6);
 
         semCourseList.put(1, sem1List);
-        semCourseList.put(2, sem2List);
+
+        List<Grade> tempGrades=new ArrayList<Grade>();
+        Grade g1=new Grade();
+        Grade g2=new Grade();
+        Grade g3=new Grade();
+        Grade g4=new Grade();
+        g1.setStudentID(1);
+        g1.setCourseID(11);
+        g1.setScore('A');
+        tempGrades.add(g1);
+
+        g2.setStudentID(1);
+        g2.setCourseID(12);
+        g2.setScore('B');
+        tempGrades.add(g2);
+
+        g3.setStudentID(1);
+        g3.setCourseID(13);
+        g3.setScore('C');
+        tempGrades.add(g3);
+
+        g4.setStudentID(1);
+        g4.setCourseID(14);
+        g4.setScore('A');
+        tempGrades.add(g4);
+
+        gradeList.put(1,tempGrades);
+
+        //semCourseList.put(2, sem2List);
     }
 
 

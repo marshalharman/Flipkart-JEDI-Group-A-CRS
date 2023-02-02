@@ -1,12 +1,11 @@
 package com.flipkart.service;
+import com.flipkart.bean.Grade;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
-
 import java.util.*;
 import com.flipkart.bean.Student;
-
 
 public class StudentServiceOperation implements StudentInterface {
 
@@ -76,7 +75,7 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("List of courses");
         for(int i=0;i<c.size();i++)
         {
-            System.out.println(c.get(i).getCourseName()+"\n");
+            System.out.println(c.get(i)+"\n");
         }
         return c;
     }
@@ -178,11 +177,16 @@ public class StudentServiceOperation implements StudentInterface {
         }
     }
 
-    public void payFees(){
 
-    }
-
-    public void viewGrades(){
+    public void viewGrades(int studentId){
+        System.out.println();
+        Data d = new Data();
+        HashMap<Integer,List<Grade> > hp= d.gradeList;
+        List<Grade> studentGrades=hp.get(studentId);
+        System.out.println("Grades :");
+        for(Grade grade:studentGrades){
+            System.out.println(grade.getStudentID() + " " +grade.getCourseID() + " " +grade.getScore());
+        }
 
     }
 

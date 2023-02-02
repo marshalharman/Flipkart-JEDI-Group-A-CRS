@@ -52,7 +52,7 @@ public class CRSStudentMenu {
                     semesterRegister(student);
                     break;
                 case 2:
-                    addCourse(student);
+                    addCourse();
                     break;
                 case 3:
                     deleteCourse(student);
@@ -67,7 +67,8 @@ public class CRSStudentMenu {
                     viewCourses(student.getSemID());
                     break;
                 case 7:
-                    viewGrades();
+                    //System.out.println(id + "hello ");
+                    viewGrades(id);
                     break;
                 case 8:
                     payFees(student);
@@ -97,8 +98,8 @@ public class CRSStudentMenu {
         studentServiceOperation.semesterRegister(student);
     }
 
-    private void addCourse(Student student){
-        studentServiceOperation.addCourse(student);
+    private void addCourse(){
+
     }
 
     private void deleteCourse(Student student){
@@ -115,8 +116,9 @@ public class CRSStudentMenu {
     private void viewCourses(int semId){
         studentServiceOperation.getCourses(semId);
     }
-    private void viewGrades(){
-
+    private void viewGrades(int studentId){
+        StudentServiceOperation studentservice =new StudentServiceOperation();
+        studentservice.viewGrades(studentId);
     }
     private void payFees(Student student) {
         paymentServiceOperation.pay(student);
