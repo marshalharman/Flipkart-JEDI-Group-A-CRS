@@ -1,14 +1,16 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 
-import java.util.List;
+import java.util.*;
 
 public class AdminServiceOperation implements AdminInterface {
 
+    Scanner sc=new Scanner(System.in);
     public int login(String adminName, String password) {
         Data d= new Data();
         List<Admin> adminsList= d.admins;
@@ -65,11 +67,40 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void addCourse() {
+        System.out.println("Enter SemId: ");
+        int semId=sc.nextInt();
+        System.out.println("Enter courseId: ");
+        int courseId=sc.nextInt();
+        System.out.println("Enter courseName: ");
+        String courseName=sc.next();
 
+        Data d=new Data();
+        List<Course> temp=d.semCourseList.get(semId);
+        Course c1=new Course();
+        c1.setCourseID(courseId);
+        c1.setCourseName(courseName);
+        temp.add(c1);
+        d.semCourseList.put(semId,temp);
+        System.out.println(courseName + " added successfully.");
     }
 
     public void removeCourse() {
+        System.out.println("Enter SemId: ");
+        int semId=sc.nextInt();
+        System.out.println("Enter courseId: ");
+        int courseId=sc.nextInt();
+        //String courseName=sc.next();
 
+        Data d=new Data();
+        List<Course> temp=d.semCourseList.get(semId);
+        for(Course c1:temp){
+            if(c1.getCourseID()==courseId){
+                temp.remove(c1);
+                break;
+            }
+        }
+        d.semCourseList.put(semId,temp);
+        System.out.println("removed successfully.");
     }
 
     public void generateGradeCard() {
