@@ -18,12 +18,14 @@ public class CRSStudentMenu {
             System.out.println("Choose one of the options");
             System.out.println("1. Semester Registration");
             System.out.println("2. Add Course");
-            System.out.println("3. Drop Course");
-            System.out.println("4. View Course");
-            System.out.println("5. View grades");
-            System.out.println("6. Make Payment");
-            System.out.println("7. View Registered Courses");
-            System.out.println("8. Logout");
+            System.out.println("3. Remove Course");
+            System.out.println("4. Submit");
+            System.out.println("5. Drop Course");
+            System.out.println("6. View Course");
+            System.out.println("7. View grades");
+            System.out.println("8. Make Payment");
+            System.out.println("9. View Registered Courses");
+            System.out.println("10. Logout");
 
             Scanner obj = new Scanner(System.in);
 
@@ -41,24 +43,31 @@ public class CRSStudentMenu {
                     deleteCourse();
                     break;
                 case 4:
-                    viewCourses();
+                    submit();
                     break;
                 case 5:
-                    viewGrades();
+                    dropCourse();
                     break;
                 case 6:
-                    payFees();
+                    viewCourses();
                     break;
                 case 7:
-                    viewRegisteredCourses();
+                    viewGrades();
                     break;
                 case 8:
+                    payFees();
+                    break;
+                case 9:
+                    viewRegisteredCourses();
+                    break;
+                case 10:
                     System.out.println("Logged out");
+                    break;
                 default:
                     System.out.println("Please enter a valid input\n");
             }
 
-            if( choice == 8 ){
+            if( choice == 10 ){
                 break;
             }
         }
@@ -76,6 +85,14 @@ public class CRSStudentMenu {
 
     }
     private void deleteCourse(){
+
+    }
+
+    public void submit(){
+
+    }
+
+    public void dropCourse(){
 
     }
     private void viewCourses(){

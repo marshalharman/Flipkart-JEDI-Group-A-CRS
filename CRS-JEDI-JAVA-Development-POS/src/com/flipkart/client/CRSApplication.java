@@ -43,8 +43,11 @@ public class CRSApplication {
                     }
 
                     if (role.equalsIgnoreCase("student")) {
-                        CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
-                        crsStudentMenu.studentMenu(101);
+                        StudentServiceOperation studentservice =new StudentServiceOperation();
+                        if(studentservice.login(userName,password)) {
+                            CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
+                            crsStudentMenu.studentMenu(101);
+                        }
                     } else if (role.equalsIgnoreCase("professor")) {
                         CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
                         crsProfessorMenu.professorMenu();
