@@ -64,6 +64,7 @@ public class CRSStudentMenu {
                     viewCourses(student.getSemID());
                     break;
                 case 7:
+                    //System.out.println(id + "hello ");
                     viewGrades(id);
                     break;
                 case 8:
@@ -111,7 +112,8 @@ public class CRSStudentMenu {
         studentServiceOperation.getCourses(semId);
     }
     private void viewGrades(int studentId){
-
+        StudentServiceOperation studentservice =new StudentServiceOperation();
+        studentservice.viewGrades(studentId);
     }
     private void payFees() {
 

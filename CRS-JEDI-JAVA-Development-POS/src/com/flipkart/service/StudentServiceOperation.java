@@ -1,9 +1,6 @@
 package com.flipkart.service;
-<<<<<<< HEAD
 import com.flipkart.bean.Grade;
-=======
 import com.flipkart.bean.Payment;
->>>>>>> 9a34f44107bd182c85fb5eeed1a40385e4ad35af
 import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
@@ -136,6 +133,7 @@ public class StudentServiceOperation implements StudentInterface {
     }
 
     public void viewGrades(int studentId){
+        System.out.println();
         Data d = new Data();
         HashMap<Integer,List<Grade> > hp= d.gradeList;
         List<Grade> studentGrades=hp.get(studentId);

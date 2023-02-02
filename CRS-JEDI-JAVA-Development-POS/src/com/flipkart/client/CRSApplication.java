@@ -44,7 +44,7 @@ public class CRSApplication {
                         if (role.equalsIgnoreCase("student")) {
                             StudentServiceOperation studentservice =new StudentServiceOperation();
                             int userID = studentservice.login(userName, password);
-                            if(userID != -1) {
+                            if(userID>0) {
                                 CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                                 crsStudentMenu.studentMenu(userID);
                             }

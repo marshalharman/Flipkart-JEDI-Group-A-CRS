@@ -23,6 +23,7 @@ public class Data {
         Student st1 = new Student();
         st1.setName("Harman");
         st1.setPassword("abcd");
+        st1.setUserID(1);
 
         Student st2 = new Student();
         st2.setName("Marshal");
@@ -57,31 +58,35 @@ public class Data {
         sem2List.add(c3);
 
         semCourseList.put(1, sem1List);
-<<<<<<< HEAD
 
         List<Grade> tempGrades=new ArrayList<Grade>();
-        Grade g=new Grade();
-        g.setStudentID(1);
-        g.setCourseID(11);
-        g.setScore('A');
-        tempGrades.add(g);
+        Grade g1=new Grade();
+        Grade g2=new Grade();
+        Grade g3=new Grade();
+        Grade g4=new Grade();
+        g1.setStudentID(1);
+        g1.setCourseID(11);
+        g1.setScore('A');
+        tempGrades.add(g1);
 
-        g.setCourseID(12);
-        g.setScore('B');
-        tempGrades.add(g);
+        g2.setStudentID(1);
+        g2.setCourseID(12);
+        g2.setScore('B');
+        tempGrades.add(g2);
 
-        g.setCourseID(13);
-        g.setScore('C');
-        tempGrades.add(g);
+        g3.setStudentID(1);
+        g3.setCourseID(13);
+        g3.setScore('C');
+        tempGrades.add(g3);
 
-        g.setCourseID(14);
-        g.setScore('A');
-        tempGrades.add(g);
+        g4.setStudentID(1);
+        g4.setCourseID(14);
+        g4.setScore('A');
+        tempGrades.add(g4);
 
+        gradeList.put(1,tempGrades);
 
-=======
-        semCourseList.put(2, sem2List);
->>>>>>> 9a34f44107bd182c85fb5eeed1a40385e4ad35af
+        //semCourseList.put(2, sem2List);
     }
 
 
