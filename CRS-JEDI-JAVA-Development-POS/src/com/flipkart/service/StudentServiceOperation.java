@@ -1,4 +1,5 @@
 package com.flipkart.service;
+import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
 
 import java.util.*;
@@ -8,13 +9,14 @@ import com.flipkart.bean.Student;
 public class StudentServiceOperation implements StudentInterface {
 
     int semID;
+    Data studentsdata= new Data();
+
     public void register(String name, String studentID, String password){
 
     }
 
     public boolean login(String studentname, String password){
-        Data sd= new Data();
-        List<Student> studentsList= sd.students;
+        List<Student> studentsList= studentsdata.students;
         for(Student s:studentsList)
         {
             if(s.getName()==studentname && s.getPassword().equals(password)) {
@@ -35,8 +37,8 @@ public class StudentServiceOperation implements StudentInterface {
         semID = Integer.parseInt(sc.nextLine());
     }
 
-    public void getCourses(){
-
+    public List<Course> getCourses(int semID){
+        return studentsdata.semCourseList.get(semID);
     }
 
     public void addCourse(){
