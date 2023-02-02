@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentServiceOperation;
 
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.spi.AbstractResourceBundleProvider;
 
 public class CRSStudentMenu {
 
-    StudentServiceOperation service = new StudentServiceOperation();
+    StudentInterface studentServiceOperation = new StudentServiceOperation();
 
     public void studentMenu(int id) {
 
@@ -33,7 +34,7 @@ public class CRSStudentMenu {
 
             switch (choice) {
                 case 1:
-                    register();
+                    semesterRegister();
                     break;
                 case 2:
                     addCourse();
@@ -76,8 +77,8 @@ public class CRSStudentMenu {
     }
 
 
-    private void register(){
-
+    private void semesterRegister(){
+        studentServiceOperation.semesterRegister();
     }
 
     private void addCourse(){
@@ -103,6 +104,4 @@ public class CRSStudentMenu {
     private void payFees() {
 
     }
-
-
 }

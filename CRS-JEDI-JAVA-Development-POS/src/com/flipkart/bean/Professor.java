@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-public class Professor {
+public class Professor extends User{
 
     private String department;
     private String designation;
