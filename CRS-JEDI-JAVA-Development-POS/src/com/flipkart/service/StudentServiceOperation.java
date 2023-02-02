@@ -1,5 +1,4 @@
 package com.flipkart.service;
-import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
 
 import java.util.*;
@@ -9,17 +8,45 @@ import com.flipkart.bean.Student;
 public class StudentServiceOperation implements StudentInterface {
 
     int semID;
-    Data studentsdata= new Data();
+    Scanner sc = new Scanner(System.in);
+    public void register(){
 
-    public void register(String name, String studentID, String password){
+        System.out.println("Enter your student ID: ");
+        int studentId = sc.nextInt();
 
+        System.out.println("Enter your name: ");
+        String name = sc.next();
+
+        System.out.println("Enter your address: ");
+        String address = sc.next();
+
+        System.out.println("Enter your username: ");
+        String username = sc.next();
+
+        System.out.println("Enter your password: ");
+        String password = sc.next();
+
+        System.out.println("Enter your branch: ");
+        String branch = sc.next();
+
+        Student student = new Student();
+        student.setUserID(studentId);
+        student.setName(name);
+        student.setAddress(address);
+        student.setUsername(username);
+        student.setPassword(password);
+        student.setBranch(branch);
+        student.setRole("Student");
+
+        System.out.println("Student registered successfully.");
     }
 
-    public boolean login(String studentname, String password){
-        List<Student> studentsList= studentsdata.students;
+    public boolean login(String username, String password){
+        Data sd= new Data();
+        List<Student> studentsList= sd.students;
         for(Student s:studentsList)
         {
-            if(s.getName()==studentname && s.getPassword().equals(password)) {
+            if(s.getUsername()==username && s.getPassword().equals(password)) {
                 return true;
             }
         }
@@ -37,8 +64,8 @@ public class StudentServiceOperation implements StudentInterface {
         semID = Integer.parseInt(sc.nextLine());
     }
 
-    public List<Course> getCourses(int semID){
-        return studentsdata.semCourseList.get(semID);
+    public void getCourses(){
+
     }
 
     public void addCourse(){
@@ -56,6 +83,10 @@ public class StudentServiceOperation implements StudentInterface {
     }
 
     public void getRegisteredCourses(){
+
+    }
+
+    public void payFees(){
 
     }
 

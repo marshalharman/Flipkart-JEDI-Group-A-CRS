@@ -69,7 +69,7 @@ public class CRSApplication {
                     String password = sc.nextLine();
 
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
-                    studentServiceOperation.register(name, studentID, password);
+                    studentServiceOperation.register();
 
                     System.out.println("Registration request sent!");
                     break;
