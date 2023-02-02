@@ -1,7 +1,7 @@
 package com.flipkart.service;
 
 public interface ProfessorInterface {
-    public void login();
+    public int login(String professorname, String password);
 
     public void viewCourse();
 

@@ -3,6 +3,7 @@ package com.flipkart.data;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
 import java.util.*;
 
@@ -10,6 +11,7 @@ public class Data {
 
     // list of Students
     public static List <Student> students= new ArrayList<Student>();
+    public static List <Professor> professors = new ArrayList<Professor>();
 
     public static Student s1,s2, s3,s4 = new Student();
 
