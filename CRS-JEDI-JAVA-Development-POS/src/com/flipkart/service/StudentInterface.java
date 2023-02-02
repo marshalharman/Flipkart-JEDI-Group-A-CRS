@@ -14,7 +14,8 @@ public interface StudentInterface {
     public void addCourse(Student student);
     public void removeCourse(Student student);
     public void dropCourse();
-    public void getRegisteredCourses();
+    public void submitPreferences(Student student);
+    public void getRegisteredCourses(Student student);
     public void payFees();
     public void viewGrades(int studentId);
 

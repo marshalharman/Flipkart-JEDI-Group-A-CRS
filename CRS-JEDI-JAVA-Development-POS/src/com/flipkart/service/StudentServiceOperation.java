@@ -44,12 +44,12 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Student registered successfully.");
     }
 
-    public int login(String studentname, String password){
+    public int login(String studentName, String password){
         List<Student> studentsList= studentsdata.students;
         int userId = -1;
         for(Student s:studentsList)
         {
-            if(s.getName().equals(studentname) && s.getPassword().equals(password)) {
+            if(s.getName().equals(studentName) && s.getPassword().equals(password)) {
                 userId = s.getUserID();
                 break;
             }
@@ -102,35 +102,81 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("1. Remove Primary Course\n2. Remove Alternate Course");
         int choice = Integer.parseInt(sc.nextLine());
 
-        System.out.println("Please enter course name : ");
-        String courseName = sc.nextLine();
+        System.out.println("Please select course : ");
 
         if( choice == 1 ){
+            for(Course course: student.getPrimaryCourses()) {
+                System.out.println(course.getCourseName());
+            }
+            String courseName = sc.nextLine();
             for(Course course: student.getPrimaryCourses()){
                 if( course.getCourseName().equalsIgnoreCase(courseName) ){
                     student.removePrimaryCourse(course);
+                    break;
                 }
             }
         }
         else if( choice == 2 ){
+            for(Course course: student.getAlternateCourses()) {
+                System.out.println(course.getCourseName());
+            }
+            String courseName = sc.nextLine();
             for(Course course: student.getAlternateCourses()){
                 if( course.getCourseName().equalsIgnoreCase(courseName) ){
                     student.removeAlternateCourse(course);
+                    break;
                 }
             }
         }
     }
     public void dropCourse(){
-
+//        for(Course course: student.getPrimaryCourses()){
+//            if( course.getCourseName().equalsIgnoreCase(courseName) ){
+//                student.removePrimaryCourse(course);
+//            }
+//        }
     }
 
-    public void getRegisteredCourses(){
+    public void submitPreferences(Student student){
 
+        int registeredCourseCount = 0;
+        Data.registeredCourses.put(student.getUserID(), new ArrayList<>());
+
+        for(Course course: student.getPrimaryCourses()){
+            if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
+                Data.courseEnrollmentCount.put(course.getCourseID(), 0);
+            }
+            if(Data.courseEnrollmentCount.get(course.getCourseID()) < 10){
+                Data.registeredCourses.get(student.getUserID()).add(course);
+                registeredCourseCount++;
+            }
+        }
+
+        for(Course course: student.getAlternateCourses()){
+            if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
+                Data.courseEnrollmentCount.put(course.getCourseID(), 0);
+            }
+            if(registeredCourseCount < 4 && Data.courseEnrollmentCount.get(course.getCourseID()) < 10){
+                Data.registeredCourses.get(student.getUserID()).add(course);
+                registeredCourseCount++;
+            }
+        }
+
+        System.out.println("REGISTERED COURSES:");
+        for(int i=0;i<registeredCourseCount;i++){
+            System.out.println(Data.registeredCourses.get(student.getUserID()).get(i).getCourseName());
+        }
     }
 
-    public void payFees(){
+    public void getRegisteredCourses(Student student){
 
+        int userId = student.getUserID();
+        System.out.println("REGISTERED COURSES");
+        for(Course course: Data.registeredCourses.get(userId)){
+            System.out.println(course.getCourseName());
+        }
     }
+
 
     public void viewGrades(int studentId){
         System.out.println();

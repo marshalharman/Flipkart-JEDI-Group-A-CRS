@@ -55,10 +55,10 @@ public class CRSStudentMenu {
                     addCourse();
                     break;
                 case 3:
-                    deleteCourse();
+                    deleteCourse(student);
                     break;
                 case 4:
-                    submit();
+                    submit(student);
                     break;
                 case 5:
                     dropCourse();
@@ -74,7 +74,7 @@ public class CRSStudentMenu {
                     payFees(student);
                     break;
                 case 9:
-                    viewRegisteredCourses();
+                    viewRegisteredCourses(student);
                     break;
                 case 10:
                     System.out.println("Logged out");
@@ -89,7 +89,8 @@ public class CRSStudentMenu {
         }
     }
 
-    private void viewRegisteredCourses() {
+    private void viewRegisteredCourses(Student student) {
+        studentServiceOperation.getRegisteredCourses(student);
     }
 
 
@@ -100,12 +101,13 @@ public class CRSStudentMenu {
     private void addCourse(){
 
     }
-    private void deleteCourse(){
 
+    private void deleteCourse(Student student){
+        studentServiceOperation.removeCourse(student);
     }
 
-    public void submit(){
-
+    public void submit(Student student){
+        studentServiceOperation.submitPreferences(student);
     }
 
     public void dropCourse(){
