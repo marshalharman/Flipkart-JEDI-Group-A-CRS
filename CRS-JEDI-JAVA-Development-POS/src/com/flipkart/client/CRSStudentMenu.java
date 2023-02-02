@@ -61,7 +61,7 @@ public class CRSStudentMenu {
                     dropCourse();
                     break;
                 case 6:
-                    viewCourses();
+                    viewCourses(student.getSemID());
                     break;
                 case 7:
                     viewGrades();
@@ -107,8 +107,8 @@ public class CRSStudentMenu {
     public void dropCourse(){
 
     }
-    private void viewCourses(){
-
+    private void viewCourses(int semId){
+        studentServiceOperation.getCourses(semId);
     }
     private void viewGrades(){
 

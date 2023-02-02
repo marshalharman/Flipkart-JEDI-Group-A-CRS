@@ -1,4 +1,5 @@
 package com.flipkart.service;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
@@ -9,6 +10,7 @@ import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
+    Data studentsdata= new Data();
 
     Scanner sc = new Scanner(System.in);
     public void register(){
@@ -43,16 +45,17 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Student registered successfully.");
     }
 
-    public boolean login(String studentname, String password){
-        Data studentsdata= new Data();
+    public int login(String studentname, String password){
         List<Student> studentsList= studentsdata.students;
+        int userId = -1;
         for(Student s:studentsList)
         {
-            if(s.getName()==studentname && s.getPassword().equals(password)) {
-                return true;
+            if(s.getName().equals(studentname) && s.getPassword().equals(password)) {
+                userId = s.getUserID();
+                break;
             }
         }
-        return false;
+        return userId;
     }
 
     public void semesterRegister(Student student){
@@ -68,26 +71,50 @@ public class StudentServiceOperation implements StudentInterface {
         student.setSemID(semID);
     }
 
-    public void getCourses(int semID){
-        Data studentsdata= new Data();
-        List data= studentsdata.semCourseList.get(semID);
-        System.out.println("List of Courses for cutrrent sem: "+semID);
-        for(int i=0;i<data.size();i++)
-        {
-            System.out.println(data.get(i)+"\n");
-        }
+    public List<Course> getCourses(int semID){
+        return Data.semCourseList.get(semID);
     }
 
-    public void addCourse(){
+    public void addCourse(Student student){
+        System.out.println("1. Add Primary Course\n2. Add Alternate Course");
+        int choice = Integer.parseInt(sc.nextLine());
+
         System.out.println("Select Course to Add:");
-        for(Map.Entry m: Data.semCourseList.entrySet()){
-            System.out.println(m.getKey());
+        getCourses(student.getSemID());
+        String courseName = sc.nextLine();
+
+        for( Course course: studentsdata.semCourseList.get(student.getSemID())){
+            if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                if( choice == 1){ student.addPrimaryCourse(course); }
+                else if( choice == 2 ){ student.addAlternateCourse(course); }
+            }
         }
 
-        Scanner sc = new Scanner(System.in);
-        int semID = Integer.parseInt(sc.nextLine());
     }
 
+    public void  removeCourse(Student student){
+
+        System.out.println("1. Remove Primary Course\n2. Remove Alternate Course");
+        int choice = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Please enter course name : ");
+        String courseName = sc.nextLine();
+
+        if( choice == 1 ){
+            for(Course course: student.getPrimaryCourses()){
+                if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                    student.removePrimaryCourse(course);
+                }
+            }
+        }
+        else if( choice == 2 ){
+            for(Course course: student.getAlternateCourses()){
+                if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                    student.removeAlternateCourse(course);
+                }
+            }
+        }
+    }
     public void dropCourse(){
 
     }
