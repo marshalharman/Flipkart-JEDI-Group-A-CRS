@@ -8,9 +8,8 @@ public class Data {
 
     // list of Students
     public static List <Student> students= new ArrayList<Student>();
-    public List<Student> unapprovedStudents = new ArrayList<Student>();
-    public List<Admin> admins = new ArrayList<Admin>();
-
+    public static List<Student> unapprovedStudents = new ArrayList<Student>();
+    public static List<Admin> admins = new ArrayList<Admin>();
     public static List <Professor> professors = new ArrayList<Professor>();
 
     public static Student s1,s2, s3,s4 = new Student();
@@ -119,15 +118,35 @@ public class Data {
     public Data(){
 //        semCourseList.put(1, List.of(new String[]{}));
 
+        Admin adm=new Admin();
+        adm.setUserID(1);
+        adm.setName("admin");
+        adm.setPassword("admin");
+        admins.add(adm);
+
     }
     public boolean setUnApprovedStudents(Student s)
     {
         unapprovedStudents.add(s);
         return true;
     }
-    public void deleteUnApprovedStudents()
+    public void deleteandAddUnApprovedStudents()
     {
+        for(Student s: unapprovedStudents)
+        {
+            students.add(s);
+        }
         unapprovedStudents.clear();
+    }
+    public boolean addProfessor(Professor p)
+    {
+       professors.add(p);
+       return true;
+    }
+    public boolean deleteProfessor(Professor p)
+    {
+        professors.remove(p);
+        return true;
     }
 
     // courses - freq
