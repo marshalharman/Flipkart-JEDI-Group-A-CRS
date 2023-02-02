@@ -1,11 +1,14 @@
 package com.flipkart.service;
+import com.flipkart.bean.User;
+import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
 import java.util.*;
 import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
-    int semID;
+    Data studentsdata= new Data();
+
     Scanner sc = new Scanner(System.in);
     public void register(){
 
@@ -39,19 +42,18 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Student registered successfully.");
     }
 
-    public boolean login(String username, String password){
-        Data sd= new Data();
-        List<Student> studentsList= sd.students;
+    public boolean login(String studentname, String password){
+        List<Student> studentsList= studentsdata.students;
         for(Student s:studentsList)
         {
-            if(s.getUsername()==username && s.getPassword().equals(password)) {
+            if(s.getName()==studentname && s.getPassword().equals(password)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void semesterRegister(){
+    public void semesterRegister(Student student){
 
         System.out.println("Select Semester to register:");
         for(Map.Entry m: Data.semCourseList.entrySet()){
@@ -59,11 +61,13 @@ public class StudentServiceOperation implements StudentInterface {
         }
 
         Scanner sc = new Scanner(System.in);
-        semID = Integer.parseInt(sc.nextLine());
+        int semID = Integer.parseInt(sc.nextLine());
+
+        student.setSemID(semID);
     }
 
-    public void getCourses(){
-
+    public List<Course> getCourses(int semID){
+        return studentsdata.semCourseList.get(semID);
     }
 
     public void addCourse(){
@@ -73,7 +77,7 @@ public class StudentServiceOperation implements StudentInterface {
         }
 
         Scanner sc = new Scanner(System.in);
-        semID = Integer.parseInt(sc.nextLine());
+        int semID = Integer.parseInt(sc.nextLine());
     }
 
     public void dropCourse(){

@@ -1,5 +1,8 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
+import com.flipkart.data.Data;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentServiceOperation;
 
@@ -12,6 +15,15 @@ public class CRSStudentMenu {
     StudentInterface studentServiceOperation = new StudentServiceOperation();
 
     public void studentMenu(int id) {
+
+        Student student = null;
+
+        for(Student st: Data.students){
+            if(st.getUserID() == id){
+                student = st;
+                break;
+            }
+        }
 
         while(true) {
             System.out.println("Student Menu!");
@@ -34,7 +46,7 @@ public class CRSStudentMenu {
 
             switch (choice) {
                 case 1:
-                    semesterRegister();
+                    semesterRegister(student);
                     break;
                 case 2:
                     addCourse();
@@ -77,8 +89,8 @@ public class CRSStudentMenu {
     }
 
 
-    private void semesterRegister(){
-        studentServiceOperation.semesterRegister();
+    private void semesterRegister(Student student){
+        studentServiceOperation.semesterRegister(student);
     }
 
     private void addCourse(){
