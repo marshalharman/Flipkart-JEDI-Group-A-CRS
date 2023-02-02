@@ -128,9 +128,6 @@ public class StudentServiceOperation implements StudentInterface {
 
     }
 
-    public void payFees(){
-
-    }
 
     public void viewGrades(int studentId){
         System.out.println();
