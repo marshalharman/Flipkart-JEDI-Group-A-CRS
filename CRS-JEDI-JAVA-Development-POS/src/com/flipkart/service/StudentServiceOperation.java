@@ -76,7 +76,7 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("List of courses");
         for(int i=0;i<c.size();i++)
         {
-            System.out.println(c.get(i)+"\n");
+            System.out.println(c.get(i).getCourseName()+"\n");
         }
         return c;
     }
