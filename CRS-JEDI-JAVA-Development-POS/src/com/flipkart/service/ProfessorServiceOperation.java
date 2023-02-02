@@ -1,8 +1,11 @@
 package com.flipkart.service;
+import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Course;
 import com.flipkart.data.*;
+
+import java.awt.desktop.SystemEventListener;
 import java.util.*;
 
 public class ProfessorServiceOperation implements ProfessorInterface {
@@ -46,6 +49,24 @@ public class ProfessorServiceOperation implements ProfessorInterface {
     }
 
     public void addGrade(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter course ID : ");
+        int courseID = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter student ID : ");
+        int studentID = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter score : ");
+        int score = Integer.parseInt(sc.nextLine());
+
+        Grade grade = new Grade();
+
+        grade.setCourseID(courseID);
+        grade.setStudentID(studentID);
+        grade.setScore(score);
+
+        Data.gradeList.get(studentID).add(grade);
 
     }
 }
