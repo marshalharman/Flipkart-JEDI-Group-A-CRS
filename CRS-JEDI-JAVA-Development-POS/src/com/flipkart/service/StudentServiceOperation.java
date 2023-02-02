@@ -7,14 +7,14 @@ import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
-    int semID;
+
     public void register(String name, String studentID, String password){
 
     }
 
     public boolean login(int studentID, String password){
-        StudentData sd= new StudentData();
-        List<Student> studentsList= sd.studentsList;
+        Data sd= new Data();
+        List<Student> studentsList= sd.students;
         for(Student s:studentsList)
         {
             if(s.getUserID()==studentID && s.getPassword().equals(password)) {
@@ -32,7 +32,7 @@ public class StudentServiceOperation implements StudentInterface {
         }
 
         Scanner sc = new Scanner(System.in);
-        semID = Integer.parseInt(sc.nextLine());
+        int semID = Integer.parseInt(sc.nextLine());
     }
 
     public void getCourses(){
@@ -46,7 +46,7 @@ public class StudentServiceOperation implements StudentInterface {
         }
 
         Scanner sc = new Scanner(System.in);
-        semID = Integer.parseInt(sc.nextLine());
+        int semID = Integer.parseInt(sc.nextLine());
     }
 
     public void dropCourse(){
