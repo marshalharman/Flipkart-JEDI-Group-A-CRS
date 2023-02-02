@@ -4,12 +4,13 @@ package com.flipkart.client;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
+import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
 import java.util.Scanner;
 
 public class CRSAdminMenu {
-    AdminServiceOperation service = new AdminServiceOperation();
+    AdminInterface service = new AdminServiceOperation();
     public void adminMenu(int id)
     {
 
@@ -83,6 +84,6 @@ public class CRSAdminMenu {
         service.removeCourse();
     }
     private void generateReportCard(){
-    	
+    	service.generateGradeCard();
     }
 }

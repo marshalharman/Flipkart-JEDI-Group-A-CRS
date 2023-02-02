@@ -21,6 +21,7 @@ public class Data {
 
     // studentID - Courses
     public static HashMap<Integer, List<Course>> registeredCourses = new HashMap<>();
+    public static HashMap<Integer, List<Student>> enrolledStudent = new HashMap<>();
 
     //studentId - upiID
     public static HashMap<Integer, Integer> upiIDS = new HashMap<Integer, Integer>();
@@ -45,6 +46,19 @@ public class Data {
 
         students.add(st1);
         students.add(st2);
+
+
+        Admin adm=new Admin();
+        adm.setUserID(1);
+        adm.setName("admin");
+        adm.setPassword("admin");
+        admins.add(adm);
+
+        Professor prof=new Professor();
+        prof.setUserID(10);
+        prof.setName("prof");
+        prof.setPassword("prof");
+        professors.add(prof);
 
 
         Course c1 = new Course();
@@ -119,11 +133,7 @@ public class Data {
     public Data(){
 //        semCourseList.put(1, List.of(new String[]{}));
 
-        Admin adm=new Admin();
-        adm.setUserID(1);
-        adm.setName("admin");
-        adm.setPassword("admin");
-        admins.add(adm);
+
 
     }
 

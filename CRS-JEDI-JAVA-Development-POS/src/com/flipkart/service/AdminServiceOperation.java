@@ -26,9 +26,8 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void approveStudentRegistration() {
-        Data d= new Data();
         Scanner sc = new Scanner(System.in);
-        List<Student> unapprovedStudents =d.unapprovedStudents;
+        List<Student> unapprovedStudents =Data.unapprovedStudents;
         System.out.println("List of unapproved students : ");
         for(Student s: unapprovedStudents){
             System.out.println(s.getUserID() + " - " + s.getUsername());
@@ -37,14 +36,13 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Enter the student ID to approve : ");
         int studentID = Integer.parseInt(sc.nextLine());
 
-        for(Student s: unapprovedStudents){
-            if( s.getUserID() == studentID ){
-                d.students.add(s);
-                d.unapprovedStudents.remove(s);
+        for(Student s: unapprovedStudents) {
+            if (s.getUserID() == studentID) {
+                Data.students.add(s);
+                Data.unapprovedStudents.remove(s);
                 break;
             }
         }
-
     }
 
     public boolean addProfessor(Professor p) {
@@ -59,6 +57,7 @@ public class AdminServiceOperation implements AdminInterface {
         }
         Data.professors.add(p);
         System.out.println("Added Professor");
+
         return true;
     }
 
@@ -113,6 +112,5 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void generateGradeCard() {
-        
     }
 }
