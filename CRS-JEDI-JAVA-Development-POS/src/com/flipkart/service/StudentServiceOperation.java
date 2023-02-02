@@ -9,7 +9,6 @@ import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
-    Data studentsdata= new Data();
 
     Scanner sc = new Scanner(System.in);
     public void register(){
@@ -45,6 +44,7 @@ public class StudentServiceOperation implements StudentInterface {
     }
 
     public boolean login(String studentname, String password){
+        Data studentsdata= new Data();
         List<Student> studentsList= studentsdata.students;
         for(Student s:studentsList)
         {
@@ -68,8 +68,14 @@ public class StudentServiceOperation implements StudentInterface {
         student.setSemID(semID);
     }
 
-    public List<Course> getCourses(int semID){
-        return studentsdata.semCourseList.get(semID);
+    public void getCourses(int semID){
+        Data studentsdata= new Data();
+        List data= studentsdata.semCourseList.get(semID);
+        System.out.println("List of Courses for cutrrent sem: "+semID);
+        for(int i=0;i<data.size();i++)
+        {
+            System.out.println(data.get(i)+"\n");
+        }
     }
 
     public void addCourse(){

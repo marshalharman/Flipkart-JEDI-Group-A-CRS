@@ -10,7 +10,7 @@ public interface StudentInterface {
     public void register();
     public boolean login(String username,String password);
     public void semesterRegister(Student student);
-    public List<Course> getCourses(int semID);
+    public void getCourses(int semID);
     public void addCourse();
     public void dropCourse();
     public void getRegisteredCourses();
