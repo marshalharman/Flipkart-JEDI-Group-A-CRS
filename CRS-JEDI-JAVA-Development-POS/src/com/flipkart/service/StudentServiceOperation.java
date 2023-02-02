@@ -66,12 +66,16 @@ public class StudentServiceOperation implements StudentInterface {
 
     public void semesterRegister(Student student){
 
-        System.out.println("Select Semester to register:");
+        System.out.println("Select course to register:");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. BCA\n  2.MCA");
+        sc.nextLine();
+
         for(Map.Entry m: Data.semCourseList.entrySet()){
             System.out.println(m.getKey());
         }
 
-        Scanner sc = new Scanner(System.in);
         int semID = Integer.parseInt(sc.nextLine());
 
         student.setSemID(semID);
