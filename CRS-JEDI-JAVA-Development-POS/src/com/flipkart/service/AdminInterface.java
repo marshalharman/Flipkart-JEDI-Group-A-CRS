@@ -8,7 +8,7 @@ public interface AdminInterface {
     public int login(String adminName, String password);
     public void approveStudentRegistration();
     public boolean addProfessor(Professor p);
-    public boolean removeProfessor(Professor p);
+    public boolean removeProfessor(String profName);
     public void addCourse();
     public void removeCourse();
     public void generateGradeCard();

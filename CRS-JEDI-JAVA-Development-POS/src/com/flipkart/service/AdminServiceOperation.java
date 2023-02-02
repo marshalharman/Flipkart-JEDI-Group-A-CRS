@@ -34,25 +34,33 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public boolean addProfessor(Professor p) {
-        List<Professor> professorsList = Data.professors;
+        Data d= new Data();
+        List<Professor> professorsList= d.professors;
         for(Professor prof : professorsList)
         {
-            if(p.getUserID()==prof.getUserID())return false;
+            if(p.getUserID()==prof.getUserID())
+            {
+                System.out.println("Already exists\n");
+                return false;
+            }
         }
-        Data.professors.add(p);
-        return true;
+        d.addProfessor(p);
+        System.out.println("Added Professor");
     }
 
-    public boolean removeProfessor(Professor p) {
-//        List<Professor> professorsList = Data.professors;
-//        for(Professor prof : professorsList)
-//        {
-//            if(p.getUserID()==prof.getUserID())
-//            {
-//                Data.
-//                return true;
-//            }
-//        }
+    public boolean removeProfessor(String profName) {
+        Data d=new Data();
+        List<Professor> professorsList = d.professors;
+        for(Professor prof : professorsList)
+        {
+            if(profName.equals(prof.getName()))
+            {
+                System.out.println("Professor deleted successfully\n");
+                d.deleteProfessor(prof);
+                return true;
+            }
+        }
+        System.out.println("Professor doesn't exist\n");
         return false;
     }
 

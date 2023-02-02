@@ -1,7 +1,9 @@
 package com.flipkart.client;
 
 
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.data.Data;
 import com.flipkart.service.AdminServiceOperation;
 
 import java.util.Scanner;
@@ -31,10 +33,20 @@ public class CRSAdminMenu {
                     approvedStudentRegistration();
                     break;
                 case 2:
-                    addProfessor();
+                    System.out.println("Give Prof ID,Prof name, Password\n");
+                    Professor p=new Professor();
+                    int userID = Integer.parseInt(obj.nextLine());
+                    p.setUserID(userID);
+                    String userName =obj.nextLine();
+                    p.setName(userName);
+                    String password = obj.nextLine();
+                    p.setPassword(password);
+                    addProfessor(p);
                     break;
                 case 3:
-                    removeProfessor();
+                    System.out.println("Give Prof name: \n");
+                    String profName = obj.nextLine();
+                    removeProfessor(profName);
                     break;
                 case 4:
                     addCourses();
@@ -58,11 +70,11 @@ public class CRSAdminMenu {
 	private void approvedStudentRegistration(){
         service.approveStudentRegistration();
     }
-    private void addProfessor(){
-
+    private void addProfessor(Professor p){
+        service.addProfessor(p);
     }
-    private void removeProfessor(){
-
+    private void removeProfessor(String profName){
+        service.removeProfessor(profName);
     }
     private void addCourses(){
 

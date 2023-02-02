@@ -11,7 +11,7 @@ public class Data {
     public List<Student> unapprovedStudents = new ArrayList<Student>();
     public List<Admin> admins = new ArrayList<Admin>();
 
-    public static List <Professor> professors = new ArrayList<Professor>();
+    public List <Professor> professors = new ArrayList<Professor>();
 
     public static Student s1,s2, s3,s4 = new Student();
 
@@ -122,6 +122,16 @@ public class Data {
     public void deleteUnApprovedStudents()
     {
         unapprovedStudents.clear();
+    }
+    public boolean addProfessor(Professor p)
+    {
+       professors.add(p);
+       return true;
+    }
+    public boolean deleteProfessor(Professor p)
+    {
+        professors.remove(p);
+        return true;
     }
 
     // courses - freq
