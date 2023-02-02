@@ -109,9 +109,7 @@ public class CRSProfessorMenu {
         }
     }
     private void viewEnrolledStudent(Professor professor){
-
-
-
+        service.viewEnrolledStudents();
     }
     private void addGrades(Professor professor){
         service.addGrade(professor);
