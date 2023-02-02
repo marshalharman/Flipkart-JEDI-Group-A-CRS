@@ -72,7 +72,13 @@ public class StudentServiceOperation implements StudentInterface {
     }
 
     public List<Course> getCourses(int semID){
-        return Data.semCourseList.get(semID);
+        List<Course> c=Data.semCourseList.get(semID);
+        System.out.println("List of courses");
+        for(int i=0;i<c.size();i++)
+        {
+            System.out.println(c.get(i)+"\n");
+        }
+        return c;
     }
 
     public void addCourse(Student student){
