@@ -8,13 +8,42 @@ import com.flipkart.bean.Student;
 public class StudentServiceOperation implements StudentInterface {
 
     int semID;
-    public void register(String name, String studentID, String password){
+    Scanner sc = new Scanner(System.in);
+    public void register(){
 
+        System.out.println("Enter your student ID: ");
+        int studentId = sc.nextInt();
+
+        System.out.println("Enter your name: ");
+        String name = sc.next();
+
+        System.out.println("Enter your address: ");
+        String address = sc.next();
+
+        System.out.println("Enter your username: ");
+        String username = sc.next();
+
+        System.out.println("Enter your password: ");
+        String password = sc.next();
+
+        System.out.println("Enter your branch: ");
+        String branch = sc.next();
+
+        Student student = new Student();
+        student.setUserID(studentId);
+        student.setName(name);
+        student.setAddress(address);
+        student.setUsername(username);
+        student.setPassword(password);
+        student.setBranch(branch);
+        student.setRole("Student");
+
+        System.out.println("Student registered successfully.");
     }
 
     public boolean login(int studentID, String password){
-        StudentData sd= new StudentData();
-        List<Student> studentsList= sd.studentsList;
+        Data sd= new Data();
+        List<Student> studentsList= sd.students;
         for(Student s:studentsList)
         {
             if(s.getUserID()==studentID && s.getPassword().equals(password)) {
