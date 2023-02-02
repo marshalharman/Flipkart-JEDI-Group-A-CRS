@@ -62,7 +62,7 @@ public class CRSAdminMenu {
                     deleteCourses();
                     break;
                 case 6:
-                    System.out.println("Generated Grade Card\n");
+                    generateReportCard();
                     break;
                 case 7:
                     System.out.println("Logged out\n");

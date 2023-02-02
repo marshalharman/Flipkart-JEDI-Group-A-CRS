@@ -55,7 +55,8 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         Course course = null;
         for( Course c : Data.semCourseList.get(semID) ){
             if( c.getCourseName().equalsIgnoreCase(courseName) ){
-                course = c; break;
+                course = c;
+                break;
             }
         }
 

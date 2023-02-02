@@ -204,6 +204,10 @@ public class StudentServiceOperation implements StudentInterface {
 
     public void viewGrades(int studentId){
         System.out.println();
+        if(!Data.viewGradesEnabled){
+            System.out.println("Grades are not available. Please check later");
+            return;
+        }
         HashMap<Integer,List<Grade> > hp= Data.gradeList;
         List<Grade> studentGrades=hp.get(studentId);
         System.out.println("Grades :");
@@ -220,6 +224,4 @@ public class StudentServiceOperation implements StudentInterface {
 
 
     }
-
-
 }

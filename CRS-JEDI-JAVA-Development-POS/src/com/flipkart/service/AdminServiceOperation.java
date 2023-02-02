@@ -111,5 +111,7 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void generateGradeCard() {
+        Data.viewGradesEnabled = true;
+        System.out.println("Grades Released!");
     }
 }

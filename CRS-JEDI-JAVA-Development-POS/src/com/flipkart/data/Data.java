@@ -32,18 +32,17 @@ public class Data {
     // courseId - count
     public static HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
 
-    // studentID - gradeCard
-    public static HashMap<Integer, GradeCard> gradeCards = new HashMap<>();
+    // View Grades Enabled/disable
+    public static boolean viewGradesEnabled;
 
     static {
         Student st1 = new Student();
         st1.setUserID(101);
         st1.setName("Harman");
         st1.setPassword("abcd");
-        st1.setUserID(1);
 
         Student st2 = new Student();
-        st1.setUserID(102);
+        st2.setUserID(102);
         st2.setName("Marshal");
         st2.setPassword("xyz");
 
@@ -101,42 +100,32 @@ public class Data {
         semCourseList.put(1, sem1List);
         semCourseList.put(2, sem2List);
 
-        List<Grade> tempGrades=new ArrayList<Grade>();
-        Grade g1=new Grade();
-        Grade g2=new Grade();
-        Grade g3=new Grade();
-        Grade g4=new Grade();
-        g1.setStudentID(1);
-        g1.setCourseID(11);
-        g1.setScore('A');
-        tempGrades.add(g1);
-
-        g2.setStudentID(1);
-        g2.setCourseID(12);
-        g2.setScore('B');
-        tempGrades.add(g2);
-
-        g3.setStudentID(1);
-        g3.setCourseID(13);
-        g3.setScore('C');
-        tempGrades.add(g3);
-
-        g4.setStudentID(1);
-        g4.setCourseID(14);
-        g4.setScore('A');
-        tempGrades.add(g4);
-
-        gradeList.put(1,tempGrades);
-;
+//        List<Grade> tempGrades=new ArrayList<Grade>();
+//        Grade g1=new Grade();
+//        Grade g2=new Grade();
+//        Grade g3=new Grade();
+//        Grade g4=new Grade();
+//        g1.setStudentID(1);
+//        g1.setCourseID(11);
+//        g1.setScore('A');
+//        tempGrades.add(g1);
+//
+//        g2.setStudentID(1);
+//        g2.setCourseID(12);
+//        g2.setScore('B');
+//        tempGrades.add(g2);
+//
+//        g3.setStudentID(1);
+//        g3.setCourseID(13);
+//        g3.setScore('C');
+//        tempGrades.add(g3);
+//
+//        g4.setStudentID(1);
+//        g4.setCourseID(14);
+//        g4.setScore('A');
+//        tempGrades.add(g4);
+//
+//        gradeList.put(1,tempGrades);
+        viewGradesEnabled = false;
     }
-
-
-
-    public Data(){
-//        semCourseList.put(1, List.of(new String[]{}));
-    }
-    // student - courses and grades
-
-
-
 }
