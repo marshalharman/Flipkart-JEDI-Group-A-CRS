@@ -68,8 +68,11 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void addCourse() {
+        System.out.println("Enter SemId: ");
         int semId=sc.nextInt();
+        System.out.println("Enter courseId: ");
         int courseId=sc.nextInt();
+        System.out.println("Enter courseName: ");
         String courseName=sc.next();
 
         Data d=new Data();
@@ -79,10 +82,26 @@ public class AdminServiceOperation implements AdminInterface {
         c1.setCourseName(courseName);
         temp.add(c1);
         d.semCourseList.put(semId,temp);
+        System.out.println(courseName + " added successfully.");
     }
 
     public void removeCourse() {
+        System.out.println("Enter SemId: ");
+        int semId=sc.nextInt();
+        System.out.println("Enter courseId: ");
+        int courseId=sc.nextInt();
+        //String courseName=sc.next();
 
+        Data d=new Data();
+        List<Course> temp=d.semCourseList.get(semId);
+        for(Course c1:temp){
+            if(c1.getCourseID()==courseId){
+                temp.remove(c1);
+                break;
+            }
+        }
+        d.semCourseList.put(semId,temp);
+        System.out.println("removed successfully.");
     }
 
     public void generateGradeCard() {
