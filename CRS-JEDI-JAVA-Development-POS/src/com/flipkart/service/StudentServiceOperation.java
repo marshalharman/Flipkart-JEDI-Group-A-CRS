@@ -129,10 +129,6 @@ public class StudentServiceOperation implements StudentInterface {
 
     }
 
-    public void payFees(){
-
-    }
-
     public void viewGrades(){
 
     }
