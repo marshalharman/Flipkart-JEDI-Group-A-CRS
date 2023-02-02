@@ -1,5 +1,6 @@
 package com.flipkart.service;
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface ProfessorInterface {
 
     public void viewEnrolledStudents();
 
-    public void addGrade();
+    public void addGrade(Professor professor);
 }

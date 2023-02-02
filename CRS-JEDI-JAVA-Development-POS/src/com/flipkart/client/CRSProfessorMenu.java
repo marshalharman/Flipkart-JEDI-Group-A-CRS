@@ -26,10 +26,11 @@ public class CRSProfessorMenu {
             System.out.println("Professor Menu!");
             System.out.println("Choose one of the options");
             System.out.println("1. View Courses");
-            System.out.println("2. Give course preference");
-            System.out.println("3. View enrolled students");
-            System.out.println("4. Add grade");
-            System.out.println("5. Logout");
+            System.out.println("2. Register Course for Teaching");
+            System.out.println("3. Deregister Course");
+            System.out.println("4. View enrolled students");
+            System.out.println("5. Add grade");
+            System.out.println("6. Logout");
 
             Scanner obj = new Scanner(System.in);
             int choice = Integer.parseInt(obj.nextLine());
@@ -42,19 +43,22 @@ public class CRSProfessorMenu {
                     registerCourse(professor);
                     break;
                 case 3:
-                    viewEnrolledStudent(professor);
+                    deRegisterCourse(professor);
                     break;
                 case 4:
-                    addGrades(professor);
+                    viewEnrolledStudent(professor);
                     break;
                 case 5:
+                    addGrades(professor);
+                    break;
+                case 6:
                     System.out.println("Logged Out");
                     break;
                 default:
                     System.out.println("Please enter a valid input\n");
             }
 
-            if(choice == 5 ){break;}
+            if(choice == 6 ){break;}
 
         }
     }
@@ -110,6 +114,6 @@ public class CRSProfessorMenu {
 
     }
     private void addGrades(Professor professor){
-
+        service.addGrade(professor);
     }
 }
