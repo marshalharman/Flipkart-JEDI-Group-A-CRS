@@ -129,6 +129,9 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         grade.setStudentID(studentID);
         grade.setScore(score);
 
+        if( Data.gradeList.get(studentID) == null ){
+            Data.gradeList.put(studentID, new ArrayList<Grade>() );
+        }
         Data.gradeList.get(studentID).add(grade);
 
     }
