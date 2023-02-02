@@ -113,6 +113,7 @@ public class StudentServiceOperation implements StudentInterface {
             for(Course course: student.getPrimaryCourses()){
                 if( course.getCourseName().equalsIgnoreCase(courseName) ){
                     student.removePrimaryCourse(course);
+                    break;
                 }
             }
         }
@@ -124,6 +125,7 @@ public class StudentServiceOperation implements StudentInterface {
             for(Course course: student.getAlternateCourses()){
                 if( course.getCourseName().equalsIgnoreCase(courseName) ){
                     student.removeAlternateCourse(course);
+                    break;
                 }
             }
         }
