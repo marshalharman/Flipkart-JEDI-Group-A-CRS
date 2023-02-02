@@ -9,6 +9,6 @@ public interface StudentInterface {
     public void dropCourse();
     public void getRegisteredCourses();
     public void payFees();
-    public void viewGrades();
+    public void viewGrades(int studentId);
 
 }

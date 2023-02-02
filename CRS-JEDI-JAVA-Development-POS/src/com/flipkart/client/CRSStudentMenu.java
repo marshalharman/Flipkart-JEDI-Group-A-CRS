@@ -52,7 +52,7 @@ public class CRSStudentMenu {
                     viewCourses();
                     break;
                 case 7:
-                    viewGrades();
+                    viewGrades(id);
                     break;
                 case 8:
                     payFees();
@@ -98,7 +98,7 @@ public class CRSStudentMenu {
     private void viewCourses(){
 
     }
-    private void viewGrades(){
+    private void viewGrades(int studentId){
 
     }
     private void payFees() {

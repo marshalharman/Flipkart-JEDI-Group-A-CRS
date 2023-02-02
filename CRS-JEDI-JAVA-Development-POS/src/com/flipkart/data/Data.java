@@ -3,7 +3,6 @@ package com.flipkart.data;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-
 import java.util.*;
 
 public class Data {
@@ -13,6 +12,7 @@ public class Data {
 
     public static Student s1,s2, s3,s4 = new Student();
 
+    public static HashMap<Integer,List<Character> > gradeList=new HashMap<Integer,List<Character>>();
     // semID - courses
     public static TreeMap<Integer,List<Course>> semCourseList=new TreeMap<Integer,List<Course>>();
 

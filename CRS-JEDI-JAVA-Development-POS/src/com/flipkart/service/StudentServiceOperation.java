@@ -1,9 +1,7 @@
 package com.flipkart.service;
 import com.flipkart.data.Data;
-
 import java.util.*;
 import com.flipkart.bean.Student;
-
 
 public class StudentServiceOperation implements StudentInterface {
 
@@ -90,7 +88,14 @@ public class StudentServiceOperation implements StudentInterface {
 
     }
 
-    public void viewGrades(){
+    public void viewGrades(int studentId){
+        Data d = new Data();
+        HashMap<Integer,List<Character> > hp= d.gradeList;
+        List<Character> studentGrades=hp.get(studentId);
+        System.out.println("Grades :");
+        for(Character score:studentGrades){
+            System.out.println(score + " ");
+        }
 
     }
 
