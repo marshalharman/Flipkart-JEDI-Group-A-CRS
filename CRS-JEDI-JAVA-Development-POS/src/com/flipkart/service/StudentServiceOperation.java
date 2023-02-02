@@ -40,7 +40,8 @@ public class StudentServiceOperation implements StudentInterface {
         student.setPassword(password);
         student.setBranch(branch);
         student.setRole("Student");
-
+        Data d = new Data();
+        d.setUnApprovedStudents(student);
         System.out.println("Student registered successfully.");
     }
 

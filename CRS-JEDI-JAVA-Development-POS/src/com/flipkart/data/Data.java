@@ -1,15 +1,17 @@
 package com.flipkart.data;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Grade;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
+import com.flipkart.bean.*;
+
 import java.util.*;
 
 public class Data {
 
     // list of Students
     public static List <Student> students= new ArrayList<Student>();
+    public List<Student> unapprovedStudents = new ArrayList<Student>();
+    public List<Admin> admins = new ArrayList<Admin>();
+
+    public static List <Professor> professors = new ArrayList<Professor>();
 
     public static Student s1,s2, s3,s4 = new Student();
 
@@ -20,6 +22,12 @@ public class Data {
 
     // studentID - Courses
     public static HashMap<Integer, List<Course>> registeredCourses = new HashMap<>();
+
+    //studentId - upiID
+    public static HashMap<Integer, Integer> upiIDS = new HashMap<Integer, Integer>();
+
+    //studentID - card details
+    public static HashMap<Integer, List<String>> cardDetails = new HashMap<Integer, List<String>>();
 
     // courseId - count
     public static HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
@@ -110,8 +118,17 @@ public class Data {
 
     public Data(){
 //        semCourseList.put(1, List.of(new String[]{}));
-    }
 
+    }
+    public boolean setUnApprovedStudents(Student s)
+    {
+        unapprovedStudents.add(s);
+        return true;
+    }
+    public void deleteUnApprovedStudents()
+    {
+        unapprovedStudents.clear();
+    }
 
     // courses - freq
 
