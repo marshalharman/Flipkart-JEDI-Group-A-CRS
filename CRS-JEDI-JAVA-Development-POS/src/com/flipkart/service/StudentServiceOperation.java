@@ -1,4 +1,5 @@
 package com.flipkart.service;
+import com.flipkart.bean.User;
 import com.flipkart.data.Data;
 
 import java.util.*;
@@ -24,7 +25,7 @@ public class StudentServiceOperation implements StudentInterface {
         return false;
     }
 
-    public void semesterRegister(){
+    public void semesterRegister(Student student){
 
         System.out.println("Select Semester to register:");
         for(Map.Entry m: Data.semCourseList.entrySet()){
@@ -33,6 +34,8 @@ public class StudentServiceOperation implements StudentInterface {
 
         Scanner sc = new Scanner(System.in);
         int semID = Integer.parseInt(sc.nextLine());
+
+        student.setSemID(semID);
     }
 
     public void getCourses(){
