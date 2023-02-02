@@ -49,7 +49,7 @@ public class CRSStudentMenu {
                     semesterRegister(student);
                     break;
                 case 2:
-                    addCourse();
+                    addCourse(student);
                     break;
                 case 3:
                     deleteCourse();
@@ -93,8 +93,8 @@ public class CRSStudentMenu {
         studentServiceOperation.semesterRegister(student);
     }
 
-    private void addCourse(){
-
+    private void addCourse(Student student){
+        studentServiceOperation.addCourse(student);
     }
     private void deleteCourse(){
 
