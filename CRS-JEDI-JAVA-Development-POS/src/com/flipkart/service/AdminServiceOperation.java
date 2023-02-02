@@ -1,14 +1,16 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 
-import java.util.List;
+import java.util.*;
 
 public class AdminServiceOperation implements AdminInterface {
 
+    Scanner sc=new Scanner(System.in);
     public int login(String adminName, String password) {
         Data d= new Data();
         List<Admin> adminsList= d.admins;
@@ -66,7 +68,17 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void addCourse() {
+        int semId=sc.nextInt();
+        int courseId=sc.nextInt();
+        String courseName=sc.next();
 
+        Data d=new Data();
+        List<Course> temp=d.semCourseList.get(semId);
+        Course c1=new Course();
+        c1.setCourseID(courseId);
+        c1.setCourseName(courseName);
+        temp.add(c1);
+        d.semCourseList.put(semId,temp);
     }
 
     public void removeCourse() {
