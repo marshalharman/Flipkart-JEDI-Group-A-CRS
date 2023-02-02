@@ -15,22 +15,22 @@ public class StudentServiceOperation implements StudentInterface {
     public void register(){
 
         System.out.println("Enter your student ID: ");
-        int studentId = sc.nextInt();
+        int studentId = Integer.parseInt(sc.nextLine());
 
         System.out.println("Enter your name: ");
-        String name = sc.next();
+        String name = sc.nextLine();
 
         System.out.println("Enter your address: ");
-        String address = sc.next();
+        String address = sc.nextLine();
 
         System.out.println("Enter your username: ");
-        String username = sc.next();
+        String username = sc.nextLine();
 
         System.out.println("Enter your password: ");
-        String password = sc.next();
+        String password = sc.nextLine();
 
         System.out.println("Enter your branch: ");
-        String branch = sc.next();
+        String branch = sc.nextLine();
         for(Student s:Data.students)
         {
             if(s.getUserID()==studentId)

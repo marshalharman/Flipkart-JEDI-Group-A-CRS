@@ -1,9 +1,6 @@
 package com.flipkart.client;
 
-import com.flipkart.service.AdminServiceOperation;
-import com.flipkart.service.StudentServiceOperation;
-import com.flipkart.service.UserInterface;
-import com.flipkart.service.UserServiceOperation;
+import com.flipkart.service.*;
 
 import java.util.Scanner;
 
@@ -53,8 +50,14 @@ public class CRSApplication {
                             System.out.println("Wrong Credentials\n");
                             break;
                         } else if (role.equalsIgnoreCase("professor")) {
-                            CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
-                            crsProfessorMenu.professorMenu();
+                            ProfessorServiceOperation professorService = new ProfessorServiceOperation();
+                            int userID = professorService.login(userName, password);
+                            if( userID>0 ) {
+                                CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
+                                crsProfessorMenu.professorMenu(userID);
+                                break;
+                            }
+                            System.out.println("Wrong Credentials\n");
                             break;
                         } else if (role.equalsIgnoreCase("admin")) {
                             AdminServiceOperation adminservice =new AdminServiceOperation();

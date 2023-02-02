@@ -1,13 +1,25 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.data.Data;
 import com.flipkart.service.ProfessorServiceOperation;
 import java.util.Scanner;
 public class CRSProfessorMenu {
 
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
-    public void professorMenu()
+    public void professorMenu(int userID)
     {
+
+        Professor professor = null;
+
+        for(Professor p : Data.professors){
+            if( p.getUserID() == userID ){
+                professor = p;
+                break;
+            }
+        }
 
         while(true) {
 
@@ -27,13 +39,13 @@ public class CRSProfessorMenu {
                     viewCourses();
                     break;
                 case 2:
-                    registerCourse();
+                    registerCourse(professor);
                     break;
                 case 3:
-                    viewEnrolledStudent();
+                    viewEnrolledStudent(professor);
                     break;
                 case 4:
-                    addGrades();
+                    addGrades(professor);
                     break;
                 case 5:
                     System.out.println("Logged Out");
@@ -47,15 +59,53 @@ public class CRSProfessorMenu {
         }
     }
 	private void viewCourses(){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Semester ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+
+        service.viewCourse(semID);
+    }
+    private void registerCourse(Professor professor){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Semester ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+
+        service.viewCourse(semID);
+
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
+
+        for(Course c : Data.semCourseList.get(semID) ){
+            if( c.getCourseName().equalsIgnoreCase(courseName) ){
+                service.registerCourse(professor.getUserID(), c);
+                break;
+            }
+        }
 
     }
-    private void registerCourse(){
+    private void viewEnrolledStudent(Professor professor){
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Semester ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+
+        service.viewCourse(semID);
+
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
+
+        for(Course c : Data.semCourseList.get(semID) ){
+            if( c.getCourseName().equalsIgnoreCase(courseName) && c.getProfID() == professor.getUserID() ){
+                service.deregisterCourse(c);
+                break;
+            }
+        }
 
     }
-    private void viewEnrolledStudent(){
-
-    }
-    private void addGrades(){
+    private void addGrades(Professor professor){
 
     }
 }
