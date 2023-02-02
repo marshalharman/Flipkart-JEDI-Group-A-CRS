@@ -46,6 +46,7 @@ public class AdminServiceOperation implements AdminInterface {
         }
         d.addProfessor(p);
         System.out.println("Added Professor");
+        return true;
     }
 
     public boolean removeProfessor(String profName) {
