@@ -125,29 +125,7 @@ public class Data {
         admins.add(adm);
 
     }
-    public boolean setUnApprovedStudents(Student s)
-    {
-        unapprovedStudents.add(s);
-        return true;
-    }
-    public void deleteandAddUnApprovedStudents()
-    {
-        for(Student s: unapprovedStudents)
-        {
-            students.add(s);
-        }
-        unapprovedStudents.clear();
-    }
-    public boolean addProfessor(Professor p)
-    {
-       professors.add(p);
-       return true;
-    }
-    public boolean deleteProfessor(Professor p)
-    {
-        professors.remove(p);
-        return true;
-    }
+
 
     // courses - freq
 

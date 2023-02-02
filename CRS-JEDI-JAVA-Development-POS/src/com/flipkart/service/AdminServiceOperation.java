@@ -74,13 +74,12 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Enter courseName: ");
         String courseName=sc.next();
 
-        Data d=new Data();
-        List<Course> temp=d.semCourseList.get(semId);
+        List<Course> temp=Data.semCourseList.get(semId);
         Course c1=new Course();
         c1.setCourseID(courseId);
         c1.setCourseName(courseName);
         temp.add(c1);
-        d.semCourseList.put(semId,temp);
+        Data.semCourseList.put(semId,temp);
         System.out.println(courseName + " added successfully.");
     }
 
@@ -91,15 +90,14 @@ public class AdminServiceOperation implements AdminInterface {
         int courseId=sc.nextInt();
         //String courseName=sc.next();
 
-        Data d=new Data();
-        List<Course> temp=d.semCourseList.get(semId);
+        List<Course> temp=Data.semCourseList.get(semId);
         for(Course c1:temp){
             if(c1.getCourseID()==courseId){
                 temp.remove(c1);
                 break;
             }
         }
-        d.semCourseList.put(semId,temp);
+        Data.semCourseList.put(semId,temp);
         System.out.println("removed successfully.");
     }
 
