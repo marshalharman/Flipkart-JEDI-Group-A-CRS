@@ -16,9 +16,21 @@ public class Data {
     // semID - courses
     public static TreeMap<Integer,List<Course>> semCourseList=new TreeMap<Integer,List<Course>>();
 
-    public static HashMap<String, List<Course>> registeredCourses = new HashMap<>();
+    public static HashMap<Integer, List<Course>> registeredCourses = new HashMap<>();
 
     static {
+        Student st1 = new Student();
+        st1.setName("Harman");
+        st1.setPassword("abcd");
+
+        Student st2 = new Student();
+        st2.setName("Marshal");
+        st2.setPassword("xyz");
+
+        students.add(st1);
+        students.add(st2);
+
+
         Course c1 = new Course();
         c1.setCourseName("Bio 111");
         Course c2 = new Course();
@@ -31,7 +43,20 @@ public class Data {
         sem1List.add(c2);
         sem1List.add(c3);
 
+        Course c4 = new Course();
+        c4.setCourseName("Bio 211");
+        Course c5 = new Course();
+        c5.setCourseName("Chem 211");
+        Course c6 = new Course();
+        c6.setCourseName("Phy 211");
+
+        List<Course> sem2List = new ArrayList<>();
+        sem2List.add(c1);
+        sem2List.add(c2);
+        sem2List.add(c3);
+
         semCourseList.put(1, sem1List);
+        semCourseList.put(2, sem2List);
     }
 
 

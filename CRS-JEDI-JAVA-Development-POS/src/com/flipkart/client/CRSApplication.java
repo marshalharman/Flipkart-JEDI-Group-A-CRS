@@ -31,30 +31,37 @@ public class CRSApplication {
                         System.out.println("ENTER ROLE");
                         role = sc.nextLine();
 
-                        UserInterface userServiceOperation = new UserServiceOperation();
-                        boolean verified = userServiceOperation.verifyCredentials(userName, password);
+//                        UserInterface userServiceOperation = new UserServiceOperation();
+//                        boolean verified = userServiceOperation.verifyCredentials(userName, password);
+//
+//                        if(!verified){
+//                            System.out.println("Wrong Username/Password. Try again!");
+//                        }
+//                        else {
+//                            break;
+//                        }
 
-                        if(!verified){
-                            System.out.println("Wrong Username/Password. Try again!");
-                        }
-                        else {
+                        if (role.equalsIgnoreCase("student")) {
+                            StudentServiceOperation studentservice =new StudentServiceOperation();
+                            int userID = studentservice.login(userName, password);
+                            if(userID != -1) {
+                                CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
+                                crsStudentMenu.studentMenu(userID);
+                            }
+                            break;
+                        } else if (role.equalsIgnoreCase("professor")) {
+                            CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
+                            crsProfessorMenu.professorMenu();
+
+
+                            break;
+                        } else if (role.equalsIgnoreCase("admin")) {
+                            CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
+                            crsAdminMenu.adminMenu();
+
+
                             break;
                         }
-                    }
-
-                    if (role.equalsIgnoreCase("student")) {
-                        StudentServiceOperation studentservice =new StudentServiceOperation();
-                        if(studentservice.login(userName,password)) {
-                            CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
-                            crsStudentMenu.studentMenu(101);
-                        }
-                    } else if (role.equalsIgnoreCase("professor")) {
-                        CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
-                        crsProfessorMenu.professorMenu();
-                    } else if (role.equalsIgnoreCase("admin")) {
-                        CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
-                        crsAdminMenu.adminMenu();
-
                     }
                     break;
                 }

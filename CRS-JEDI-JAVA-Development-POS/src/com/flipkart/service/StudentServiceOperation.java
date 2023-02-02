@@ -44,15 +44,17 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Student registered successfully.");
     }
 
-    public boolean login(String studentname, String password){
+    public int login(String studentname, String password){
         List<Student> studentsList= studentsdata.students;
+        int userId = -1;
         for(Student s:studentsList)
         {
-            if(s.getName()==studentname && s.getPassword().equals(password)) {
-                return true;
+            if(s.getName().equals(studentname) && s.getPassword().equals(password)) {
+                userId = s.getUserID();
+                break;
             }
         }
-        return false;
+        return userId;
     }
 
     public void semesterRegister(Student student){
@@ -69,7 +71,7 @@ public class StudentServiceOperation implements StudentInterface {
     }
 
     public List<Course> getCourses(int semID){
-        return studentsdata.semCourseList.get(semID);
+        return Data.semCourseList.get(semID);
     }
 
     public void addCourse(){
