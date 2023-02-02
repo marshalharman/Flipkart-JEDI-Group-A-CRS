@@ -30,7 +30,7 @@ public class AdminServiceOperation implements AdminInterface {
         {
             s.setApproved(true);
         }
-        d.deleteUnApprovedStudents();
+        d.deleteandAddUnApprovedStudents();
     }
 
     public boolean addProfessor(Professor p) {

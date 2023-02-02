@@ -125,8 +125,12 @@ public class Data {
         unapprovedStudents.add(s);
         return true;
     }
-    public void deleteUnApprovedStudents()
+    public void deleteandAddUnApprovedStudents()
     {
+        for(Student s: unapprovedStudents)
+        {
+            students.add(s);
+        }
         unapprovedStudents.clear();
     }
     public boolean addProfessor(Professor p)

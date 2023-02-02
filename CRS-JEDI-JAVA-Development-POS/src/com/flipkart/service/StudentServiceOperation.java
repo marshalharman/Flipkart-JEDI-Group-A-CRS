@@ -31,7 +31,14 @@ public class StudentServiceOperation implements StudentInterface {
 
         System.out.println("Enter your branch: ");
         String branch = sc.next();
-
+        for(Student s:Data.students)
+        {
+            if(s.getUserID()==studentId)
+            {
+                System.out.println("Student already exists, please Login\n");
+                return;
+            }
+        }
         Student student = new Student();
         student.setUserID(studentId);
         student.setName(name);
