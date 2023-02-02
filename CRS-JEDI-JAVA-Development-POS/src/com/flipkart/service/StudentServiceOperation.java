@@ -41,12 +41,12 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Student registered successfully.");
     }
 
-    public boolean login(int studentID, String password){
+    public boolean login(String username, String password){
         Data sd= new Data();
         List<Student> studentsList= sd.students;
         for(Student s:studentsList)
         {
-            if(s.getUserID()==studentID && s.getPassword().equals(password)) {
+            if(s.getUsername()==username && s.getPassword().equals(password)) {
                 return true;
             }
         }
