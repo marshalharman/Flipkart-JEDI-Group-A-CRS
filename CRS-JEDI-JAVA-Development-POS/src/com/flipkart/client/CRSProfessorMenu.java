@@ -85,8 +85,8 @@ public class CRSProfessorMenu {
         }
 
     }
-    private void viewEnrolledStudent(Professor professor){
 
+    private void deRegisterCourse(Professor professor){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -103,6 +103,10 @@ public class CRSProfessorMenu {
                 break;
             }
         }
+    }
+    private void viewEnrolledStudent(Professor professor){
+
+
 
     }
     private void addGrades(Professor professor){
