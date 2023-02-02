@@ -44,6 +44,22 @@ public class AdminServiceOperation implements AdminInterface {
         }
     }
 
+    public boolean addAdmin(Admin a) {
+        List<Admin> adminList= Data.admins;
+        for(Admin admin : adminList)
+        {
+            if(a.getUserID()==admin.getUserID())
+            {
+                System.out.println("Already exists\n");
+                return false;
+            }
+        }
+        Data.admins.add(a);
+        System.out.println("Added Admin");
+
+        return true;
+    }
+
     public boolean addProfessor(Professor p) {
         List<Professor> professorsList= Data.professors;
         for(Professor prof : professorsList)

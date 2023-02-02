@@ -1,6 +1,7 @@
 package com.flipkart.client;
 
 
+import com.flipkart.bean.Admin;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
@@ -19,12 +20,13 @@ public class CRSAdminMenu {
             System.out.println("\nAdmin Menu!");
             System.out.println("Choose one of the options");
             System.out.println("1. Approve Student Registration");
-            System.out.println("2. Add Professor");
-            System.out.println("3. Remove Professor");
-            System.out.println("4. Add Courses");
-            System.out.println("5. Delete Courses");
-            System.out.println("6. Generate Grade Card");
-            System.out.println("7. Logout");
+            System.out.println("2. Add Admin");
+            System.out.println("3. Add Professor");
+            System.out.println("4. Remove Professor");
+            System.out.println("5. Add Courses");
+            System.out.println("6. Delete Courses");
+            System.out.println("7. Generate Grade Card");
+            System.out.println("8. Logout");
 
             Scanner obj = new Scanner(System.in);
             int choice = Integer.parseInt(obj.nextLine());
@@ -33,50 +35,74 @@ public class CRSAdminMenu {
                 case 1:
                     approvedStudentRegistration();
                     break;
-                case 2:
+
+                case 2:{
+                    Admin admin = new Admin();
+
+                    System.out.println("Enter Admin ID\n");
+                    int userID = Integer.parseInt(obj.nextLine());
+                    admin.setUserID(userID);
+
+                    System.out.println("Enter Admin name\n");
+                    String userName =obj.nextLine();
+                    admin.setName(userName);
+
+                    System.out.println("Enter Password\n");
+                    String password = obj.nextLine();
+                    admin.setPassword(password);
+
+                    addAdmin(admin);
+
+                    for(Admin a: Data.admins){
+                        System.out.println(a.getName());
+                    }
+                    break;
+                }
+                case 3:
                     Professor p=new Professor();
 
-                    System.out.println("Give Prof ID\n");
+                    System.out.println("Enter Prof ID\n");
                     int userID = Integer.parseInt(obj.nextLine());
                     p.setUserID(userID);
 
-                    System.out.println("Give Prof name\n");
+                    System.out.println("Enter Prof name\n");
                     String userName =obj.nextLine();
                     p.setName(userName);
 
-                    System.out.println("Give Password\n");
+                    System.out.println("Enter Password\n");
                     String password = obj.nextLine();
                     p.setPassword(password);
 
                     addProfessor(p);
                     break;
-                case 3:
+                case 4:
                     System.out.println("Give Prof name: \n");
                     String profName = obj.nextLine();
                     removeProfessor(profName);
                     break;
-                case 4:
+                case 5:
                     addCourses();
                     break;
-                case 5:
+                case 6:
                     deleteCourses();
                     break;
-                case 6:
+                case 7:
                     generateReportCard();
                     break;
-                case 7:
+                case 8:
                     System.out.println("Logged out\n");
                     break;
                 default:
                     System.out.println("Choose in the given options\n");
             }
 
-            if(choice == 7){break;}
+            if(choice == 8){break;}
         }
     }
 	private void approvedStudentRegistration(){
         service.approveStudentRegistration();
     }
+    private void addAdmin(Admin a){ service.addAdmin(a);}
     private void addProfessor(Professor p){
         service.addProfessor(p);
     }
