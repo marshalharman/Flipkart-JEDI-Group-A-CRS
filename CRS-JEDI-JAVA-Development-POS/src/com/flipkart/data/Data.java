@@ -16,7 +16,7 @@ public class Data {
     // semID - courses
     public static TreeMap<Integer,List<Course>> semCourseList=new TreeMap<Integer,List<Course>>();
 
-    public static HashMap<String, List<>>
+//    public static HashMap<String, List<>>
 
     static {
         Course c1 = new Course();
