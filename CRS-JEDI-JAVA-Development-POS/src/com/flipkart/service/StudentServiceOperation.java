@@ -142,6 +142,7 @@ public class StudentServiceOperation implements StudentInterface {
                 break;
             }
         }
+
     }
 
     public void submitPreferences(Student student){

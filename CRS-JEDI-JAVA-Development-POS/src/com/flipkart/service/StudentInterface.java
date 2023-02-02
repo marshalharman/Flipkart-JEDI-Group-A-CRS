@@ -13,10 +13,9 @@ public interface StudentInterface {
     public List<Course> getCourses(int semID);
     public void addCourse(Student student);
     public void removeCourse(Student student);
-    public void dropCourse();
+    public void dropCourse(Student student);
     public void submitPreferences(Student student);
     public void getRegisteredCourses(Student student);
-    public void payFees();
     public void viewGrades(int studentId);
 
 }
