@@ -1,6 +1,7 @@
 package com.flipkart.data;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import java.util.*;
@@ -12,7 +13,7 @@ public class Data {
 
     public static Student s1,s2, s3,s4 = new Student();
 
-    public static HashMap<Integer,List<Character> > gradeList=new HashMap<Integer,List<Character>>();
+    public static HashMap<Integer,List<Grade> > gradeList=new HashMap<Integer,List<Grade>>();
     // semID - courses
     public static TreeMap<Integer,List<Course>> semCourseList=new TreeMap<Integer,List<Course>>();
 
@@ -32,6 +33,27 @@ public class Data {
         sem1List.add(c3);
 
         semCourseList.put(1, sem1List);
+
+        List<Grade> tempGrades=new ArrayList<Grade>();
+        Grade g=new Grade();
+        g.setStudentID(1);
+        g.setCourseID(11);
+        g.setScore('A');
+        tempGrades.add(g);
+
+        g.setCourseID(12);
+        g.setScore('B');
+        tempGrades.add(g);
+
+        g.setCourseID(13);
+        g.setScore('C');
+        tempGrades.add(g);
+
+        g.setCourseID(14);
+        g.setScore('A');
+        tempGrades.add(g);
+
+
     }
 
 

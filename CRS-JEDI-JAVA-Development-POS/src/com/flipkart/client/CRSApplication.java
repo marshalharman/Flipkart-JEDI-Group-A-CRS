@@ -59,19 +59,9 @@ public class CRSApplication {
                     break;
                 }
                 case 2: {
-                    System.out.println("ENTER Name");
-                    String name = sc.nextLine();
-
-                    System.out.println("ENTER STUDENT ID");
-                    String studentID = sc.nextLine();
-
-                    System.out.println("ENTER PASSWORD");
-                    String password = sc.nextLine();
 
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
                     studentServiceOperation.register();
-
-                    System.out.println("Registration request sent!");
                     break;
                 }
                 case 3: {

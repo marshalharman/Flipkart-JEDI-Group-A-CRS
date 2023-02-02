@@ -1,4 +1,5 @@
 package com.flipkart.service;
+import com.flipkart.bean.Grade;
 import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
@@ -94,11 +95,11 @@ public class StudentServiceOperation implements StudentInterface {
 
     public void viewGrades(int studentId){
         Data d = new Data();
-        HashMap<Integer,List<Character> > hp= d.gradeList;
-        List<Character> studentGrades=hp.get(studentId);
+        HashMap<Integer,List<Grade> > hp= d.gradeList;
+        List<Grade> studentGrades=hp.get(studentId);
         System.out.println("Grades :");
-        for(Character score:studentGrades){
-            System.out.println(score + " ");
+        for(Grade grade:studentGrades){
+            System.out.println(grade.getStudentID() + " " +grade.getCourseID() + " " +grade.getScore());
         }
 
     }
