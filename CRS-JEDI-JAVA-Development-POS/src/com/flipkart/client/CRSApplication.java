@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import com.flipkart.service.AdminServiceOperation;
 import com.flipkart.service.StudentServiceOperation;
 import com.flipkart.service.UserInterface;
 import com.flipkart.service.UserServiceOperation;
@@ -47,26 +48,29 @@ public class CRSApplication {
                             if(userID>0) {
                                 CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                                 crsStudentMenu.studentMenu(userID);
+                                break;
                             }
+                            System.out.println("Wrong Credentials\n");
                             break;
                         } else if (role.equalsIgnoreCase("professor")) {
                             CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
                             crsProfessorMenu.professorMenu();
-
-
                             break;
                         } else if (role.equalsIgnoreCase("admin")) {
-                            CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
-                            crsAdminMenu.adminMenu();
-
-
+                            AdminServiceOperation adminservice =new AdminServiceOperation();
+                            int userID=adminservice.login(userName,password);
+                            if(userID>0) {
+                                CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
+                                crsAdminMenu.adminMenu(userID);
+                                break;
+                            }
+                            System.out.println("Wrong Credentials\n");
                             break;
                         }
                     }
                     break;
                 }
                 case 2: {
-
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
                     studentServiceOperation.register();
                     break;

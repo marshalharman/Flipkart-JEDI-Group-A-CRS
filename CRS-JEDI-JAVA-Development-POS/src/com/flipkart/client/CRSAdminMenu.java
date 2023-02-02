@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class CRSAdminMenu {
     AdminServiceOperation service = new AdminServiceOperation();
-    public void adminMenu()
+    public void adminMenu(int id)
     {
 
         while(true) {

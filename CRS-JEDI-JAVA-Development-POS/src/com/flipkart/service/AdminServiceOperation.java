@@ -24,18 +24,18 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void approveStudentRegistration() {
-        Data d= new Data();
-        List<Student> unapprostudents =d.unapprovedStudents;
+        List<Student> unapprostudents =Data.unapprovedStudents;
         for(Student s:unapprostudents)
         {
             s.setApproved(true);
+            Data.students.add(s);
         }
-        d.deleteandAddUnApprovedStudents();
+        Data.unapprovedStudents.clear();
+
     }
 
     public boolean addProfessor(Professor p) {
-        Data d= new Data();
-        List<Professor> professorsList= d.professors;
+        List<Professor> professorsList= Data.professors;
         for(Professor prof : professorsList)
         {
             if(p.getUserID()==prof.getUserID())
@@ -44,20 +44,19 @@ public class AdminServiceOperation implements AdminInterface {
                 return false;
             }
         }
-        d.addProfessor(p);
+        Data.professors.add(p);
         System.out.println("Added Professor");
         return true;
     }
 
     public boolean removeProfessor(String profName) {
-        Data d=new Data();
-        List<Professor> professorsList = d.professors;
+        List<Professor> professorsList = Data.professors;
         for(Professor prof : professorsList)
         {
             if(profName.equals(prof.getName()))
             {
                 System.out.println("Professor deleted successfully\n");
-                d.deleteProfessor(prof);
+                Data.professors.remove(prof);
                 return true;
             }
         }
