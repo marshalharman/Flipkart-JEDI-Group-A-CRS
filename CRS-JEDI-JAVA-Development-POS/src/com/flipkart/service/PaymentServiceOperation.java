@@ -22,7 +22,7 @@ public class PaymentServiceOperation implements PaymentInterface {
 
 
 
-        sendNotification(s_id,6723154,"Payment succesfull");
+        sendNotification(s_id,6723154,"Payment successful");
     }
 
     @Override
