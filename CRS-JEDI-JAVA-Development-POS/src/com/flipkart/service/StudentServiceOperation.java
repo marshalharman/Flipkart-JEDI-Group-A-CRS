@@ -12,12 +12,12 @@ public class StudentServiceOperation implements StudentInterface {
 
     }
 
-    public boolean login(int studentID, String password){
-        StudentData sd= new StudentData();
-        List<Student> studentsList= sd.studentsList;
+    public boolean login(String studentname, String password){
+        Data sd= new Data();
+        List<Student> studentsList= sd.students;
         for(Student s:studentsList)
         {
-            if(s.getUserID()==studentID && s.getPassword().equals(password)) {
+            if(s.getName()==studentname && s.getPassword().equals(password)) {
                 return true;
             }
         }
