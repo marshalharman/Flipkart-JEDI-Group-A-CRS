@@ -1,8 +1,6 @@
 package com.flipkart.client;
 
-import com.flipkart.service.StudentServiceOperation;
-import com.flipkart.service.UserInterface;
-import com.flipkart.service.UserServiceOperation;
+import com.flipkart.service.*;
 
 import java.util.Scanner;
 
@@ -12,7 +10,7 @@ public class CRSApplication {
 
         while(true){
 
-            System.out.println("Welcome to the CRS Application! Choose the operation given below!");
+            System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!");
             System.out.println("1. Login \n2. Registration of the Student \n3. Update Password \n4. Exit");
 
             Scanner sc = new Scanner(System.in);
@@ -47,26 +45,35 @@ public class CRSApplication {
                             if(userID>0) {
                                 CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                                 crsStudentMenu.studentMenu(userID);
+                                break;
                             }
+                            System.out.println("Wrong Credentials\n");
                             break;
                         } else if (role.equalsIgnoreCase("professor")) {
-                            CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
-                            crsProfessorMenu.professorMenu();
-
-
+                            ProfessorServiceOperation professorService = new ProfessorServiceOperation();
+                            int userID = professorService.login(userName, password);
+                            if( userID>0 ) {
+                                CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
+                                crsProfessorMenu.professorMenu(userID);
+                                break;
+                            }
+                            System.out.println("Wrong Credentials\n");
                             break;
                         } else if (role.equalsIgnoreCase("admin")) {
-                            CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
-                            crsAdminMenu.adminMenu();
-
-
+                            AdminServiceOperation adminservice =new AdminServiceOperation();
+                            int userID=adminservice.login(userName,password);
+                            if(userID>0) {
+                                CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
+                                crsAdminMenu.adminMenu(userID);
+                                break;
+                            }
+                            System.out.println("Wrong Credentials\n");
                             break;
                         }
                     }
                     break;
                 }
                 case 2: {
-
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
                     studentServiceOperation.register();
                     break;

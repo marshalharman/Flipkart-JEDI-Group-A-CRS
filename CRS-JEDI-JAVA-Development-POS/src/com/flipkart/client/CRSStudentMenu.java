@@ -29,7 +29,7 @@ public class CRSStudentMenu {
         }
 
         while(true) {
-            System.out.println("Student Menu!");
+            System.out.println("\nStudent Menu!");
             System.out.println("Choose one of the options");
             System.out.println("1. Semester Registration");
             System.out.println("2. Add Course");
@@ -117,8 +117,7 @@ public class CRSStudentMenu {
         studentServiceOperation.getCourses(semId);
     }
     private void viewGrades(int studentId){
-        StudentServiceOperation studentservice =new StudentServiceOperation();
-        studentservice.viewGrades(studentId);
+        studentServiceOperation.viewGrades(studentId);
     }
     private void payFees(Student student) {
         paymentServiceOperation.pay(student);

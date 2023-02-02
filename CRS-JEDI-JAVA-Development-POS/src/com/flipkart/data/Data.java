@@ -1,15 +1,16 @@
 package com.flipkart.data;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Grade;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
+import com.flipkart.bean.*;
+
 import java.util.*;
 
 public class Data {
 
     // list of Students
     public static List <Student> students= new ArrayList<Student>();
+    public static List<Student> unapprovedStudents = new ArrayList<Student>();
+    public static List<Admin> admins = new ArrayList<Admin>();
+    public static List <Professor> professors = new ArrayList<Professor>();
 
     public static Student s1,s2, s3,s4 = new Student();
 
@@ -20,9 +21,18 @@ public class Data {
 
     // studentID - Courses
     public static HashMap<Integer, List<Course>> registeredCourses = new HashMap<>();
+    public static HashMap<Integer, List<Student>> enrolledStudent = new HashMap<>();
+
+    //studentId - upiID
+    public static HashMap<Integer, Integer> upiIDS = new HashMap<Integer, Integer>();
+
+    //studentID - card details
+    public static HashMap<Integer, List<String>> cardDetails = new HashMap<Integer, List<String>>();
 
     // courseId - count
     public static HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
+
+
 
     static {
         Student st1 = new Student();
@@ -38,6 +48,19 @@ public class Data {
 
         students.add(st1);
         students.add(st2);
+
+
+        Admin adm=new Admin();
+        adm.setUserID(1);
+        adm.setName("admin");
+        adm.setPassword("admin");
+        admins.add(adm);
+
+        Professor prof=new Professor();
+        prof.setUserID(10);
+        prof.setName("prof");
+        prof.setPassword("prof");
+        professors.add(prof);
 
 
         Course c1 = new Course();
@@ -111,10 +134,6 @@ public class Data {
     public Data(){
 //        semCourseList.put(1, List.of(new String[]{}));
     }
-
-
-    // courses - freq
-
     // student - courses and grades
 
 
