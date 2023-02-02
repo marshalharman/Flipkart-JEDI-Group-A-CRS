@@ -129,12 +129,19 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
     }
-    public void dropCourse(){
-//        for(Course course: student.getPrimaryCourses()){
-//            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-//                student.removePrimaryCourse(course);
-//            }
-//        }
+    public void dropCourse(Student student){
+
+        System.out.println("Please enter the name of the course to be dropped : ");
+        String courseName = sc.nextLine();
+
+
+        for(Course course: Data.semCourseList.get(student.getSemID()) ){
+            if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                Data.registeredCourses.get(student.getUserID()).remove(course);
+                Data.courseEnrollmentCount.put(course.getCourseID(), Data.courseEnrollmentCount.get(course.getCourseID())-1 );
+                break;
+            }
+        }
     }
 
     public void submitPreferences(Student student){
