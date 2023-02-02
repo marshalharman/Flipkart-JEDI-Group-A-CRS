@@ -1,6 +1,7 @@
 package com.flipkart.client;
 
 
+import com.flipkart.bean.Student;
 import com.flipkart.service.AdminServiceOperation;
 
 import java.util.Scanner;
@@ -55,6 +56,7 @@ public class CRSAdminMenu {
         }
     }
 	private void approvedStudentRegistration(){
+        service.approveStudentRegistration();
     }
     private void addProfessor(){
 
