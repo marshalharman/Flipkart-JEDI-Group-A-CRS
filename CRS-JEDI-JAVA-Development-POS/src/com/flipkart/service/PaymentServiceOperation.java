@@ -20,7 +20,9 @@ public class PaymentServiceOperation implements PaymentInterface {
 
         System.out.println("Payment done");
 
-        sendNotification(s_id,6723154,"Payment successful");
+
+
+        sendNotification(s_id,6723154,"Payment succesfull");
     }
 
     @Override

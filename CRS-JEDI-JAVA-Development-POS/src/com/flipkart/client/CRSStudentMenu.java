@@ -5,6 +5,8 @@ import com.flipkart.bean.User;
 import com.flipkart.data.Data;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentServiceOperation;
+import com.flipkart.service.PaymentInterface;
+import com.flipkart.service.PaymentServiceOperation;
 
 import java.util.Scanner;
 import java.util.spi.AbstractResourceBundleProvider;
@@ -13,6 +15,7 @@ import java.util.spi.AbstractResourceBundleProvider;
 public class CRSStudentMenu {
 
     StudentInterface studentServiceOperation = new StudentServiceOperation();
+    PaymentInterface paymentServiceOperation = new PaymentServiceOperation();
 
     public void studentMenu(int id) {
 
@@ -68,7 +71,7 @@ public class CRSStudentMenu {
                     viewGrades(id);
                     break;
                 case 8:
-                    payFees();
+                    payFees(student);
                     break;
                 case 9:
                     viewRegisteredCourses();
@@ -115,7 +118,7 @@ public class CRSStudentMenu {
         StudentServiceOperation studentservice =new StudentServiceOperation();
         studentservice.viewGrades(studentId);
     }
-    private void payFees() {
-
+    private void payFees(Student student) {
+        paymentServiceOperation.pay(student);
     }
 }
