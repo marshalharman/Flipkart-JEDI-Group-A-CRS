@@ -77,10 +77,10 @@ public class CRSAdminMenu {
         service.removeProfessor(profName);
     }
     private void addCourses(){
-
+        service.addCourse();
     }
     private void deleteCourses(){
-
+        service.removeCourse();
     }
     private void generateReportCard(){
     	
