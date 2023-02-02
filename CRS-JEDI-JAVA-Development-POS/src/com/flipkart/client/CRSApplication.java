@@ -1,6 +1,8 @@
 package com.flipkart.client;
 
 import com.flipkart.service.StudentServiceOperation;
+import com.flipkart.service.UserInterface;
+import com.flipkart.service.UserServiceOperation;
 
 import java.util.Scanner;
 
@@ -18,14 +20,27 @@ public class CRSApplication {
 
             switch (choice) {
                 case 1: {
-                    System.out.println("ENTER USERID");
-                    String userID = sc.nextLine();
+                    String userName, password, role;
+                    while(true){
+                        System.out.println("ENTER USERNAME");
+                        userName = sc.nextLine();
 
-                    System.out.println("ENTER PASSWORD");
-                    String password = sc.nextLine();
+                        System.out.println("ENTER PASSWORD");
+                        password = sc.nextLine();
 
-                    System.out.println("ENTER ROLE");
-                    String role = sc.nextLine();
+                        System.out.println("ENTER ROLE");
+                        role = sc.nextLine();
+
+                        UserInterface userServiceOperation = new UserServiceOperation();
+                        boolean verified = userServiceOperation.verifyCredentials(userName, password);
+
+                        if(!verified){
+                            System.out.println("Wrong Username/Password. Try again!");
+                        }
+                        else {
+                            break;
+                        }
+                    }
 
                     if (role.equalsIgnoreCase("student")) {
                         CRSStudentMenu crsStudentMenu = new CRSStudentMenu();

@@ -2,7 +2,7 @@ package com.flipkart.service;
 
 public interface UserInterface {
 
-    public void verifyCredentials(String userName, String password);
+    public boolean verifyCredentials(String userName, String password);
 
 
 
