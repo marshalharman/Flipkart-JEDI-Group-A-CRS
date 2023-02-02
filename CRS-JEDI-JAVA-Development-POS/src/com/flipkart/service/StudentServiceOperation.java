@@ -199,9 +199,17 @@ public class StudentServiceOperation implements StudentInterface {
         HashMap<Integer,List<Grade> > hp= d.gradeList;
         List<Grade> studentGrades=hp.get(studentId);
         System.out.println("Grades :");
+
         for(Grade grade:studentGrades){
-            System.out.println(grade.getStudentID() + " " +grade.getCourseID() + " " +grade.getScore());
+            for( int semID : Data.semCourseList.keySet() ){
+                for( Course c: Data.semCourseList.get(semID) ){
+                    if( grade.getCourseID() == c.getCourseID() ){
+                        System.out.println(c.getCourseName() + " : " + grade.getScore() );
+                    }
+                }
+            }
         }
+
 
     }
 

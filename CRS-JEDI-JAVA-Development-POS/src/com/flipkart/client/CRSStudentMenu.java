@@ -29,7 +29,7 @@ public class CRSStudentMenu {
         }
 
         while(true) {
-            System.out.println("Student Menu!");
+            System.out.println("\nStudent Menu!");
             System.out.println("Choose one of the options");
             System.out.println("1. Semester Registration");
             System.out.println("2. Add Course");

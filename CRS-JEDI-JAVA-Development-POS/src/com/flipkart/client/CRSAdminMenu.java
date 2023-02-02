@@ -15,7 +15,7 @@ public class CRSAdminMenu {
 
         while(true) {
 
-            System.out.println("Admin Menu!");
+            System.out.println("\nAdmin Menu!");
             System.out.println("Choose one of the options");
             System.out.println("1. Approve Student Registration");
             System.out.println("2. Add Professor");
