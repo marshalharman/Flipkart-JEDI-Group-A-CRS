@@ -34,14 +34,20 @@ public class CRSAdminMenu {
                     approvedStudentRegistration();
                     break;
                 case 2:
-                    System.out.println("Give Prof ID,Prof name, Password\n");
                     Professor p=new Professor();
+
+                    System.out.println("Give Prof ID\n");
                     int userID = Integer.parseInt(obj.nextLine());
                     p.setUserID(userID);
+
+                    System.out.println("Give Prof name\n");
                     String userName =obj.nextLine();
                     p.setName(userName);
+
+                    System.out.println("Give Password\n");
                     String password = obj.nextLine();
                     p.setPassword(password);
+
                     addProfessor(p);
                     break;
                 case 3:
