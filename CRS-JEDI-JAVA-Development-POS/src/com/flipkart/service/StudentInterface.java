@@ -1,8 +1,8 @@
 package com.flipkart.service;
 
 public interface StudentInterface {
-    public void register();
-    public void login();
+    public void register(String name, String studentID, String password);
+    public boolean login(int studentID,String password);
     public void semesterRegister();
     public void getCourses();
     public void addCourse();

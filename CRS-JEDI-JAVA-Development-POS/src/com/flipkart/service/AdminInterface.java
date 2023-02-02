@@ -1,6 +1,6 @@
 package com.flipkart.service;
 
-public interface AdminService {
+public interface AdminInterface {
 
     public void login();
     public void approveStudentRegistration();

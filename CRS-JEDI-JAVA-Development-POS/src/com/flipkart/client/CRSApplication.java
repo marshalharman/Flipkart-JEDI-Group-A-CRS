@@ -1,5 +1,7 @@
 package com.flipkart.client;
 
+import com.flipkart.service.StudentServiceOperation;
+
 import java.util.Scanner;
 
 public class CRSApplication {
@@ -14,11 +16,10 @@ public class CRSApplication {
             Scanner sc = new Scanner(System.in);
             int choice = Integer.parseInt(sc.nextLine());
 
-
             switch (choice) {
                 case 1: {
-                    System.out.println("ENTER USERNAME");
-                    String userName = sc.nextLine();
+                    System.out.println("ENTER USERID");
+                    String userID = sc.nextLine();
 
                     System.out.println("ENTER PASSWORD");
                     String password = sc.nextLine();
@@ -40,14 +41,23 @@ public class CRSApplication {
                     break;
                 }
                 case 2: {
-                    CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
+                    System.out.println("ENTER Name");
+                    String name = sc.nextLine();
+
                     System.out.println("ENTER STUDENT ID");
-                    String studentId = sc.nextLine();
+                    String studentID = sc.nextLine();
+
+                    System.out.println("ENTER PASSWORD");
+                    String password = sc.nextLine();
+
+                    StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
+                    studentServiceOperation.register(name, studentID, password);
+
+                    System.out.println("Registration request sent!");
                     break;
                 }
                 case 3: {
-                    System.out.println("Update password");
-                    String updatedPassword = sc.nextLine();
+                    System.out.println("Update Password");
                     break;
                 }
                 case 4: {

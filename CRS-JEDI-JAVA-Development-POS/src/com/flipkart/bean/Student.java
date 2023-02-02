@@ -1,6 +1,6 @@
 package com.flipkart.bean;
 
-public class Student {
+public class Student extends User {
 
     private String branch;
     private boolean isApproved;
