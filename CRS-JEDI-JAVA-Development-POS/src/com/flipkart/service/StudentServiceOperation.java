@@ -1,4 +1,5 @@
 package com.flipkart.service;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.data.Data;
@@ -74,16 +75,46 @@ public class StudentServiceOperation implements StudentInterface {
         return Data.semCourseList.get(semID);
     }
 
-    public void addCourse(){
+    public void addCourse(Student student){
+        System.out.println("1. Add Primary Course\n2. Add Alternate Course");
+        int choice = Integer.parseInt(sc.nextLine());
+
         System.out.println("Select Course to Add:");
-        for(Map.Entry m: Data.semCourseList.entrySet()){
-            System.out.println(m.getKey());
+        getCourses(student.getSemID());
+        String courseName = sc.nextLine();
+
+        for( Course course: studentsdata.semCourseList.get(student.getSemID())){
+            if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                if( choice == 1){ student.addPrimaryCourse(course); }
+                else if( choice == 2 ){ student.addAlternateCourse(course); }
+            }
         }
 
-        Scanner sc = new Scanner(System.in);
-        int semID = Integer.parseInt(sc.nextLine());
     }
 
+    public void  removeCourse(Student student){
+
+        System.out.println("1. Remove Primary Course\n2. Remove Alternate Course");
+        int choice = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Please enter course name : ");
+        String courseName = sc.nextLine();
+
+        if( choice == 1 ){
+            for(Course course: student.getPrimaryCourses()){
+                if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                    student.removePrimaryCourse(course);
+                }
+            }
+        }
+        else if( choice == 2 ){
+            for(Course course: student.getAlternateCourses()){
+                if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                    student.removeAlternateCourse(course);
+                }
+            }
+        }
+    }
     public void dropCourse(){
 
     }

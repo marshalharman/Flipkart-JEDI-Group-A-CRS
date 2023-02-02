@@ -10,10 +10,10 @@ public class PaymentServiceOperation implements PaymentInterface {
     }
 
     @Override
-    public void sendNotification(int id,int refID, String msg) {
+    public void sendNotification(int id,int transactionID, String msg) {
         System.out.println("Your payment details...");
         System.out.println("Student ID"+id);
-        System.out.println("Reference ID: "+refID);
+        System.out.println("Reference ID: "+transactionID);
         System.out.println(msg);
     }
 }
