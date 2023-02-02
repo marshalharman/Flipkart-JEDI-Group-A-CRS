@@ -61,7 +61,7 @@ public class CRSStudentMenu {
                     submit(student);
                     break;
                 case 5:
-                    dropCourse();
+                    dropCourse(student);
                     break;
                 case 6:
                     viewCourses(student.getSemID());
@@ -110,15 +110,14 @@ public class CRSStudentMenu {
         studentServiceOperation.submitPreferences(student);
     }
 
-    public void dropCourse(){
-
+    public void dropCourse(Student student){
+        studentServiceOperation.dropCourse(student);
     }
     private void viewCourses(int semId){
         studentServiceOperation.getCourses(semId);
     }
     private void viewGrades(int studentId){
-        StudentServiceOperation studentservice =new StudentServiceOperation();
-        studentservice.viewGrades(studentId);
+        studentServiceOperation.viewGrades(studentId);
     }
     private void payFees(Student student) {
         paymentServiceOperation.pay(student);
