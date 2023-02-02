@@ -7,7 +7,8 @@ import java.util.*;
 
 public class ProfessorServiceOperation implements ProfessorInterface {
     public int login(String professorname, String password){
-        List<Professor> professorList = Data.professors;
+        Data d =new Data();
+        List<Professor> professorList = d.professors;
         Course course = new Course();
 
         int userID = -1;
