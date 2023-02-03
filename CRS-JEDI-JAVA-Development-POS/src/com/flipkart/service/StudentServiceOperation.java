@@ -30,7 +30,7 @@ public class StudentServiceOperation implements StudentInterface {
         student.setBranch(branch);
         student.setRole("Student");
         Data.unapprovedStudents.add(student);
-        System.out.println("Student registered successfully.");
+        System.out.println("Registration request sent.");
     }
 
     public int login(String studentName, String password){
