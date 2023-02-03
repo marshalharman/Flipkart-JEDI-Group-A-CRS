@@ -46,7 +46,7 @@ public class StudentServiceOperation implements StudentInterface {
         student.setBranch(branch);
         student.setRole("Student");
         Data.unapprovedStudents.add(student);
-        System.out.println("Student registered successfully.");
+        System.out.println("Registration request sent.");
     }
 
     public int login(String studentName, String password){
@@ -67,7 +67,7 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Select course to register:");
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("1. BCA\n  2.MCA");
+        System.out.println("1. BCA\n2.MCA");
         sc.nextLine();
 
         for(Map.Entry m: Data.semCourseList.entrySet()){
