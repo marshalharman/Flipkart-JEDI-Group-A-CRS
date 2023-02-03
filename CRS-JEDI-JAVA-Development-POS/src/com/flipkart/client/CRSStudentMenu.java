@@ -46,7 +46,14 @@ public class CRSStudentMenu {
 
             int choice;
             choice = Integer.parseInt(obj.nextLine());
-
+            if(choice!=1 && choice!=10)
+            {
+                if(student.getSemID()==0)
+                {
+                    System.out.println("Please register first!");
+                    continue;
+                }
+            }
             switch (choice) {
                 case 1:
                     semesterRegister(student);
@@ -64,6 +71,7 @@ public class CRSStudentMenu {
                     dropCourse(student);
                     break;
                 case 6:
+                    //System.out.println(student.getSemID());
                     viewCourses(student.getSemID());
                     break;
                 case 7:
