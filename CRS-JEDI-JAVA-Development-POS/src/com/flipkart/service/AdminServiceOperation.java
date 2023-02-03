@@ -99,6 +99,7 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Enter courseName: ");
         String courseName=sc.next();
 
+
         List<Course> temp=Data.semCourseList.get(semId);
         Course c1=new Course();
         c1.setCourseID(courseId);
@@ -114,6 +115,12 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Enter courseId: ");
         int courseId=sc.nextInt();
         //String courseName=sc.next();
+
+        if(Data.semCourseList.containsKey(semId)==false)
+        {
+            System.out.println("Semester doesn't exist.");
+            return ;
+        }
 
         List<Course> temp=Data.semCourseList.get(semId);
         for(Course c1:temp){
