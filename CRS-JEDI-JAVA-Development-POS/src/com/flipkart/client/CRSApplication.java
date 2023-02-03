@@ -74,8 +74,26 @@ public class CRSApplication {
                     break;
                 }
                 case 2: {
+                    System.out.println("Enter your student ID: ");
+                    int studentId = Integer.parseInt(sc.nextLine());
+
+                    System.out.println("Enter your name: ");
+                    String name = sc.nextLine();
+
+                    System.out.println("Enter your address: ");
+                    String address = sc.nextLine();
+
+                    System.out.println("Enter your username: ");
+                    String username = sc.nextLine();
+
+                    System.out.println("Enter your password: ");
+                    String password = sc.nextLine();
+
+                    System.out.println("Enter your branch: ");
+                    String branch = sc.nextLine();
+
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
-                    studentServiceOperation.register();
+                    studentServiceOperation.register(studentId,name,address,username, password, branch);
                     break;
                 }
                 case 3: {

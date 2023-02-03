@@ -98,7 +98,11 @@ public class CRSStudentMenu {
     }
 
     private void viewRegisteredCourses(Student student) {
-        studentServiceOperation.getRegisteredCourses(student);
+
+        int userId = student.getUserID();
+        System.out.println("REGISTERED COURSES");
+
+        studentServiceOperation.getRegisteredCourses(student, userId);
     }
 
 
@@ -107,11 +111,27 @@ public class CRSStudentMenu {
     }
 
     private void addCourse(Student student){
-        studentServiceOperation.addCourse(student);
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("1. Add Primary Course\n2. Add Alternate Course");
+        int choice = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter Sem ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+        viewCourses(semID);
+
+        System.out.println("Select Course to Add:");
+        String courseName = sc.nextLine();
+
+        studentServiceOperation.addCourse(student, choice, semID, courseName);
     }
 
     private void deleteCourse(Student student){
-        studentServiceOperation.removeCourse(student);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. Remove Primary Course\n2. Remove Alternate Course");
+        int choice = Integer.parseInt(sc.nextLine());
+
+        studentServiceOperation.removeCourse(student, choice);
     }
 
     public void submit(Student student){
@@ -119,7 +139,12 @@ public class CRSStudentMenu {
     }
 
     public void dropCourse(Student student){
-        studentServiceOperation.dropCourse(student);
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please enter the name of the course to be dropped : ");
+        String courseName = sc.nextLine();
+
+        studentServiceOperation.dropCourse(student, courseName);
     }
     private void viewCourses(int semId){
         studentServiceOperation.getCourses(semId);

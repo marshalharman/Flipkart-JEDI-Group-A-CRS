@@ -10,25 +10,8 @@ import com.flipkart.bean.Student;
 public class StudentServiceOperation implements StudentInterface {
 
     Scanner sc = new Scanner(System.in);
-    public void register(){
+    public void register(int studentId, String name, String address, String username, String password, String branch){
 
-        System.out.println("Enter your student ID: ");
-        int studentId = Integer.parseInt(sc.nextLine());
-
-        System.out.println("Enter your name: ");
-        String name = sc.nextLine();
-
-        System.out.println("Enter your address: ");
-        String address = sc.nextLine();
-
-        System.out.println("Enter your username: ");
-        String username = sc.nextLine();
-
-        System.out.println("Enter your password: ");
-        String password = sc.nextLine();
-
-        System.out.println("Enter your branch: ");
-        String branch = sc.nextLine();
         for(Student s:Data.students)
         {
             if(s.getUserID()==studentId)
@@ -37,6 +20,7 @@ public class StudentServiceOperation implements StudentInterface {
                 return;
             }
         }
+
         Student student = new Student();
         student.setUserID(studentId);
         student.setName(name);
@@ -67,7 +51,7 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Select course to register:");
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("1. BCA\n  2.MCA");
+        System.out.println("1. BCA\n2.MCA");
         sc.nextLine();
 
         for(Map.Entry m: Data.semCourseList.entrySet()){
@@ -89,13 +73,7 @@ public class StudentServiceOperation implements StudentInterface {
         return c;
     }
 
-    public void addCourse(Student student){
-        System.out.println("1. Add Primary Course\n2. Add Alternate Course");
-        int choice = Integer.parseInt(sc.nextLine());
-
-        System.out.println("Select Course to Add:");
-        getCourses(student.getSemID());
-        String courseName = sc.nextLine();
+    public void addCourse(Student student, int choice, int semID, String courseName){
 
         for( Course course: Data.semCourseList.get(student.getSemID())){
             if( course.getCourseName().equalsIgnoreCase(courseName) ){
@@ -106,14 +84,11 @@ public class StudentServiceOperation implements StudentInterface {
 
     }
 
-    public void  removeCourse(Student student){
-
-        System.out.println("1. Remove Primary Course\n2. Remove Alternate Course");
-        int choice = Integer.parseInt(sc.nextLine());
-
-        System.out.println("Please select course : ");
+    public void  removeCourse(Student student, int choice){
+        Scanner sc = new Scanner(System.in);
 
         if( choice == 1 ){
+            System.out.println("Please select course : ");
             for(Course course: student.getPrimaryCourses()) {
                 System.out.println(course.getCourseName());
             }
@@ -126,6 +101,7 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
         else if( choice == 2 ){
+            System.out.println("Please select course : ");
             for(Course course: student.getAlternateCourses()) {
                 System.out.println(course.getCourseName());
             }
@@ -138,11 +114,7 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
     }
-    public void dropCourse(Student student){
-
-        System.out.println("Please enter the name of the course to be dropped : ");
-        String courseName = sc.nextLine();
-
+    public void dropCourse(Student student, String courseName){
 
         for(Course course: Data.semCourseList.get(student.getSemID()) ){
             if( course.getCourseName().equalsIgnoreCase(courseName) ){
@@ -191,10 +163,8 @@ public class StudentServiceOperation implements StudentInterface {
         }
     }
 
-    public void getRegisteredCourses(Student student){
+    public void getRegisteredCourses(Student student, int userId){
 
-        int userId = student.getUserID();
-        System.out.println("REGISTERED COURSES");
         for(Course course: Data.registeredCourses.get(userId)){
             System.out.println(course.getCourseName());
         }
