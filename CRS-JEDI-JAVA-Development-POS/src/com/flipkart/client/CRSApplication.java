@@ -89,11 +89,7 @@ public class CRSApplication {
                 default:
                     System.out.println("Please give a valid input\n");
             }
-
             if(choice == 4){break;}
-
         }
-
-
     }
 }

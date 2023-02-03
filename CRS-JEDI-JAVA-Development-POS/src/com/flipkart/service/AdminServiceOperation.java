@@ -24,16 +24,15 @@ public class AdminServiceOperation implements AdminInterface {
         return userId;
     }
 
-    public void approveStudentRegistration() {
-        Scanner sc = new Scanner(System.in);
+    public void approveStudentRegistration(int studentID) {
+//        Scanner sc = new Scanner(System.in);
         List<Student> unapprovedStudents =Data.unapprovedStudents;
-        System.out.println("List of unapproved students : ");
-        for(Student s: unapprovedStudents){
-            System.out.println(s.getUserID() + " - " + s.getUsername());
-        }
-
-        System.out.println("Enter the student ID to approve : ");
-        int studentID = Integer.parseInt(sc.nextLine());
+//        System.out.println("List of unapproved students : ");
+//        for(Student s: unapprovedStudents){
+//            System.out.println(s.getUserID() + " - " + s.getUsername());
+//        }
+//
+//        System.out.println("Enter the student ID to approve : ");
 
         for(Student s: unapprovedStudents) {
             if (s.getUserID() == studentID) {
@@ -91,13 +90,13 @@ public class AdminServiceOperation implements AdminInterface {
         return false;
     }
 
-    public void addCourse() {
-        System.out.println("Enter SemId: ");
-        int semId=sc.nextInt();
-        System.out.println("Enter courseId: ");
-        int courseId=sc.nextInt();
-        System.out.println("Enter courseName: ");
-        String courseName=sc.next();
+    public void addCourse(int semId , int courseId , String courseName) {
+//        System.out.println("Enter SemId: ");
+//        int semId=sc.nextInt();
+//        System.out.println("Enter courseId: ");
+//        int courseId=sc.nextInt();
+//        System.out.println("Enter courseName: ");
+//        String courseName=sc.next();
 
 
         List<Course> temp=Data.semCourseList.get(semId);
@@ -109,11 +108,8 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println(courseName + " added successfully.");
     }
 
-    public void removeCourse() {
-        System.out.println("Enter SemId: ");
-        int semId=sc.nextInt();
-        System.out.println("Enter courseId: ");
-        int courseId=sc.nextInt();
+    public void removeCourse(int semId , int courseId) {
+
         //String courseName=sc.next();
 
         if(Data.semCourseList.containsKey(semId)==false)
