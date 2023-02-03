@@ -9,14 +9,14 @@ import java.awt.desktop.SystemEventListener;
 import java.util.*;
 
 public class ProfessorServiceOperation implements ProfessorInterface {
-    public int login(String professorname, String password){
+    public int login(String professorName, String password){
         List<Professor> professorList = Data.professors;
         Course course = new Course();
 
         int userID = -1;
         for(Professor p:professorList)
         {
-            if(p.getName().equals(professorname) && p.getPassword().equals(password)) {
+            if(p.getName().equals(professorName) && p.getPassword().equals(password)) {
                 userID = p.getUserID();
                 break;
             }
@@ -41,17 +41,7 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         courseName.setProfID(-1);
     }
 
-    public void viewEnrolledStudents(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter Semester ID : ");
-        int semID = Integer.parseInt(sc.nextLine());
-
-        viewCourse(semID);
-
-        System.out.println("Enter course name : ");
-        String courseName = sc.nextLine();
-
+    public void viewEnrolledStudents(int semID , String courseName){
         Course course = null;
         for( Course c : Data.semCourseList.get(semID) ){
             if( c.getCourseName().equalsIgnoreCase(courseName) ){
@@ -78,17 +68,10 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         }
     }
 
-    public void addGrade(Professor professor){
-        Scanner sc = new Scanner(System.in);
+    public void addGrade(Professor professor , int courseID , int studentID , int score){
+//        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter course ID : ");
-        int courseID = Integer.parseInt(sc.nextLine());
 
-        System.out.println("Enter student ID : ");
-        int studentID = Integer.parseInt(sc.nextLine());
-
-        System.out.println("Enter score : ");
-        int score = Integer.parseInt(sc.nextLine());
 
         for(int semID : Data.semCourseList.keySet()){
             for(Course c: Data.semCourseList.get(semID) ){

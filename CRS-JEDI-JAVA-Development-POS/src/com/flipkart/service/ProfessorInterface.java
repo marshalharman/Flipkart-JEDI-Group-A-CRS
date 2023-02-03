@@ -13,7 +13,7 @@ public interface ProfessorInterface {
 
     public void deregisterCourse(Course courseName);
 
-    public void viewEnrolledStudents();
+    public void viewEnrolledStudents(int semID , String courseName);
 
-    public void addGrade(Professor professor);
+    public void addGrade(Professor professor , int courseID , int studentID , int score);
 }

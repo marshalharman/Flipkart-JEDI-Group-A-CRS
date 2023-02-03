@@ -9,6 +9,7 @@ public class CRSProfessorMenu {
 
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
+    Scanner sc = new Scanner(System.in);
     public void professorMenu(int userID)
     {
 
@@ -109,9 +110,24 @@ public class CRSProfessorMenu {
         }
     }
     private void viewEnrolledStudent(Professor professor){
-        service.viewEnrolledStudents();
+        System.out.println("Enter Semester ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+        service.viewCourse(semID);
+
+        System.out.println("Enter course name : ");
+        String courseName = sc.nextLine();
+
+        service.viewEnrolledStudents(semID,courseName);
     }
     private void addGrades(Professor professor){
-        service.addGrade(professor);
+        System.out.println("Enter course ID : ");
+        int courseID = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter student ID : ");
+        int studentID = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Enter score : ");
+        int score = Integer.parseInt(sc.nextLine());
+        service.addGrade(professor,courseID,studentID,score);
     }
 }
