@@ -26,10 +26,9 @@ public class ProfessorServiceOperation implements ProfessorInterface {
 
     public List<Course> viewCourse(int semID){
         List<Course> c = Data.semCourseList.get(semID);
-        System.out.println("List of courses");
-        for(int i=0;i<c.size();i++)
-        {
-            System.out.println(c.get(i)+"\n");
+        System.out.println("List of courses : ");
+        for( Course course : c ){
+            System.out.println(course.getCourseID() + " - " + course.getCourseName());
         }
         return c;
     }
@@ -43,11 +42,43 @@ public class ProfessorServiceOperation implements ProfessorInterface {
     }
 
     public void viewEnrolledStudents(){
-        
+        Scanner sc = new Scanner(System.in);
 
+        System.out.println("Enter Semester ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+
+        viewCourse(semID);
+
+        System.out.println("Enter course name : ");
+        String courseName = sc.nextLine();
+
+        Course course = null;
+        for( Course c : Data.semCourseList.get(semID) ){
+            if( c.getCourseName().equalsIgnoreCase(courseName) ){
+                course = c;
+                break;
+            }
+        }
+
+        List<Integer> idList = new ArrayList<Integer>();
+
+        for( Integer studentID : Data.registeredCourses.keySet() ){
+            if( Data.registeredCourses.get(studentID).contains(course) ){
+                idList.add(studentID);
+            }
+        }
+
+        for(Integer id: idList){
+            for(Student s: Data.students){
+                if( s.getUserID() == id){
+                    System.out.println(s.getUserID() + " - " + s.getName() );
+                    break;
+                }
+            }
+        }
     }
 
-    public void addGrade(){
+    public void addGrade(Professor professor){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter course ID : ");
@@ -59,12 +90,49 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         System.out.println("Enter score : ");
         int score = Integer.parseInt(sc.nextLine());
 
+        for(int semID : Data.semCourseList.keySet()){
+            for(Course c: Data.semCourseList.get(semID) ){
+                if( c.getCourseID() == courseID && c.getProfID() != professor.getUserID() ){
+                    System.out.println("This course is not taken by you. Grade cannot be added");
+                    return;
+                }
+            }
+        }
+
+        boolean isStudent = false;
+        boolean isStudentRegistered = false;
+        for(Student s: Data.students){
+            if( s.getUserID() == studentID ){
+                isStudent = true;
+                for(Course c: Data.registeredCourses.get(studentID) ){
+                    if( c.getCourseID() == courseID ){
+                        isStudentRegistered = true;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        if(!isStudent){
+            System.out.println("Student does not exist. Grade cannot be added");
+            return;
+        }
+
+        if(!isStudentRegistered){
+            System.out.println("Student is not registered for the course. Grade cannot be added");
+            return;
+        }
+
         Grade grade = new Grade();
 
         grade.setCourseID(courseID);
         grade.setStudentID(studentID);
         grade.setScore(score);
 
+        if( Data.gradeList.get(studentID) == null ){
+            Data.gradeList.put(studentID, new ArrayList<Grade>() );
+        }
         Data.gradeList.get(studentID).add(grade);
 
     }

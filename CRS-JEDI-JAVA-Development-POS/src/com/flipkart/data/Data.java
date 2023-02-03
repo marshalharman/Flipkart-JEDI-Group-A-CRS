@@ -21,6 +21,7 @@ public class Data {
 
     // studentID - Courses
     public static HashMap<Integer, List<Course>> registeredCourses = new HashMap<>();
+    public static HashMap<Integer, List<Student>> enrolledStudent = new HashMap<>();
 
     //studentId - upiID
     public static HashMap<Integer, Integer> upiIDS = new HashMap<Integer, Integer>();
@@ -31,20 +32,35 @@ public class Data {
     // courseId - count
     public static HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
 
+    // View Grades Enabled/disable
+    public static boolean viewGradesEnabled;
+
     static {
         Student st1 = new Student();
         st1.setUserID(101);
         st1.setName("Harman");
         st1.setPassword("abcd");
-        st1.setUserID(1);
 
         Student st2 = new Student();
-        st1.setUserID(102);
+        st2.setUserID(102);
         st2.setName("Marshal");
         st2.setPassword("xyz");
 
         students.add(st1);
         students.add(st2);
+
+
+        Admin adm=new Admin();
+        adm.setUserID(1);
+        adm.setName("admin");
+        adm.setPassword("admin");
+        admins.add(adm);
+
+        Professor prof=new Professor();
+        prof.setUserID(10);
+        prof.setName("prof");
+        prof.setPassword("prof");
+        professors.add(prof);
 
 
         Course c1 = new Course();
@@ -82,77 +98,34 @@ public class Data {
         sem2List.add(c6);
 
         semCourseList.put(1, sem1List);
+        semCourseList.put(2, sem2List);
 
-        List<Grade> tempGrades=new ArrayList<Grade>();
-        Grade g1=new Grade();
-        Grade g2=new Grade();
-        Grade g3=new Grade();
-        Grade g4=new Grade();
-        g1.setStudentID(1);
-        g1.setCourseID(11);
-        g1.setScore('A');
-        tempGrades.add(g1);
-
-        g2.setStudentID(1);
-        g2.setCourseID(12);
-        g2.setScore('B');
-        tempGrades.add(g2);
-
-        g3.setStudentID(1);
-        g3.setCourseID(13);
-        g3.setScore('C');
-        tempGrades.add(g3);
-
-        g4.setStudentID(1);
-        g4.setCourseID(14);
-        g4.setScore('A');
-        tempGrades.add(g4);
-
-        gradeList.put(1,tempGrades);
-
-        //semCourseList.put(2, sem2List);
+//        List<Grade> tempGrades=new ArrayList<Grade>();
+//        Grade g1=new Grade();
+//        Grade g2=new Grade();
+//        Grade g3=new Grade();
+//        Grade g4=new Grade();
+//        g1.setStudentID(1);
+//        g1.setCourseID(11);
+//        g1.setScore('A');
+//        tempGrades.add(g1);
+//
+//        g2.setStudentID(1);
+//        g2.setCourseID(12);
+//        g2.setScore('B');
+//        tempGrades.add(g2);
+//
+//        g3.setStudentID(1);
+//        g3.setCourseID(13);
+//        g3.setScore('C');
+//        tempGrades.add(g3);
+//
+//        g4.setStudentID(1);
+//        g4.setCourseID(14);
+//        g4.setScore('A');
+//        tempGrades.add(g4);
+//
+//        gradeList.put(1,tempGrades);
+        viewGradesEnabled = false;
     }
-
-
-
-    public Data(){
-//        semCourseList.put(1, List.of(new String[]{}));
-
-        Admin adm=new Admin();
-        adm.setUserID(1);
-        adm.setName("admin");
-        adm.setPassword("admin");
-        admins.add(adm);
-
-    }
-    public boolean setUnApprovedStudents(Student s)
-    {
-        unapprovedStudents.add(s);
-        return true;
-    }
-    public void deleteandAddUnApprovedStudents()
-    {
-        for(Student s: unapprovedStudents)
-        {
-            students.add(s);
-        }
-        unapprovedStudents.clear();
-    }
-    public boolean addProfessor(Professor p)
-    {
-       professors.add(p);
-       return true;
-    }
-    public boolean deleteProfessor(Professor p)
-    {
-        professors.remove(p);
-        return true;
-    }
-
-    // courses - freq
-
-    // student - courses and grades
-
-
-
 }

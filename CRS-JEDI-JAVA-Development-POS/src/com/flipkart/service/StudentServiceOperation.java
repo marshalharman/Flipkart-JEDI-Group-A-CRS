@@ -9,28 +9,26 @@ import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
-    Data studentsdata= new Data();
-
     Scanner sc = new Scanner(System.in);
     public void register(){
 
         System.out.println("Enter your student ID: ");
-        int studentId = sc.nextInt();
+        int studentId = Integer.parseInt(sc.nextLine());
 
         System.out.println("Enter your name: ");
-        String name = sc.next();
+        String name = sc.nextLine();
 
         System.out.println("Enter your address: ");
-        String address = sc.next();
+        String address = sc.nextLine();
 
         System.out.println("Enter your username: ");
-        String username = sc.next();
+        String username = sc.nextLine();
 
         System.out.println("Enter your password: ");
-        String password = sc.next();
+        String password = sc.nextLine();
 
         System.out.println("Enter your branch: ");
-        String branch = sc.next();
+        String branch = sc.nextLine();
         for(Student s:Data.students)
         {
             if(s.getUserID()==studentId)
@@ -47,13 +45,12 @@ public class StudentServiceOperation implements StudentInterface {
         student.setPassword(password);
         student.setBranch(branch);
         student.setRole("Student");
-        Data d = new Data();
-        d.setUnApprovedStudents(student);
+        Data.unapprovedStudents.add(student);
         System.out.println("Student registered successfully.");
     }
 
     public int login(String studentName, String password){
-        List<Student> studentsList= studentsdata.students;
+        List<Student> studentsList= Data.students;
         int userId = -1;
         for(Student s:studentsList)
         {
@@ -67,12 +64,16 @@ public class StudentServiceOperation implements StudentInterface {
 
     public void semesterRegister(Student student){
 
-        System.out.println("Select Semester to register:");
+        System.out.println("Select course to register:");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. BCA\n  2.MCA");
+        sc.nextLine();
+
         for(Map.Entry m: Data.semCourseList.entrySet()){
             System.out.println(m.getKey());
         }
 
-        Scanner sc = new Scanner(System.in);
         int semID = Integer.parseInt(sc.nextLine());
 
         student.setSemID(semID);
@@ -83,7 +84,7 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("List of courses");
         for(int i=0;i<c.size();i++)
         {
-            System.out.println(c.get(i)+"\n");
+            System.out.println(c.get(i).getCourseName()+"\n");
         }
         return c;
     }
@@ -96,7 +97,7 @@ public class StudentServiceOperation implements StudentInterface {
         getCourses(student.getSemID());
         String courseName = sc.nextLine();
 
-        for( Course course: studentsdata.semCourseList.get(student.getSemID())){
+        for( Course course: Data.semCourseList.get(student.getSemID())){
             if( course.getCourseName().equalsIgnoreCase(courseName) ){
                 if( choice == 1){ student.addPrimaryCourse(course); }
                 else if( choice == 2 ){ student.addAlternateCourse(course); }
@@ -162,8 +163,11 @@ public class StudentServiceOperation implements StudentInterface {
             if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
                 Data.courseEnrollmentCount.put(course.getCourseID(), 0);
             }
-            if(Data.courseEnrollmentCount.get(course.getCourseID()) < 10){
+            int currentCount = Data.courseEnrollmentCount.get(course.getCourseID());
+            if(currentCount < 10){
                 Data.registeredCourses.get(student.getUserID()).add(course);
+                currentCount++;
+                Data.courseEnrollmentCount.put(course.getCourseID(), currentCount);
                 registeredCourseCount++;
             }
         }
@@ -172,8 +176,11 @@ public class StudentServiceOperation implements StudentInterface {
             if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
                 Data.courseEnrollmentCount.put(course.getCourseID(), 0);
             }
-            if(registeredCourseCount < 4 && Data.courseEnrollmentCount.get(course.getCourseID()) < 10){
+            int currentCount = Data.courseEnrollmentCount.get(course.getCourseID());
+            if(registeredCourseCount < 4 && currentCount < 10){
                 Data.registeredCourses.get(student.getUserID()).add(course);
+                currentCount++;
+                Data.courseEnrollmentCount.put(course.getCourseID(), currentCount);
                 registeredCourseCount++;
             }
         }
@@ -194,17 +201,27 @@ public class StudentServiceOperation implements StudentInterface {
     }
 
 
+
     public void viewGrades(int studentId){
         System.out.println();
-        Data d = new Data();
-        HashMap<Integer,List<Grade> > hp= d.gradeList;
+        if(!Data.viewGradesEnabled){
+            System.out.println("Grades are not available. Please check later");
+            return;
+        }
+        HashMap<Integer,List<Grade> > hp= Data.gradeList;
         List<Grade> studentGrades=hp.get(studentId);
         System.out.println("Grades :");
+
         for(Grade grade:studentGrades){
-            System.out.println(grade.getStudentID() + " " +grade.getCourseID() + " " +grade.getScore());
+            for( int semID : Data.semCourseList.keySet() ){
+                for( Course c: Data.semCourseList.get(semID) ){
+                    if( grade.getCourseID() == c.getCourseID() ){
+                        System.out.println(c.getCourseName() + " : " + grade.getScore() );
+                    }
+                }
+            }
         }
 
+
     }
-
-
 }

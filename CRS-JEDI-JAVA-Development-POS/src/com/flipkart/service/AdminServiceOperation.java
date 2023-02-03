@@ -12,8 +12,7 @@ public class AdminServiceOperation implements AdminInterface {
 
     Scanner sc=new Scanner(System.in);
     public int login(String adminName, String password) {
-        Data d= new Data();
-        List<Admin> adminsList= d.admins;
+        List<Admin> adminsList= Data.admins;
         int userId = -1;
         for(Admin s:adminsList)
         {
@@ -26,14 +25,39 @@ public class AdminServiceOperation implements AdminInterface {
     }
 
     public void approveStudentRegistration() {
-        List<Student> unapprostudents =Data.unapprovedStudents;
-        for(Student s:unapprostudents)
-        {
-            s.setApproved(true);
-            Data.students.add(s);
+        Scanner sc = new Scanner(System.in);
+        List<Student> unapprovedStudents =Data.unapprovedStudents;
+        System.out.println("List of unapproved students : ");
+        for(Student s: unapprovedStudents){
+            System.out.println(s.getUserID() + " - " + s.getUsername());
         }
-        Data.unapprovedStudents.clear();
 
+        System.out.println("Enter the student ID to approve : ");
+        int studentID = Integer.parseInt(sc.nextLine());
+
+        for(Student s: unapprovedStudents) {
+            if (s.getUserID() == studentID) {
+                Data.students.add(s);
+                Data.unapprovedStudents.remove(s);
+                break;
+            }
+        }
+    }
+
+    public boolean addAdmin(Admin a) {
+        List<Admin> adminList= Data.admins;
+        for(Admin admin : adminList)
+        {
+            if(a.getUserID()==admin.getUserID())
+            {
+                System.out.println("Already exists\n");
+                return false;
+            }
+        }
+        Data.admins.add(a);
+        System.out.println("Added Admin");
+
+        return true;
     }
 
     public boolean addProfessor(Professor p) {
@@ -48,6 +72,7 @@ public class AdminServiceOperation implements AdminInterface {
         }
         Data.professors.add(p);
         System.out.println("Added Professor");
+
         return true;
     }
 
@@ -74,13 +99,13 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Enter courseName: ");
         String courseName=sc.next();
 
-        Data d=new Data();
-        List<Course> temp=d.semCourseList.get(semId);
+
+        List<Course> temp=Data.semCourseList.get(semId);
         Course c1=new Course();
         c1.setCourseID(courseId);
         c1.setCourseName(courseName);
         temp.add(c1);
-        d.semCourseList.put(semId,temp);
+        Data.semCourseList.put(semId,temp);
         System.out.println(courseName + " added successfully.");
     }
 
@@ -91,19 +116,25 @@ public class AdminServiceOperation implements AdminInterface {
         int courseId=sc.nextInt();
         //String courseName=sc.next();
 
-        Data d=new Data();
-        List<Course> temp=d.semCourseList.get(semId);
+        if(Data.semCourseList.containsKey(semId)==false)
+        {
+            System.out.println("Semester doesn't exist.");
+            return ;
+        }
+
+        List<Course> temp=Data.semCourseList.get(semId);
         for(Course c1:temp){
             if(c1.getCourseID()==courseId){
                 temp.remove(c1);
                 break;
             }
         }
-        d.semCourseList.put(semId,temp);
+        Data.semCourseList.put(semId,temp);
         System.out.println("removed successfully.");
     }
 
     public void generateGradeCard() {
-        
+        Data.viewGradesEnabled = true;
+        System.out.println("Grades Released!");
     }
 }
