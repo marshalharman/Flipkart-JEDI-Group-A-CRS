@@ -14,7 +14,7 @@ public interface StudentDAO {
     public List<Course> getCourses(int semID);
 
 
-    public int getCourseEnrollmentCount(int courseID);
+    public HashMap<Integer,Integer> getCourseEnrollmentCount(int courseID);
 
     // registerCourse/SubmitPreference()
     public void registerCourses(int studentID, List<Integer> courseID, int semID);
@@ -23,7 +23,7 @@ public interface StudentDAO {
     public void dropCourse(int studentID, int courseID);
 
     // getRegisteredCourses()
-    public void getRegisteredCourses(int studentID);
+    public List<Course> getRegisteredCourses(int studentID);
 
     // viewGrades()
     public HashMap<Course, String> viewGrades(int studentID);

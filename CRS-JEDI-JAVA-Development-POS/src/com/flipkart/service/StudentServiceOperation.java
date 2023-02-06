@@ -45,23 +45,6 @@ public class StudentServiceOperation implements StudentInterface {
         return studentDAO.getCourses(semID);
     }
 
-//    public HashMap<Integer, Integer> getCourseEnrollmentCount(int semID) {
-//        return ;
-//    }
-
-//    public void addCourse(Student student, int choice, int semID, String courseName){
-//
-//        for( Course course: Data.semCourseList.get(student.getSemID())){
-//            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-//                if( choice == 1){ student.addPrimaryCourse(course); }
-//                else if( choice == 2 ){ student.addAlternateCourse(course); }
-//            }
-//        }
-//
-//    }
-
-//    public void  removeCourse(Student student, int choice){
-//    }
     public void dropCourse(Student student, String courseName){
 
         for(Course course: Data.semCourseList.get(student.getSemID()) ){
@@ -119,9 +102,10 @@ public class StudentServiceOperation implements StudentInterface {
         }
     }
 
-    public void getRegisteredCourses(Student student, int userId){
+    public void getRegisteredCourses(int studentID){
+        List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
 
-        for(Course course: Data.registeredCourses.get(userId)){
+        for(Course course: registeredCourses){
             System.out.println(course.getCourseName());
         }
     }

@@ -34,6 +34,11 @@ public class StudentDAOImpl implements StudentDAO{
             String sql1 = "SELECT DISTINCT semID FROM Catalog";
             stmt = conn.prepareStatement(sql1);
             ResultSet rs = stmt.executeQuery(sql1);
+
+            while(rs.next()){
+                int semID = rs.getInt(1);
+                semList.add(semID);
+            }
         }
         catch(SQLException se){
             //Handle errors for JDBC
@@ -58,33 +63,6 @@ public class StudentDAOImpl implements StudentDAO{
         return semList;
     }
 
-//    @Override
-//    public void setSemester(int studentID, int semID) {
-//        Connection conn = null;
-//        PreparedStatement stmt = null;
-//
-//        try{
-//            Class.forName("com.mysql.jdbc.Driver");
-//
-//            System.out.println("Connecting to database...");
-//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-//
-//            System.out.println("Creating statement...");
-//            String sql="insert into employeefc values(?,?,?,?)";
-//            //String sql = "UPDATE Employees set age=? WHERE id=?";
-//            // String sql1="delete from employee where id=?";
-//            // stmt.setInt(1, 101);
-//
-//            String sql1 = "UPDATE from semID FROM Catalog";
-//            stmt = conn.prepareStatement(sql1);
-//            ResultSet rs = stmt.executeQuery(sql1);
-//        }
-//        catch(Exception e){
-//            //Handle errors for Class.forName
-//            e.printStackTrace();
-//        }
-//    }
-
     @Override
     public List<Course> getCourses(int semID) {
         Connection conn = null;
@@ -96,12 +74,6 @@ public class StudentDAOImpl implements StudentDAO{
 
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            System.out.println("Creating statement...");
-            String sql="insert into employeefc values(?,?,?,?)";
-            //String sql = "UPDATE Employees set age=? WHERE id=?";
-            // String sql1="delete from employee where id=?";
-            // stmt.setInt(1, 101);
 
             String sql1 = "SELECT DISTINCT * FROM Catalog where semID = ?";
             stmt = conn.prepareStatement(sql1);
@@ -154,6 +126,7 @@ public class StudentDAOImpl implements StudentDAO{
 
                 courseEnrollmentCount.put(courseID, count);
             }
+            rs.close();
         }
         catch(SQLException se){
             //Handle errors for JDBC
@@ -265,8 +238,58 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public void getRegisteredCourses(int studentID) {
+    public List<Course> getRegisteredCourses(int studentID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
+
+        List<Course> registeredCourse = new ArrayList<>();
+
+        String sql = " SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?;";
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, studentID);
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+
+                Course regCourse = new Course();
+
+                regCourse.setCourseID(rs.getInt("Courses.CourseID"));
+                regCourse.setCourseName(rs.getString("Courses.Name"));
+                regCourse.setCourseName(rs.getString("Courses.ProfID"));
+
+                registeredCourse.add(regCourse);
+            }
+
+            rs.close();
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return registeredCourse;
     }
 
     @Override
