@@ -4,6 +4,7 @@ import com.flipkart.service.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CRSApplication {
@@ -15,7 +16,7 @@ public class CRSApplication {
     static final String USER = "root";
     static final String PASS = "root";
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws SQLException, ClassNotFoundException {
 
         Connection conn = null;
         PreparedStatement stmt = null;

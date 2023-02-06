@@ -4,7 +4,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
 import java.sql.*;
 import java.util.*;
-public class AdminDAOImpl implements AdminDAO{
+public class AdminDAOImpl implements AdminDAO {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/crs_database";
@@ -60,7 +60,7 @@ public class AdminDAOImpl implements AdminDAO{
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             String sql = "delete from Course where CourseID = ?";
             stmt = conn.prepareStatement(sql);
@@ -99,6 +99,7 @@ public class AdminDAOImpl implements AdminDAO{
         }//end try
     }
     public void addCourse(Course course, int semID){
+
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -122,7 +123,7 @@ public class AdminDAOImpl implements AdminDAO{
             stmt.setInt(2, semID);
             stmt.executeUpdate();
 
-        } catch(SQLException se){
+        }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
         }catch(Exception e){
@@ -156,7 +157,7 @@ public class AdminDAOImpl implements AdminDAO{
             Class.forName("com.mysql.jdbc.Driver");
 
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt=conn.prepareStatement(sql);
             stmt.setInt(1,studentId);
@@ -194,7 +195,7 @@ public class AdminDAOImpl implements AdminDAO{
             Class.forName("com.mysql.jdbc.Driver");
 
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             String sql = "INSERT INTO Professor(ProfId, Name, Department, Designation) values (?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql);
@@ -239,7 +240,7 @@ public class AdminDAOImpl implements AdminDAO{
             Class.forName("com.mysql.jdbc.Driver");
 
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, 1);

@@ -29,8 +29,7 @@ public class AdminServiceOperation implements AdminInterface {
 
         adminDaoImpl.addAdmin(userID, name);
     }
-
-    public void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation){
+    public void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation) {
 
         UserDAOImpl userDAO = new UserDAOImpl();
 
@@ -42,9 +41,7 @@ public class AdminServiceOperation implements AdminInterface {
         professor.setDepartment(dept);
         professor.setDesignation(designation);
 
-        adminDaoImpl.addProfessor(professor);;
-
-        return ;
+        adminDaoImpl.addProfessor(professor);
     }
 
     public void addCourse(int courseID , String courseName, int semID){
