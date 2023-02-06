@@ -9,7 +9,7 @@ public class UserDAOImpl implements UserDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "somil0412";
 
 
 
@@ -27,7 +27,7 @@ public class UserDAOImpl implements UserDAO{
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            String sql = "SELECT * FROM User WHERE UserID = ? AND Password = ?";
+            String sql = "SELECT * FROM User WHERE UserID=? AND Password=?";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, userID);
