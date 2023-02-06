@@ -82,8 +82,11 @@ public class CRSApplication {
                     System.out.println("Enter your branch: ");
                     String branch = sc.nextLine();
 
+                    System.out.println(("Enter your degree: "));
+                    String degree = sc.nextLine();
+
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
-                    studentServiceOperation.register(studentId,name,address,username, password, branch);
+                    studentServiceOperation.register(studentId,name,address,username, password, branch, degree);
                     break;
                 }
                 case 3: {

@@ -25,11 +25,10 @@ public class CRSAdminMenu {
             System.out.println("1. Approve Student Registration");
             System.out.println("2. Add Admin");
             System.out.println("3. Add Professor");
-            System.out.println("4. Remove Professor");
-            System.out.println("5. Add Courses");
-            System.out.println("6. Delete Courses");
-            System.out.println("7. Generate Grade Card");
-            System.out.println("8. Logout");
+            System.out.println("4. Add Courses");
+            System.out.println("5. Delete Courses");
+            System.out.println("6. Generate Grade Card");
+            System.out.println("7. Logout");
 
             Scanner obj = new Scanner(System.in);
             int choice = Integer.parseInt(obj.nextLine());
@@ -40,21 +39,19 @@ public class CRSAdminMenu {
                     break;
 
                 case 2:{
-                    Admin admin = new Admin();
-
-                    System.out.println("Enter Admin ID\n");
+                    System.out.println("Enter Admin ID");
                     int userID = Integer.parseInt(obj.nextLine());
-                    admin.setUserID(userID);
 
-                    System.out.println("Enter Admin name\n");
+                    System.out.println("Enter Admin name");
                     String userName =obj.nextLine();
-                    admin.setName(userName);
 
-                    System.out.println("Enter Password\n");
+                    System.out.println("Enter Password");
                     String password = obj.nextLine();
-                    admin.setPassword(password);
 
-                    addAdmin(admin);
+                    System.out.println("Enter Name");
+                    String name = obj.nextLine();
+
+                    addAdmin(userID, userName, password, "admin", true, name);
 
                     for(Admin a: Data.admins){
                         System.out.println(a.getName());
@@ -62,74 +59,58 @@ public class CRSAdminMenu {
                     break;
                 }
                 case 3:
-                    Professor p=new Professor();
 
-                    System.out.println("Enter Prof ID\n");
+                    System.out.println("Enter Prof ID");
                     int userID = Integer.parseInt(obj.nextLine());
-                    p.setUserID(userID);
 
-                    System.out.println("Enter Prof name\n");
+                    System.out.println("Enter Username");
                     String userName =obj.nextLine();
-                    p.setName(userName);
 
-                    System.out.println("Enter Password\n");
+                    System.out.println("Enter Password");
                     String password = obj.nextLine();
-                    p.setPassword(password);
 
-                    addProfessor(p);
+                    System.out.println("Enter Name");
+                    String name = obj.nextLine();
+
+                    System.out.println("Enter Department");
+                    String dept = obj.nextLine();
+
+                    System.out.println("Enter Designation");
+                    String designation = obj.nextLine();
+
+                    addProfessor(userID, userName, password, "professor", name, dept, designation);
                     break;
                 case 4:
-                    System.out.println("Give Prof name: \n");
-                    String profName = obj.nextLine();
-                    removeProfessor(profName);
+                    addCourses();
                     break;
                 case 5:
-//                    addCourses();
-                    break;
-                case 6:
                     deleteCourses();
                     break;
-                case 7:
+                case 6:
                     generateReportCard();
                     break;
-                case 8:
+                case 7:
                     System.out.println("Logged out\n");
                     break;
                 default:
                     System.out.println("Choose in the given options\n");
             }
 
-            if(choice == 8){break;}
+            if(choice == 7){break;}
         }
     }
 	private void approvedStudentRegistration(){
-        List<Student> unapprovedStudents =Data.unapprovedStudents;
-        if(unapprovedStudents.isEmpty())
-        {
-            System.out.println("No unapproved student.");
-            return;
-
-        }
-        System.out.println("List of unapproved students : ");
-        for(Student s: unapprovedStudents){
-            System.out.println(s.getUserID() + " - " + s.getUsername());
-        }
-
         System.out.println("Enter the student ID to approve : ");
         int studentID = Integer.parseInt(sc.nextLine());
         service.approveStudentRegistration(studentID);
     }
-    private void addAdmin(Admin a){
-//        service.addAdmin(a);
+    private void addAdmin(int userID, String userName, String password, String role, boolean isApproved, String name){
+        service.addAdmin(userID, userName, password, role, isApproved, name);
     }
-    private void addProfessor(Professor p){
-
-//        service.addProfessor(p);
+    private void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation){
+        service.addProfessor(userID,userName,password,role,name,dept,designation);
     }
-    private void removeProfessor(String profName){
-        service.removeProfessor(profName);
-    }
-    private void addCourses() throws SQLException, ClassNotFoundException {
+    private void addCourses() {
         System.out.println("Enter SemId: ");
         int semID=sc.nextInt();
         System.out.println("Enter courseId: ");
@@ -143,7 +124,7 @@ public class CRSAdminMenu {
         int semId=sc.nextInt();
         System.out.println("Enter courseId: ");
         int courseId=sc.nextInt();
-//        service.removeCourse(semId,courseId);
+        service.removeCourse(semId,courseId);
     }
     private void generateReportCard(){
     	service.generateGradeCard();

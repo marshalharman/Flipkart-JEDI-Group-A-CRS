@@ -8,7 +8,7 @@ import java.util.List;
 import com.flipkart.bean.Student;
 
 public interface StudentInterface {
-    public void register(int studentId, String name, String address, String username, String password, String branch);
+    public void register(int studentId, String name, String address, String username, String password, String branch, String degree);
     public void setSemID(int studentID, int semID);
     public List<Integer> getSemesterList(int studentID);
     public List<Course> getCourses(int semID);

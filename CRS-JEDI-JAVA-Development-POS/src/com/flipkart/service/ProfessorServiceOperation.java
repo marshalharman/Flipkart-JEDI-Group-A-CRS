@@ -13,21 +13,6 @@ public class ProfessorServiceOperation implements ProfessorInterface {
 
     ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
 
-    public int login(String professorName, String password){
-        List<Professor> professorList = Data.professors;
-        Course course = new Course();
-
-        int userID = -1;
-        for(Professor p:professorList)
-        {
-            if(p.getName().equals(professorName) && p.getPassword().equals(password)) {
-                userID = p.getUserID();
-                break;
-            }
-        }
-        return userID;
-    }
-
     public List<Course> viewCourse(int semID){
 
         List<Course> courseList = professorDAO.viewCoursesBySemID(semID);
