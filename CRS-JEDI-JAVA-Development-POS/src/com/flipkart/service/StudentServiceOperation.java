@@ -46,7 +46,12 @@ public class StudentServiceOperation implements StudentInterface {
         return studentDAO.getCourses(semID);
     }
 
-    public void dropCourse(int studentID, int courseID){
+    public void setSemID(int studentID, int semID){
+        studentDAO.setSemIDforStudent(studentID, semID);
+    }
+    public void dropCourse(int studentID, int courseID) {
+
+        studentDAO.dropCourse(studentID, courseID);
     }
 
     public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses){

@@ -63,21 +63,26 @@ public class StudentDAOImpl implements StudentDAO{
         return semList;
     }
 
-    @Override
-    public List<Course> getCourses(int semID) {
+    public void setSemIDforStudent(int studentID, int semID){
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        List<Course> courseList = new ArrayList<Course>();
+        String sql = "UPDATE Student SET SemID = ? WHERE StudentID = ?";
+
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            String sql1 = "SELECT DISTINCT * FROM Catalog where semID = ?";
-            stmt = conn.prepareStatement(sql1);
-            ResultSet rs = stmt.executeQuery(sql1);
+            System.out.println("Creating statement...");
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, semID);
+            stmt.setInt(2, studentID);
+
+            stmt.executeUpdate();
+
         }
         catch(SQLException se){
             //Handle errors for JDBC
@@ -99,6 +104,62 @@ public class StudentDAOImpl implements StudentDAO{
                 se.printStackTrace();
             }//end finally try
         }//end try
+
+    }
+
+    @Override
+    public List<Course> getCourses(int semID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        List<Course> courseList = new ArrayList<Course>();
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            System.out.println("Creating statement...");
+            String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
+                    "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, semID);
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+
+                Course course = new Course();
+
+                course.setCourseID(rs.getInt("Courses.CourseID"));
+                course.setCourseName(rs.getString("Courses.Name"));
+                course.setProfID(rs.getInt("Courses.ProfID"));
+
+                courseList.add(course);
+            }
+        }
+        catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
         return courseList;
     }
 
@@ -387,6 +448,7 @@ public class StudentDAOImpl implements StudentDAO{
             student.setAddress(rs.getString("Address"));
             student.setBranch(rs.getString("Branch"));
             student.setDegree(rs.getString("Degree"));
+            student.setSemID(rs.getInt("SemID"));
 
             rs.close();
 

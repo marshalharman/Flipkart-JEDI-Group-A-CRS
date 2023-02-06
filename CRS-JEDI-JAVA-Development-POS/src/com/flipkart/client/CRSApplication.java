@@ -44,7 +44,7 @@ public class CRSApplication {
                         role = sc.nextLine();
 
                         UserInterface userServiceOperation = new UserServiceOperation();
-                        boolean verified = userServiceOperation.verifyCredentials(userID, password);
+                        boolean verified = userServiceOperation.verifyCredentials(userID, password, role);
 
 
                         if (role.equalsIgnoreCase("student")) {

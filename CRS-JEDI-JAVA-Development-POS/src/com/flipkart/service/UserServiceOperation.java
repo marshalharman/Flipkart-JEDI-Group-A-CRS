@@ -8,9 +8,9 @@ public class UserServiceOperation implements UserInterface{
 
     UserDAO userDAO = new UserDAOImpl();
     @Override
-    public boolean verifyCredentials(int userID, String password) {
+    public boolean verifyCredentials(int userID, String password, String role) {
 
         // find user from data with given username and password
-        return userDAO.login(userID, password);
+        return userDAO.login(userID, password, role);
     }
 }
