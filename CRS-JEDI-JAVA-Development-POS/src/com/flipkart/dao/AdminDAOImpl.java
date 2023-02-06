@@ -9,7 +9,7 @@ import java.util.*;
 public class AdminDAOImpl implements AdminDAO{
 
     private PreparedStatement statement = null;
-    Connection connection = DataBaseFile.getConnection();
+    Connection connection = null;
     public void deleteCourse(String courseCode) throws SQLException {
         statement = null;
         String sql = "delete from Course where courseCode = "+courseCode;

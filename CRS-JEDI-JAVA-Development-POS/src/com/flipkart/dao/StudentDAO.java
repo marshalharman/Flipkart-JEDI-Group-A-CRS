@@ -14,8 +14,11 @@ public interface StudentDAO {
 
     public List<Course> getCourses(int semID);
 
+
+    public int getCourseEnrollmentCount(int courseID);
+
     // registerCourse/SubmitPreference()
-    public void registerCourses();
+    public void registerCourses(int studentID, List<Integer> courseID, int semID);
 
     // dropCourse()
     public void dropCourse(int studentID, int courseID);
