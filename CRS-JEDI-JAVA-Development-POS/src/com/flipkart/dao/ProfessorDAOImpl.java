@@ -56,8 +56,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
                 courseList.add(course);
             }
 
-            stmt.close();
-            conn.close();
+            rs.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -103,9 +102,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             stmt.setInt(2, course.getCourseID());
 
             stmt.executeUpdate();
-
-            stmt.close();
-            conn.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -159,8 +155,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
                 return false;
             }
 
-            stmt.close();
-            conn.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -216,8 +210,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
                 studentList.add(student);
             }
 
-            stmt.close();
-            conn.close();
+            rs.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -269,8 +262,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             student.setBranch(rs.getString("Branch"));
             student.setDegree(rs.getString("Degree"));
 
-            stmt.close();
-            conn.close();
+            rs.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -328,8 +320,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
                 courseList.add(course);
             }
 
-            stmt.close();
-            conn.close();
+            rs.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -378,9 +369,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             stmt.executeUpdate();
 
-            stmt.close();
-            conn.close();
-
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
@@ -428,8 +416,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             semID = rs.getInt("SemID");
 
             rs.close();
-            stmt.close();
-            conn.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -484,8 +470,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             course.setProfID(pid);
 
             rs.close();
-            stmt.close();
-            conn.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -543,8 +527,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             professor.setDesignation(designation);
 
             rs.close();
-            stmt.close();
-            conn.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC
