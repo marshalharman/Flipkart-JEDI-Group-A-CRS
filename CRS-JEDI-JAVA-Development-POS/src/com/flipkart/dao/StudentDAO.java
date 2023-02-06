@@ -14,7 +14,7 @@ public interface StudentDAO {
     public List<Course> getCourses(int semID);
 
 
-    public int getCourseEnrollmentCount(int courseID);
+    public HashMap<Integer, Integer> getCourseEnrollmentCount(int courseID);
 
     // registerCourse/SubmitPreference()
     public void registerCourses(int studentID, List<Integer> courseID, int semID);
