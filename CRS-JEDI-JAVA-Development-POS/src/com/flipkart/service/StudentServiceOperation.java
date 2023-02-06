@@ -13,7 +13,9 @@ public class StudentServiceOperation implements StudentInterface {
 
     StudentDAOImpl studentDAO = new StudentDAOImpl();
     Scanner sc = new Scanner(System.in);
-    public void register(int studentId, String name, String address, String username, String password, String branch){
+    public void register(int studentId, String name, String address, String username, String password, String branch, String degree){
+
+        studentDAO.register(studentId,name,address,username,password,branch,degree);
 
         for(Student s:Data.students)
         {

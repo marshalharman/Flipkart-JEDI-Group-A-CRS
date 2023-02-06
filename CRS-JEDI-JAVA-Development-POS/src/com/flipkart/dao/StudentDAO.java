@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface StudentDAO {
 
+    public void register(int studentID, String name, String address, String username, String password, String branch, String degree);
     public List<Integer> getSemesterList();
 
 //    public void setSemester(int studentID, int semID);
