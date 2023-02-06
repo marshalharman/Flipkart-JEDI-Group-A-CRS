@@ -20,10 +20,12 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     static final String USER = "root";
     static final String PASS = "root";
 
+    static Connection conn = null;
+
 
     public List<Course> viewCoursesBySemID(int semID){
 
-        Connection conn = null;
+
         PreparedStatement stmt = null;
 
         List<Course> courseList = new ArrayList<Course>();
@@ -83,7 +85,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public boolean registerCourseForProfessor(int profID, String courseName, int semID){
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = getCourseByName(courseName);
@@ -133,7 +134,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public boolean deregisterCourseForProfessor(int profID, String courseName){
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = getCourseByName(courseName);
@@ -188,7 +188,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public List<Student> viewEnrolledStudents(String courseName){
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = getCourseByName(courseName);
@@ -246,7 +245,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public Student getStudentByID(int studentID){
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         Student student = new Student();
@@ -301,7 +299,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     @Override
     public List<Course> getCoursesByProfessor(int profID) {
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         List<Course> courseList = new ArrayList<Course>();
@@ -361,7 +358,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     @Override
     public Boolean addGrade(int studentId, String courseName, String grade) {
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = getCourseByName(courseName);
@@ -411,7 +407,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public int getSemIDbyCourseID(int courseID){
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         int semID = -1;
@@ -462,7 +457,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public Course getCourseByName(String courseName){
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = new Course();
@@ -522,7 +516,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         Professor professor = new Professor();
 
-        Connection conn = null;
         PreparedStatement stmt = null;
 
         String sql = "SELECT ProfID, Name, Department, Designation FROM Professor WHERE ProfID = (?)";
