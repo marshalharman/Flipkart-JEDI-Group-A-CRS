@@ -15,8 +15,7 @@ import java.util.Scanner;
 public class CRSAdminMenu {
     AdminInterface service = new AdminServiceOperation();
     Scanner sc = new Scanner(System.in);
-    public void adminMenu(int id)
-    {
+    public void adminMenu(int id) throws SQLException, ClassNotFoundException {
 
         while(true) {
 
@@ -119,8 +118,8 @@ public class CRSAdminMenu {
         int studentID = Integer.parseInt(sc.nextLine());
         service.approveStudentRegistration(studentID);
     }
-    private void addAdmin(Admin a){ service.addAdmin(a);}
-    private void addProfessor(Professor p){
+    private void addAdmin(Admin a) throws SQLException, ClassNotFoundException { service.addAdmin(a);}
+    private void addProfessor(Professor p) throws SQLException, ClassNotFoundException {
         service.addProfessor(p);
     }
     private void removeProfessor(String profName){
@@ -135,7 +134,7 @@ public class CRSAdminMenu {
         String courseName=sc.next();
         service.addCourse(courseID, courseName, semID);
     }
-    private void deleteCourses(){
+    private void deleteCourses() throws SQLException, ClassNotFoundException {
         System.out.println("Enter SemId: ");
         int semId=sc.nextInt();
         System.out.println("Enter courseId: ");
