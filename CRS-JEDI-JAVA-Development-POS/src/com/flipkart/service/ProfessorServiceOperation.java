@@ -3,6 +3,7 @@ import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Course;
+import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.data.*;
 
 import java.awt.desktop.SystemEventListener;
@@ -33,12 +34,13 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         return c;
     }
 
-    public void registerCourse(int profID, Course courseName){
-        courseName.setProfID(profID);
+    public void registerCourse(int profID, String courseName, int semID){
+        ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
+        professorDAO.registerCourseForProfessor(profID, courseName, semID);
     }
 
-    public void deregisterCourse(Course courseName){
-        courseName.setProfID(-1);
+    public void deregisterCourse(int profID, String courseName, int semID){
+
     }
 
     public void viewEnrolledStudents(int semID , String courseName){
@@ -68,14 +70,14 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         }
     }
 
-    public void addGrade(Professor professor , int courseID , int studentID , int score){
-//        Scanner sc = new Scanner(System.in);
+    public void addGrade(int profID , int courseID , int studentID , int score){
+//      Scanner sc = new Scanner(System.in);
 
 
 
         for(int semID : Data.semCourseList.keySet()){
             for(Course c: Data.semCourseList.get(semID) ){
-                if( c.getCourseID() == courseID && c.getProfID() != professor.getUserID() ){
+                if( c.getCourseID() == courseID && c.getProfID() != profID ){
                     System.out.println("This course is not taken by you. Grade cannot be added");
                     return;
                 }

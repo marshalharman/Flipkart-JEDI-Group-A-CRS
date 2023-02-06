@@ -38,19 +38,19 @@ public class CRSProfessorMenu {
 
             switch (choice) {
                 case 1:
-                    viewCourses();
+                    viewCourses(userID);
                     break;
                 case 2:
-                    registerCourse(professor);
+                    registerCourse(userID);
                     break;
                 case 3:
-                    deRegisterCourse(professor);
+                    deRegisterCourse(userID);
                     break;
                 case 4:
-                    viewEnrolledStudent(professor);
+                    viewEnrolledStudent(userID);
                     break;
                 case 5:
-                    addGrades(professor);
+                    addGrades(userID);
                     break;
                 case 6:
                     System.out.println("Logged Out");
@@ -63,7 +63,7 @@ public class CRSProfessorMenu {
 
         }
     }
-	private void viewCourses(){
+	private void viewCourses(int userID){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -71,27 +71,7 @@ public class CRSProfessorMenu {
 
         service.viewCourse(semID);
     }
-    private void registerCourse(Professor professor){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter Semester ID : ");
-        int semID = Integer.parseInt(sc.nextLine());
-
-        service.viewCourse(semID);
-
-        System.out.println("Enter Course Name : ");
-        String courseName = sc.nextLine();
-
-        for(Course c : Data.semCourseList.get(semID) ){
-            if( c.getCourseName().equalsIgnoreCase(courseName) ){
-                service.registerCourse(professor.getUserID(), c);
-                break;
-            }
-        }
-
-    }
-
-    private void deRegisterCourse(Professor professor){
+    private void registerCourse(int userID){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -102,14 +82,25 @@ public class CRSProfessorMenu {
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
 
-        for(Course c : Data.semCourseList.get(semID) ){
-            if( c.getCourseName().equalsIgnoreCase(courseName) && c.getProfID() == professor.getUserID() ){
-                service.deregisterCourse(c);
-                break;
-            }
-        }
+        service.registerCourse(userID, courseName, semID);
+
     }
-    private void viewEnrolledStudent(Professor professor){
+
+    private void deRegisterCourse(int userID){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Semester ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+
+        service.viewCourse(semID);
+
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
+
+        service.deregisterCourse(userID, courseName, semID);
+
+    }
+    private void viewEnrolledStudent(int userID){
         System.out.println("Enter Semester ID : ");
         int semID = Integer.parseInt(sc.nextLine());
         service.viewCourse(semID);
@@ -119,7 +110,7 @@ public class CRSProfessorMenu {
 
         service.viewEnrolledStudents(semID,courseName);
     }
-    private void addGrades(Professor professor){
+    private void addGrades(int userID){
         System.out.println("Enter course ID : ");
         int courseID = Integer.parseInt(sc.nextLine());
 
@@ -128,6 +119,6 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter score : ");
         int score = Integer.parseInt(sc.nextLine());
-        service.addGrade(professor,courseID,studentID,score);
+        service.addGrade(userID,courseID,studentID,score);
     }
 }

@@ -9,11 +9,11 @@ public interface ProfessorInterface {
 
     public List<Course> viewCourse(int semID);
 
-    public void registerCourse(int profID, Course courseName);
+    public void registerCourse(int profID, String courseName, int semID);
 
-    public void deregisterCourse(Course courseName);
+    public void deregisterCourse(int profID, String courseName, int semID);
 
     public void viewEnrolledStudents(int semID , String courseName);
 
-    public void addGrade(Professor professor , int courseID , int studentID , int score);
+    public void addGrade(int profID , int courseID , int studentID , int score);
 }
