@@ -5,7 +5,7 @@ import java.sql.*;
 public class UserDAOImpl implements UserDAO{
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/test";
+    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
     //  Database credentials
     static final String USER = "root";

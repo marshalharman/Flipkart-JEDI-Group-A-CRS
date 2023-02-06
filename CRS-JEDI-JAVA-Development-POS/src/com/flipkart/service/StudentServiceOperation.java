@@ -63,7 +63,7 @@ public class StudentServiceOperation implements StudentInterface {
         Student student = studentDAO.getStudentByID(studentID);
         int semID = student.getSemID();
 
-        HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(semID));
+        HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(semID);
         List<Integer> registeredCoursesID = new ArrayList<>();
 
         for(Course course: primaryCourses){
