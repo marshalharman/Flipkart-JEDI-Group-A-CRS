@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,66 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     static final String USER = "root";
     static final String PASS = "root";
 
+
+    public List<Course> viewCoursesBySemID(int semID){
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        List<Course> courseList = new ArrayList<Course>();
+
+        String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM Courses " +
+                "INNER JOIN Catalog ON Courses.CourseID = Catalog.CourseId WHERE Catalog.SemID = (?)";
+
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, semID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+
+                Course course = new Course();
+
+                course.setCourseID(rs.getInt("Courses.CourseID"));
+                course.setCourseName(rs.getString("Courses.Name"));
+                course.setProfID(rs.getInt("Courses.ProfID"));
+
+                courseList.add(course);
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return courseList;
+    }
 
     public boolean registerCourseForProfessor(int profID, String courseName, int semID){
 
@@ -123,6 +184,118 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         }//end try
 
         return true;
+    }
+
+    public List<Student> viewEnrolledStudents(String courseName){
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        Course course = getCourseByName(courseName);
+
+        List<Student> studentList = new ArrayList<Student>();
+
+        String sql = "SELECT StudentID FROM SemRegistration WHERE CourseID = (?)";
+
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course.getCourseID());
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                int studentID = rs.getInt("StudentID");
+
+                Student student = getStudentByID(studentID);
+
+                studentList.add(student);
+            }
+
+            stmt.close();
+            conn.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return studentList;
+    }
+
+    public Student getStudentByID(int studentID){
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        Student student = new Student();
+
+        String sql = "Select StudentID, Name, Address, Branch, Degree FROM Student WHERE StudentID = (?)";
+
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, studentID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            student.setUserID(rs.getInt("StudentID"));
+            student.setName(rs.getString("Name"));
+            student.setAddress(rs.getString("Address"));
+            student.setBranch(rs.getString("Branch"));
+            student.setDegree(rs.getString("Degree"));
+
+            stmt.close();
+            conn.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return student;
     }
 
     @Override
@@ -403,6 +576,5 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         return professor;
     }
-
 
 }

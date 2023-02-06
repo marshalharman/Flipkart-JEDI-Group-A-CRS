@@ -10,6 +10,9 @@ import java.awt.desktop.SystemEventListener;
 import java.util.*;
 
 public class ProfessorServiceOperation implements ProfessorInterface {
+
+    ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
+
     public int login(String professorName, String password){
         List<Professor> professorList = Data.professors;
         Course course = new Course();
@@ -26,48 +29,31 @@ public class ProfessorServiceOperation implements ProfessorInterface {
     }
 
     public List<Course> viewCourse(int semID){
-        List<Course> c = Data.semCourseList.get(semID);
-        System.out.println("List of courses : ");
-        for( Course course : c ){
+
+        List<Course> courseList = professorDAO.viewCoursesBySemID(semID);
+
+        for (Course course: courseList){
             System.out.println(course.getCourseID() + " - " + course.getCourseName());
         }
-        return c;
+
+        return courseList;
     }
 
     public void registerCourse(int profID, String courseName, int semID){
-        ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
         professorDAO.registerCourseForProfessor(profID, courseName, semID);
     }
 
     public void deregisterCourse(int profID, String courseName, int semID){
-
+        professorDAO.deregisterCourseForProfessor(profID, courseName);
     }
 
     public void viewEnrolledStudents(int semID , String courseName){
-        Course course = null;
-        for( Course c : Data.semCourseList.get(semID) ){
-            if( c.getCourseName().equalsIgnoreCase(courseName) ){
-                course = c;
-                break;
-            }
+        List<Student> students = professorDAO.viewEnrolledStudents(courseName);
+
+        for(Student student : students){
+            System.out.println(student.getUserID() + " - " + student.getName());
         }
 
-        List<Integer> idList = new ArrayList<Integer>();
-
-        for( Integer studentID : Data.registeredCourses.keySet() ){
-            if( Data.registeredCourses.get(studentID).contains(course) ){
-                idList.add(studentID);
-            }
-        }
-
-        for(Integer id: idList){
-            for(Student s: Data.students){
-                if( s.getUserID() == id){
-                    System.out.println(s.getUserID() + " - " + s.getName() );
-                    break;
-                }
-            }
-        }
     }
 
     public void addGrade(int profID , int courseID , int studentID , int score){
