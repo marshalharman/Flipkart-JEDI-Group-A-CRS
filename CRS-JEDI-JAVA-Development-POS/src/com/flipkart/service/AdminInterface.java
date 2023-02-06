@@ -12,7 +12,7 @@ public interface AdminInterface {
     public void approveStudentRegistration(int studentID);
     public void addAdmin(Admin a) throws SQLException, ClassNotFoundException;
     public void addProfessor(Professor p) throws SQLException, ClassNotFoundException;
-    public void removeProfessor(String profName);
+    public void removeProfessor(int profId);
     public void addCourse(int courseID,String courseName, int semID) throws SQLException, ClassNotFoundException;
     public void removeCourse(int semId , int courseId) throws SQLException, ClassNotFoundException;
     public void generateGradeCard();
