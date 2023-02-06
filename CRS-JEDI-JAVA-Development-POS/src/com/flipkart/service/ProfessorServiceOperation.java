@@ -3,12 +3,16 @@ import com.flipkart.bean.Grade;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Course;
+import com.flipkart.dao.ProfessorDAOImpl;
 import com.flipkart.data.*;
 
 import java.awt.desktop.SystemEventListener;
 import java.util.*;
 
 public class ProfessorServiceOperation implements ProfessorInterface {
+
+    ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
+
     public int login(String professorName, String password){
         List<Professor> professorList = Data.professors;
         Course course = new Course();
@@ -25,57 +29,41 @@ public class ProfessorServiceOperation implements ProfessorInterface {
     }
 
     public List<Course> viewCourse(int semID){
-        List<Course> c = Data.semCourseList.get(semID);
-        System.out.println("List of courses : ");
-        for( Course course : c ){
+
+        List<Course> courseList = professorDAO.viewCoursesBySemID(semID);
+
+        for (Course course: courseList){
             System.out.println(course.getCourseID() + " - " + course.getCourseName());
         }
-        return c;
+
+        return courseList;
     }
 
-    public void registerCourse(int profID, Course courseName){
-        courseName.setProfID(profID);
+    public void registerCourse(int profID, String courseName, int semID){
+        professorDAO.registerCourseForProfessor(profID, courseName, semID);
     }
 
-    public void deregisterCourse(Course courseName){
-        courseName.setProfID(-1);
+    public void deregisterCourse(int profID, String courseName, int semID){
+        professorDAO.deregisterCourseForProfessor(profID, courseName);
     }
 
     public void viewEnrolledStudents(int semID , String courseName){
-        Course course = null;
-        for( Course c : Data.semCourseList.get(semID) ){
-            if( c.getCourseName().equalsIgnoreCase(courseName) ){
-                course = c;
-                break;
-            }
+        List<Student> students = professorDAO.viewEnrolledStudents(courseName);
+
+        for(Student student : students){
+            System.out.println(student.getUserID() + " - " + student.getName());
         }
 
-        List<Integer> idList = new ArrayList<Integer>();
-
-        for( Integer studentID : Data.registeredCourses.keySet() ){
-            if( Data.registeredCourses.get(studentID).contains(course) ){
-                idList.add(studentID);
-            }
-        }
-
-        for(Integer id: idList){
-            for(Student s: Data.students){
-                if( s.getUserID() == id){
-                    System.out.println(s.getUserID() + " - " + s.getName() );
-                    break;
-                }
-            }
-        }
     }
 
-    public void addGrade(Professor professor , int courseID , int studentID , int score){
-//        Scanner sc = new Scanner(System.in);
+    public void addGrade(int profID , int courseID , int studentID , int score){
+//      Scanner sc = new Scanner(System.in);
 
 
 
         for(int semID : Data.semCourseList.keySet()){
             for(Course c: Data.semCourseList.get(semID) ){
-                if( c.getCourseID() == courseID && c.getProfID() != professor.getUserID() ){
+                if( c.getCourseID() == courseID && c.getProfID() != profID ){
                     System.out.println("This course is not taken by you. Grade cannot be added");
                     return;
                 }
