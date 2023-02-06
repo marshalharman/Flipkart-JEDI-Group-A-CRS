@@ -10,11 +10,11 @@ import java.lang.Math;
 public class PaymentServiceOperation implements PaymentInterface {
 
     @Override
-    public void pay(Student student) {
+    public void pay(int studentID) {
         String uniqID = UUID.randomUUID().toString();
         String mode = "";
-        PaymentDAOImpl paydao = new PaymentDAOImpl();
-        int reg_courses_number = paydao.numOfRegisteredCourses(student.getUserID());
+        PaymentDAOImpl payDao = new PaymentDAOImpl();
+        int reg_courses_number = payDao.numOfRegisteredCourses(studentID);
         int fee_amount = 1000 * reg_courses_number;
         System.out.println("Your fee amount = " + fee_amount);
         System.out.println("Select a method to pay -");
@@ -26,7 +26,7 @@ public class PaymentServiceOperation implements PaymentInterface {
             case 1:
                 System.out.println("Please enter you upi id: ");
                 String upiID = obj.nextLine();
-                paydao.addUPI(uniqID, upiID);
+                payDao.addUPI(uniqID, upiID);
                 mode = "UPI";
                 break;
             case 2:
@@ -36,7 +36,7 @@ public class PaymentServiceOperation implements PaymentInterface {
                 name = obj.nextLine();
                 cvv = obj.nextLine();
                 expdate = obj.nextLine();
-                paydao.addCard(cardNumber, name, cvv, expdate, uniqID);
+                payDao.addCard(cardNumber, name, cvv, expdate, uniqID);
                 mode = "CARD";
                 break;
             case 3:
@@ -47,7 +47,7 @@ public class PaymentServiceOperation implements PaymentInterface {
                 System.out.println("Please enter a valid input\n");
 
         }
-        paydao.savePayment(uniqID,student.getUserID(),mode,fee_amount,"payment successful");
+        payDao.savePayment(uniqID,studentID,mode,fee_amount,"payment successful");
     }
 
     @Override

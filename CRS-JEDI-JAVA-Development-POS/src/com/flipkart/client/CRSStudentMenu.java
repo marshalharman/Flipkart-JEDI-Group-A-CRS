@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.spi.AbstractResourceBundleProvider;
+import java.util.*;
+
+import static java.util.Objects.isNull;
 
 
 public class CRSStudentMenu {
@@ -107,8 +110,6 @@ public class CRSStudentMenu {
         int choice = Integer.parseInt(sc.nextLine());
 
         System.out.println("Select Course to Add:");
-        int semId = studentServiceOperation.getSemID(studentID);
-
         List<Course> courseList = viewCourses(studentID);
         String courseName = sc.nextLine();
 
@@ -126,7 +127,7 @@ public class CRSStudentMenu {
 
     private void deleteCourse(int studentID) {
         System.out.println("1. Delete Primary Course\n2. Delete Alternate Course");
-        Scanner sc = new Scanner(System.in);\
+        Scanner sc = new Scanner(System.in);
         int choice = Integer.parseInt(sc.nextLine());
 
         if (choice == 1) {
@@ -157,7 +158,7 @@ public class CRSStudentMenu {
     }
 
     public void submit(int studentID){
-        studentServiceOperation.submitPreferences(student);
+        studentServiceOperation.submitPreferences(studentID, primaryCourses, alternateCourses);
     }
 
     public void dropCourse(int studentID){
@@ -169,9 +170,7 @@ public class CRSStudentMenu {
         studentServiceOperation.dropCourse(studentID, courseID);
     }
     private List<Course> viewCourses(int studentID){
-
-        int semId = studentServiceOperation.getSemID(studentID);
-        List<Course> courseList = studentServiceOperation.getCourses(semId);
+        List<Course> courseList = studentServiceOperation.getCourses(studentID);
 
         for(int i=0;i<courseList.size();i++){
             System.out.println(courseList.get(i).getCourseName() + "\n");
@@ -180,7 +179,17 @@ public class CRSStudentMenu {
         return courseList;
     }
     private void viewGrades(int studentID){
-        studentServiceOperation.viewGrades(studentID);
+        HashMap<Course, String> GradesInCourses = studentServiceOperation.viewGrades(studentID);
+        if(GradesInCourses==null) {
+            System.out.println("Grades not published yet");
+            return;
+        }
+
+        for(Map.Entry e: GradesInCourses.entrySet()) {
+            Course course = new Course();
+            course = (Course) e.getKey();
+            System.out.println(course.getCourseID()+ " "+course.getCourseName()+" "+e.getValue());
+        }
     }
     private void payFees(int studentID) {
         paymentServiceOperation.pay(studentID);

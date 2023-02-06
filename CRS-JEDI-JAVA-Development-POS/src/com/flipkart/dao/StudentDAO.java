@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Student;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ public interface StudentDAO {
     public List<Course> getCourses(int semID);
 
 
-    public HashMap<Integer, Integer> getCourseEnrollmentCount(int courseID);
+    public HashMap<Integer,Integer> getCourseEnrollmentCount(int courseID);
 
     // registerCourse/SubmitPreference()
     public void registerCourses(int studentID, List<Integer> courseID, int semID);
@@ -23,8 +24,10 @@ public interface StudentDAO {
     public void dropCourse(int studentID, int courseID);
 
     // getRegisteredCourses()
-    public void getRegisteredCourses(int studentID);
+    public List<Course> getRegisteredCourses(int studentID);
 
     // viewGrades()
     public HashMap<Course, String> viewGrades(int studentID);
+
+    public Student getStudentByID(int studentID);
 }
