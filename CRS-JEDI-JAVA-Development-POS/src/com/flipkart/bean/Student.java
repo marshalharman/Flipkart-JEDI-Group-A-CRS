@@ -9,6 +9,16 @@ public class Student extends User{
 
     private int semID;
 
+    private String degree;
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
     private List<Course> primaryCourses = new ArrayList<Course>();
     private List<Course> alternateCourses = new ArrayList<Course>();
 
