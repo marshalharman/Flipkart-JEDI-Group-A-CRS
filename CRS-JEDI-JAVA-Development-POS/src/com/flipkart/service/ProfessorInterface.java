@@ -15,5 +15,5 @@ public interface ProfessorInterface {
 
     public void viewEnrolledStudents(int semID , String courseName);
 
-    public void addGrade(int profID , int courseID , int studentID , int score);
+    public void addGrade(int profID , String courseName, int studentID , String grade);
 }

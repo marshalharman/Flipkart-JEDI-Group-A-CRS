@@ -14,7 +14,7 @@ public interface StudentInterface {
     public List<Course> getCourses(int semID);
     public void addCourse(Student student);
     public void removeCourse(Student student);
-    public void dropCourse(Student student);
+    public void dropCourse(int studentID, int courseID);
     public void submitPreferences(Student student);
     public void getRegisteredCourses(Student student);
     public void viewGrades(int studentId);

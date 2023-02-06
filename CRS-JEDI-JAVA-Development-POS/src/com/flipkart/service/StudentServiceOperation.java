@@ -85,15 +85,9 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
     }
-    public void dropCourse(Student student, String courseName){
-
-        for(Course course: Data.semCourseList.get(student.getSemID()) ){
-            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                Data.registeredCourses.get(student.getUserID()).remove(course);
-                Data.courseEnrollmentCount.put(course.getCourseID(), Data.courseEnrollmentCount.get(course.getCourseID())-1 );
-                break;
-            }
-        }
+    public void dropCourse(int studentID, int courseID){
+        StudentDAOImpl studentDAO = new StudentDAOImpl();
+        studentDAO.dropCourse(studentID, courseID);
 
     }
 
