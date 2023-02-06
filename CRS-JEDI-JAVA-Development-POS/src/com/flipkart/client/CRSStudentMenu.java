@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.data.Data;
@@ -8,6 +9,7 @@ import com.flipkart.service.StudentServiceOperation;
 import com.flipkart.service.PaymentInterface;
 import com.flipkart.service.PaymentServiceOperation;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.spi.AbstractResourceBundleProvider;
 
@@ -20,6 +22,7 @@ public class CRSStudentMenu {
     public void studentMenu(int id) {
 
         Student student = null;
+        int semID = -1;
 
         for(Student st: Data.students){
             if(st.getUserID() == id){
@@ -103,11 +106,30 @@ public class CRSStudentMenu {
 
 
     private void semesterRegister(Student student){
-        studentServiceOperation.semesterRegister(student);
+        List<Integer> semList = studentServiceOperation.getSemesterList(student.getUserID());
+        System.out.println("Select Semester to Register:");
+        Scanner sc = new Scanner(System.in);
+        int semID = Integer.parseInt(sc.nextLine());
+
+        student.setSemID(semID);
     }
 
     private void addCourse(Student student){
-        studentServiceOperation.addCourse(student);
+        System.out.println("1. Add Primary Course\n2. Add Alternate Course");
+        Scanner sc = new Scanner(System.in);
+        int choice = Integer.parseInt(sc.nextLine());
+
+        System.out.println("Select Course to Add:");
+        viewCourses(student.getSemID());
+        String courseName = sc.nextLine();
+
+
+        for( Course course: Data.semCourseList.get(student.getSemID())){
+            if( course.getCourseName().equalsIgnoreCase(courseName) ){
+                if( choice == 1){ student.addPrimaryCourse(course); }
+                else if( choice == 2 ){ student.addAlternateCourse(course); }
+            }
+        }
     }
 
     private void deleteCourse(Student student){
@@ -122,7 +144,11 @@ public class CRSStudentMenu {
         studentServiceOperation.dropCourse(student);
     }
     private void viewCourses(int semId){
-        studentServiceOperation.getCourses(semId);
+        List<Course> courseList = studentServiceOperation.getCourses(semId);
+
+        for(int i=0;i<courseList.size();i++){
+            System.out.println(courseList.get(i).getCourseName() + "\n");
+        }
     }
     private void viewGrades(int studentId){
         studentServiceOperation.viewGrades(studentId);

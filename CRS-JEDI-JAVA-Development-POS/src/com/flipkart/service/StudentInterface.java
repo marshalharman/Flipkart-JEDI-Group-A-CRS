@@ -8,8 +8,9 @@ import com.flipkart.bean.Student;
 
 public interface StudentInterface {
     public void register();
-    public int login(String username,String password);
-    public void semesterRegister(Student student);
+//    public int login(String username,String pa
+    public List<Integer> getSemesterList(int studentID);
+
     public List<Course> getCourses(int semID);
     public void addCourse(Student student);
     public void removeCourse(Student student);

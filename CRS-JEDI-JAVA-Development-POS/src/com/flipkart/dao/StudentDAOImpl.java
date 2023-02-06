@@ -1,4 +1,125 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Grade;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentDAOImpl implements StudentDAO{
+
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/test";
+
+    //  Database credentials
+    static final String USER = "root";
+    static final String PASS = "root";
+    @Override
+    public List<Integer> getSemesterList() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        List<Integer> semList = new ArrayList<Integer>();
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            System.out.println("Creating statement...");
+            String sql="insert into employeefc values(?,?,?,?)";
+            //String sql = "UPDATE Employees set age=? WHERE id=?";
+            // String sql1="delete from employee where id=?";
+            // stmt.setInt(1, 101);
+
+            String sql1 = "SELECT DISTINCT semID FROM Catalog";
+            stmt = conn.prepareStatement(sql1);
+            ResultSet rs = stmt.executeQuery(sql1);
+        }
+        catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        return semList;
+    }
+
+//    @Override
+//    public void setSemester(int studentID, int semID) {
+//        Connection conn = null;
+//        PreparedStatement stmt = null;
+//
+//        try{
+//            Class.forName("com.mysql.jdbc.Driver");
+//
+//            System.out.println("Connecting to database...");
+//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+//
+//            System.out.println("Creating statement...");
+//            String sql="insert into employeefc values(?,?,?,?)";
+//            //String sql = "UPDATE Employees set age=? WHERE id=?";
+//            // String sql1="delete from employee where id=?";
+//            // stmt.setInt(1, 101);
+//
+//            String sql1 = "UPDATE from semID FROM Catalog";
+//            stmt = conn.prepareStatement(sql1);
+//            ResultSet rs = stmt.executeQuery(sql1);
+//        }
+//        catch(Exception e){
+//            //Handle errors for Class.forName
+//            e.printStackTrace();
+//        }
+//    }
+
+    @Override
+    public List<Course> getCourses(int semID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        List<Course> courseList = new ArrayList<Course>();
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            System.out.println("Creating statement...");
+            String sql="insert into employeefc values(?,?,?,?)";
+            //String sql = "UPDATE Employees set age=? WHERE id=?";
+            // String sql1="delete from employee where id=?";
+            // stmt.setInt(1, 101);
+
+            String sql1 = "SELECT DISTINCT * FROM Catalog where semID = ?";
+            stmt = conn.prepareStatement(sql1);
+            ResultSet rs = stmt.executeQuery(sql1);
+        }
+        catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        return courseList;
+    }
+
+    @Override
+    public void registerCourses() {
+
+    }
+
+    @Override
+    public void dropCourse(int studentID, int courseID) {
+
+    }
+
+    @Override
+    public void getRegisteredCourses(int studentID) {
+
+    }
+
+    @Override
+    public List<Grade> viewGrades(int studentID) {
+        return null;
+    }
 }
