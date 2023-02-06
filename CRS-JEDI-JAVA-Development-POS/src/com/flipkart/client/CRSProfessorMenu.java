@@ -111,14 +111,14 @@ public class CRSProfessorMenu {
         service.viewEnrolledStudents(semID,courseName);
     }
     private void addGrades(int userID){
-        System.out.println("Enter course ID : ");
-        int courseID = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter course Name : ");
+        String courseID = sc.nextLine();
 
         System.out.println("Enter student ID : ");
         int studentID = Integer.parseInt(sc.nextLine());
 
         System.out.println("Enter score : ");
-        int score = Integer.parseInt(sc.nextLine());
+        String score = sc.nextLine();
         service.addGrade(userID,courseID,studentID,score);
     }
 }
