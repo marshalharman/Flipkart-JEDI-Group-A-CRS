@@ -3,22 +3,29 @@ package com.flipkart.dao;
 import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class PaymentDAOImpl implements PaymentDAO{
-    private PreparedStatement statement = null;
-    Connection connection = DataBaseFile.getConnection();
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/test";
+
+    //  Database credentials
+    static final String USER = "root";
+    static final String PASS = "root";
+    Connection connection = null;
+    PreparedStatement statement = null;
     public void pay(Student student) throws SQLException {
+
 
         String uniqueID = UUID.randomUUID().toString();
         try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(DB_URL,USER,PASS);
             int s_id = student.getUserID();
             String mode = "";
             String sql = "select count(*) from SemRegistration where StudentID = ?";
