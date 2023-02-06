@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import java.sql.*;
 
+
 public class UserDAOImpl implements UserDAO{
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -9,7 +10,7 @@ public class UserDAOImpl implements UserDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "root1234";
 
 
 
@@ -28,22 +29,17 @@ public class UserDAOImpl implements UserDAO{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             System.out.println("Creating statement...");
-            String sql="insert into employeefc values(?,?,?,?)";
-            //String sql = "UPDATE Employees set age=? WHERE id=?";
-            // String sql1="delete from employee where id=?";
-            // stmt.setInt(1, 101);
-
-            String sql1 = "SELECT * FROM User WHERE userID = ? AND password = ?";
+            String sql1 = "SELECT * FROM User WHERE UserID='?' AND password='?';";
             stmt = conn.prepareStatement(sql1);
 
-            stmt.setInt(1, 101);
-            stmt.setString(2, "Harman");
-//            stmt.executeUpdate();
+            stmt.setInt(1, userID);
+            stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery(sql1);
 
             int count = 0;
 
             while(rs.next()){
+                System.out.println("HELLO");
                 if(rs.getString("Role").equalsIgnoreCase(role)) {
                     count++;
                 }

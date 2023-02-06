@@ -84,7 +84,7 @@ public class CRSAdminMenu {
                     removeProfessor(profName);
                     break;
                 case 5:
-                    addCourses();
+//                    addCourses();
                     break;
                 case 6:
                     deleteCourses();
@@ -119,9 +119,12 @@ public class CRSAdminMenu {
         int studentID = Integer.parseInt(sc.nextLine());
         service.approveStudentRegistration(studentID);
     }
-    private void addAdmin(Admin a){ service.addAdmin(a);}
+    private void addAdmin(Admin a){
+//        service.addAdmin(a);
+    }
     private void addProfessor(Professor p){
-        service.addProfessor(p);
+
+//        service.addProfessor(p);
     }
     private void removeProfessor(String profName){
         service.removeProfessor(profName);
@@ -140,7 +143,7 @@ public class CRSAdminMenu {
         int semId=sc.nextInt();
         System.out.println("Enter courseId: ");
         int courseId=sc.nextInt();
-        service.removeCourse(semId,courseId);
+//        service.removeCourse(semId,courseId);
     }
     private void generateReportCard(){
     	service.generateGradeCard();
