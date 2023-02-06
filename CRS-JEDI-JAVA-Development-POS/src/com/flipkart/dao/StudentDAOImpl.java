@@ -222,6 +222,46 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public void dropCourse(int studentID, int courseID) {
 
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        String sql = "DELETE FROM SemRegistration WHERE CourseID = (?) AND StudentID = (?)";
+
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, courseID);
+            stmt.setInt(2, studentID);
+
+            stmt.executeUpdate();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+
     }
 
     @Override
@@ -230,8 +270,60 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public List<Grade> viewGrades(int studentID) {
-        return null;
+    public HashMap<Course, String> viewGrades(int studentID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        HashMap<Course, String> GradesInCourses = new HashMap<>() ;
+
+        String sql = " SELECT Courses.CourseID AS CourseID, Grade, Name AS CourseName FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = 101;";
+
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, studentID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+
+                Course course = new Course();
+
+                course.setCourseID(rs.getInt("CourseID"));
+                course.setCourseName(rs.getString("CourseName"));
+
+                GradesInCourses.put(course,rs.getString("Grade") );
+            }
+
+            rs.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return GradesInCourses;
     }
 
 

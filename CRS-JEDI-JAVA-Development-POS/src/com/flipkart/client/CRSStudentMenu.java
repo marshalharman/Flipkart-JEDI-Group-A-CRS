@@ -25,16 +25,6 @@ public class CRSStudentMenu {
     List<Course> alternateCourses = new ArrayList<Course>();
 
     public void studentMenu(int studentId) {
-
-        int semID = -1;
-
-//        for(Student st: Data.students){
-//            if(st.getUserID() == id){
-//                student = st;
-//                break;
-//            }
-//        }
-
         while(true) {
             System.out.println("\nStudent Menu!");
             System.out.println("Choose one of the options");
@@ -53,43 +43,36 @@ public class CRSStudentMenu {
 
             int choice;
             choice = Integer.parseInt(obj.nextLine());
-            if(choice!=1 && choice!=10)
-            {
-                if(studentId == 0)
-                {
-                    System.out.println("Please register first!");
-                    continue;
-                }
-            }
+
             switch (choice) {
                 case 1:
-                    semesterRegister(studentId);
+                    semesterRegister(studentID);
                     break;
                 case 2:
-                    addCourse(studentId);
+                    addCourse(studentID);
                     break;
                 case 3:
-                    deleteCourse(studentId);
+                    deleteCourse(studentID);
                     break;
                 case 4:
-                    submit(studentId);
+                    submit(studentID);
                     break;
                 case 5:
-                    dropCourse(studentId);
+                    dropCourse(studentID);
                     break;
                 case 6:
                     //System.out.println(student.getSemID());
-                    viewCourses(studentId);
+                    viewCourses(studentID);
                     break;
                 case 7:
                     //System.out.println(id + "hello ");
-                    viewGrades(studentId);
+                    viewGrades(studentID);
                     break;
                 case 8:
-                    payFees(studentId);
+                    payFees(studentID);
                     break;
                 case 9:
-                    viewRegisteredCourses(studentId);
+                    viewRegisteredCourses(studentID);
                     break;
                 case 10:
                     System.out.println("Logged out");
@@ -104,8 +87,8 @@ public class CRSStudentMenu {
         }
     }
 
-    private void viewRegisteredCourses(Student student) {
-        studentServiceOperation.getRegisteredCourses(student);
+    private void viewRegisteredCourses(int studentID) {
+        studentServiceOperation.getRegisteredCourses(studentID);
     }
 
 
@@ -180,10 +163,10 @@ public class CRSStudentMenu {
     public void dropCourse(int student){
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Please enter the name of the course to be dropped : ");
-        String courseName = sc.nextLine();
+        System.out.println("Please enter the ID of the course to be dropped : ");
+        int courseID = Integer.parseInt(sc.nextLine());
 
-        studentServiceOperation.dropCourse(student);
+        studentServiceOperation.dropCourse(studentID, courseID);
     }
     private List<Course> viewCourses(int studentID){
 
@@ -199,7 +182,7 @@ public class CRSStudentMenu {
     private void viewGrades(int studentID){
         studentServiceOperation.viewGrades(studentID);
     }
-    private void payFees(int student) {
+    private void payFees(int studentID) {
         paymentServiceOperation.pay(student);
     }
 }

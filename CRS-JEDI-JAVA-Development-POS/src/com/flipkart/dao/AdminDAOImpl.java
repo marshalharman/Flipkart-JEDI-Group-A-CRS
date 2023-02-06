@@ -8,48 +8,78 @@ import java.sql.*;
 import java.util.*;
 public class AdminDAOImpl implements AdminDAO{
 
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/crs-database";
+
+    //  Database credentials
+    static final String USER = "root";
+    static final String PASS = "17102080";
+
     private PreparedStatement statement = null;
-    Connection connection = null;
-    public void deleteCourse(String courseCode) throws SQLException {
-        statement = null;
-        String sql = "delete from Course where courseCode = "+courseCode;
+    public void deleteCourse(Integer courseId) throws SQLException, ClassNotFoundException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        System.out.println("Connecting to database...");
+        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+        String sql = "delete from Course where courseId = "+courseId;
+
         statement = connection.prepareStatement(sql);
 
-        statement.setString(1,courseCode);
+        statement.setInt(1,courseId);
         int row = statement.executeUpdate();
         System.out.println(row + " entries deleted");
+
+
  //       logger.info(row + " entries deleted.");
 //        if(row == 0) {
-//            logger.error(courseCode + " not in catalog!");
-//            throw new CourseNotFoundException(courseCode);
+//            logger.error(courseId + " not in catalog!");
+//            throw new CourseNotFoundException(courseId);
 //        }
 
-        //logger.info("Course with courseCode: " + courseCode + " deleted.");
+        //logger.info("Course with courseId: " + courseId + " deleted.");
     }
-    public void addCourse(Course course) throws SQLException {
-        String sql = "insert into Course(courseCode, courseName, catalogId) values (?, ?, ?)";
-        statement = connection.prepareStatement(sql);
+    public void addCourse(Course course) throws SQLException, ClassNotFoundException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        System.out.println("Connecting to database...");
+        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+
+        String sql = "insert into Course(courseId, courseName, catalogId) values (?, ?, ?)";
+
 
         statement.setInt(1, course.getCourseID());
         statement.setString(2, course.getCourseName());
 
-        statement.setInt(3, 1);
+        statement.setInt(3, course.getProfID());
         int row = statement.executeUpdate();
         System.out.println(row + " entries added");
 
 //        logger.info(row + " course added");
 //        if(row == 0) {
-//            logger.error("Course with courseCode: " + course.getCourseCode() + "not added to catalog.");
-//            throw new CourseFoundException(course.getCourseCode());
+//            logger.error("Course with courseId: " + course.getcourseId() + "not added to catalog.");
+//            throw new CourseFoundException(course.getcourseId());
 //        }
 //
-//        logger.info("Course with courseCode: " + course.getCourseCode() + " is added to catalog.");
+//        logger.info("Course with courseId: " + course.getcourseId() + " is added to catalog.");
     }
 
-    public void approveStudent(int studentId) throws SQLException {
+    public void approveStudent(int studentId) throws SQLException, ClassNotFoundException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        System.out.println("Connecting to database...");
+        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+
         String sql="update Student set isApproved = 1 where studentId = ?";
         statement=connection.prepareStatement(sql);
-
         statement.setInt(1,studentId);
         int row = statement.executeUpdate();
         System.out.println(row + " student approved.");
@@ -61,8 +91,17 @@ public class AdminDAOImpl implements AdminDAO{
 
         //logger.info("Student with studentId: " + studentId + " approved by admin.");
     }
-    public void addUser(User user) throws SQLException {
-        String sql = "nsert into User(userId, name, password, role, gender, address, country) values (?, ?, ?, ?, ?, ?, ?)";
+    @Override
+    public void addUser(User user) throws SQLException, ClassNotFoundException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        System.out.println("Connecting to database...");
+        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+
+        String sql = "insert into User(userId, name, password, role, gender, address, country) values (?, ?, ?, ?, ?, ?, ?)";
         statement = connection.prepareStatement(sql);
 
         statement.setInt(1, user.getUserID());
@@ -81,7 +120,15 @@ public class AdminDAOImpl implements AdminDAO{
 //        logger.info("User with userId: " + user.getUserId() + " added.");
     }
 
-    public void addProfessor(Professor professor) throws SQLException {
+    public void addProfessor(Professor professor) throws SQLException, ClassNotFoundException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        Class.forName("com.mysql.jdbc.Driver");
+
+        System.out.println("Connecting to database...");
+        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+
         this.addUser(professor);
         String sql = "insert into Professor(userId, department, designation) values (?, ?, ?)";
         statement = connection.prepareStatement(sql);

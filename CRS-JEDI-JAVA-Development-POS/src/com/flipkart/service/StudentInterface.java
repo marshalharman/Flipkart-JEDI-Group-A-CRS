@@ -9,16 +9,13 @@ import com.flipkart.bean.Student;
 
 public interface StudentInterface {
     public void register(int studentId, String name, String address, String username, String password, String branch);
+    public void setSemID(int studentID, int semID);
     public List<Integer> getSemesterList(int studentID);
-
     public List<Course> getCourses(int semID);
-
     public HashMap<Integer, Integer> getCourseEnrollmentCount(int courseID);
-//    public void addCourse(Student student);
-//    public void removeCourse(Student student, int choice);
-    public void dropCourse(Student student, String courseName);
+    public void dropCourse(int studentID, int courseID);
     public void submitPreferences(Student student);
     public void getRegisteredCourses(Student student);
-    public void viewGrades(int studentId);
+    public HashMap<Course, String> viewGrades(int studentId);
 
 }
