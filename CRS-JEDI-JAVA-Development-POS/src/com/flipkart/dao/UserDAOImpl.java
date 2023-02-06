@@ -1,9 +1,6 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class UserDAOImpl implements UserDAO{
 
@@ -18,7 +15,7 @@ public class UserDAOImpl implements UserDAO{
 
     // login - return bool
     @Override
-    public boolean login(int userID, String password) {
+    public boolean login(int userID, String password, String role) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -47,15 +44,78 @@ public class UserDAOImpl implements UserDAO{
             int count = 0;
 
             while(rs.next()){
-                count++;
+                if(rs.getString("Role").equalsIgnoreCase(role)) {
+                    count++;
+                }
             }
 
             verified = count == 1;
-        }
-        catch(Exception e){
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
-        }
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
         return verified;
+    }
+
+    public void register(int userID, String userName, String password, String role, boolean isApproved){
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        String sql = "INSERT INTO User VALUES (?, ?, ?, ?, ?)";
+
+        try{
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userID);
+            stmt.setString(2, userName);
+            stmt.setString(3, password);
+            stmt.setString(4, role);
+            stmt.setBoolean(5, isApproved);
+
+            stmt.executeUpdate();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
     }
 }

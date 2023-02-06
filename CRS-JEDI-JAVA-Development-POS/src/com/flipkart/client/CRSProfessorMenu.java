@@ -2,8 +2,11 @@ package com.flipkart.client;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 import com.flipkart.service.ProfessorServiceOperation;
+
+import java.util.List;
 import java.util.Scanner;
 public class CRSProfessorMenu {
 
@@ -69,7 +72,11 @@ public class CRSProfessorMenu {
         System.out.println("Enter Semester ID : ");
         int semID = Integer.parseInt(sc.nextLine());
 
-        service.viewCourse(semID);
+        List<Course> courseList = service.viewCourse(semID);
+
+        for (Course course: courseList){
+            System.out.println(course.getCourseID() + " - " + course.getCourseName());
+        }
     }
     private void registerCourse(int userID){
         Scanner sc = new Scanner(System.in);
@@ -108,7 +115,11 @@ public class CRSProfessorMenu {
         System.out.println("Enter course name : ");
         String courseName = sc.nextLine();
 
-        service.viewEnrolledStudents(semID,courseName);
+        List<Student> students = service.viewEnrolledStudents(semID,courseName);
+
+        for(Student student : students){
+            System.out.println(student.getUserID() + " - " + student.getName());
+        }
     }
     private void addGrades(int userID){
         System.out.println("Enter course Name : ");

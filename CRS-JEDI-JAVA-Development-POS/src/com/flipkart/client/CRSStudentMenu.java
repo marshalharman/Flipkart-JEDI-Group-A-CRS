@@ -24,7 +24,7 @@ public class CRSStudentMenu {
     List<Course> primaryCourses = new ArrayList<Course>();
     List<Course> alternateCourses = new ArrayList<Course>();
 
-    public void studentMenu(int studentId) {
+    public void studentMenu(int studentID) {
         while(true) {
             System.out.println("\nStudent Menu!");
             System.out.println("Choose one of the options");
@@ -160,7 +160,7 @@ public class CRSStudentMenu {
         studentServiceOperation.submitPreferences(student);
     }
 
-    public void dropCourse(int student){
+    public void dropCourse(int studentID){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Please enter the ID of the course to be dropped : ");
@@ -183,6 +183,6 @@ public class CRSStudentMenu {
         studentServiceOperation.viewGrades(studentID);
     }
     private void payFees(int studentID) {
-        paymentServiceOperation.pay(student);
+        paymentServiceOperation.pay(studentID);
     }
 }

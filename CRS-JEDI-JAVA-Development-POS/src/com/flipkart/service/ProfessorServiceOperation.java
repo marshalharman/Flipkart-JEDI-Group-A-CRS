@@ -32,10 +32,6 @@ public class ProfessorServiceOperation implements ProfessorInterface {
 
         List<Course> courseList = professorDAO.viewCoursesBySemID(semID);
 
-        for (Course course: courseList){
-            System.out.println(course.getCourseID() + " - " + course.getCourseName());
-        }
-
         return courseList;
     }
 
@@ -47,13 +43,10 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         professorDAO.deregisterCourseForProfessor(profID, courseName);
     }
 
-    public void viewEnrolledStudents(int semID , String courseName){
+    public List<Student> viewEnrolledStudents(int semID , String courseName){
         List<Student> students = professorDAO.viewEnrolledStudents(courseName);
 
-        for(Student student : students){
-            System.out.println(student.getUserID() + " - " + student.getName());
-        }
-
+        return students;
     }
 
     public void addGrade(int profID , String courseName, int studentID , String grade){
