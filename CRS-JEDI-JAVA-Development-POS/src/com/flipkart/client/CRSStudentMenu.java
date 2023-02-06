@@ -153,6 +153,7 @@ public class CRSStudentMenu {
         studentServiceOperation.viewGrades(studentId);
     }
     private void payFees(Student student) {
+
         paymentServiceOperation.pay(student);
     }
 }
