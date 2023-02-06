@@ -1,13 +1,16 @@
 package com.flipkart.service;
 
+import com.flipkart.dao.UserDAO;
+import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.data.Data;
 
 public class UserServiceOperation implements UserInterface{
 
+    UserDAO userDAO = new UserDAOImpl();
     @Override
-    public boolean verifyCredentials(String userName, String password) {
+    public boolean verifyCredentials(int userID, String password) {
 
         // find user from data with given username and password
-        return true;
+        return userDAO.login(userID, password);
     }
 }

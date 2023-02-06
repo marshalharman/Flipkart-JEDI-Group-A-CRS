@@ -3,6 +3,8 @@ import com.flipkart.bean.Grade;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
+import com.flipkart.dao.StudentDAO;
+import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.data.Data;
 import java.util.*;
 import com.flipkart.bean.Student;
@@ -32,45 +34,14 @@ public class StudentServiceOperation implements StudentInterface {
         Data.unapprovedStudents.add(student);
         System.out.println("Registration request sent.");
     }
-
-    public int login(String studentName, String password){
-        List<Student> studentsList= Data.students;
-        int userId = -1;
-        for(Student s:studentsList)
-        {
-            if(s.getName().equals(studentName) && s.getPassword().equals(password)) {
-                userId = s.getUserID();
-                break;
-            }
-        }
-        return userId;
-    }
-
-    public void semesterRegister(Student student){
-
-        System.out.println("Select course to register:");
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("1. BCA\n2.MCA");
-        sc.nextLine();
-
-        for(Map.Entry m: Data.semCourseList.entrySet()){
-            System.out.println(m.getKey());
-        }
-
-        int semID = Integer.parseInt(sc.nextLine());
-
-        student.setSemID(semID);
+    public List<Integer>  getSemesterList(int studentID){
+        StudentDAO studentDAO = new StudentDAOImpl();
+        return studentDAO.getSemesterList();
     }
 
     public List<Course> getCourses(int semID){
-        List<Course> c=Data.semCourseList.get(semID);
-        System.out.println("List of courses");
-        for(int i=0;i<c.size();i++)
-        {
-            System.out.println(c.get(i).getCourseName()+"\n");
-        }
-        return c;
+        StudentDAO studentDAO = new StudentDAOImpl();
+        return studentDAO.getCourses(semID);
     }
 
     public void addCourse(Student student, int choice, int semID, String courseName){

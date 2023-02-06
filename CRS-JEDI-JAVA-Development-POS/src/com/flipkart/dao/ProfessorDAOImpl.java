@@ -3,10 +3,12 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 
-import java.nio.charset.CoderResult;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
+//import java.sql.PreparedStatement;
+//import java.sql.Connection;
+//import java.sql.SQLException;
 
 public class ProfessorDAOImpl implements ProferssorDAO{
 
