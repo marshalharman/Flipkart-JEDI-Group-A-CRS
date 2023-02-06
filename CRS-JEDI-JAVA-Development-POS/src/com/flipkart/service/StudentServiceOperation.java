@@ -11,6 +11,7 @@ import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
+    StudentDAOImpl studentDAO = new StudentDAOImpl();
     Scanner sc = new Scanner(System.in);
     public void register(int studentId, String name, String address, String username, String password, String branch){
 
@@ -137,26 +138,7 @@ public class StudentServiceOperation implements StudentInterface {
 
 
 
-    public void viewGrades(int studentId){
-        System.out.println();
-        if(!Data.viewGradesEnabled){
-            System.out.println("Grades are not available. Please check later");
-            return;
-        }
-        HashMap<Integer,List<Grade> > hp= Data.gradeList;
-        List<Grade> studentGrades=hp.get(studentId);
-        System.out.println("Grades :");
-
-        for(Grade grade:studentGrades){
-            for( int semID : Data.semCourseList.keySet() ){
-                for( Course c: Data.semCourseList.get(semID) ){
-                    if( grade.getCourseID() == c.getCourseID() ){
-                        System.out.println(c.getCourseName() + " : " + grade.getScore() );
-                    }
-                }
-            }
-        }
-
-
+    public HashMap<Course,String> viewGrades(int studentId){
+        return studentDAO.viewGrades(studentId);
     }
 }
