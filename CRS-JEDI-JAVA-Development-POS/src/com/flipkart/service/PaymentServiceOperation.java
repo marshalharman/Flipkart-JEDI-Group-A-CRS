@@ -47,6 +47,7 @@ public class PaymentServiceOperation implements PaymentInterface {
                 System.out.println("Please enter a valid input\n");
 
         }
+        paydao.savePayment(uniqID,student.getUserID(),mode,fee_amount,"payment successful");
     }
 
     @Override

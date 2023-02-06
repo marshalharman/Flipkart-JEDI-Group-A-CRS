@@ -82,6 +82,29 @@ public class PaymentDAOImpl implements PaymentDAO{
             e.printStackTrace();
         }
     }
+    public void savePayment(String transID,int s_id, String mode,int amount,String description)
+    {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            statement = null;
+            sql = "insert into Payment values(?,?,?,?,?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, transID);
+            statement.setInt(2, s_id);
+            statement.setString(3, mode);
+            statement.setInt(4,amount);
+            statement.setString(5, description);
+            statement.executeQuery();
+        }
+        catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+    }
     public void saveNotification(String transactionID, String msg)
     {
         try {

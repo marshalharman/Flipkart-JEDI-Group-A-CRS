@@ -11,5 +11,7 @@ public interface PaymentDAO {
     public void addCard(String cardNumber, String name, String cvv, String expdate, String transID);
 
     public void saveNotification(String transactionID, String msg);
+    public void savePayment(String transID,int s_id, String mode,int amount,String description);
+
 
 }
