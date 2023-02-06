@@ -8,14 +8,14 @@ import com.flipkart.data.Data;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 public class CRSAdminMenu {
     AdminInterface service = new AdminServiceOperation();
     Scanner sc = new Scanner(System.in);
-    public void adminMenu(int id)
-    {
+    public void adminMenu(int id) throws SQLException, ClassNotFoundException {
 
         while(true) {
 
@@ -118,23 +118,23 @@ public class CRSAdminMenu {
         int studentID = Integer.parseInt(sc.nextLine());
         service.approveStudentRegistration(studentID);
     }
-    private void addAdmin(Admin a){ service.addAdmin(a);}
-    private void addProfessor(Professor p){
+    private void addAdmin(Admin a) throws SQLException, ClassNotFoundException { service.addAdmin(a);}
+    private void addProfessor(Professor p) throws SQLException, ClassNotFoundException {
         service.addProfessor(p);
     }
     private void removeProfessor(String profName){
         service.removeProfessor(profName);
     }
-    private void addCourses(){
+    private void addCourses() throws SQLException, ClassNotFoundException {
         System.out.println("Enter SemId: ");
-        int semId=sc.nextInt();
+        int semID=sc.nextInt();
         System.out.println("Enter courseId: ");
-        int courseId=sc.nextInt();
+        int courseID=sc.nextInt();
         System.out.println("Enter courseName: ");
         String courseName=sc.next();
-        service.addCourse(semId,courseId ,courseName);
+        service.addCourse(courseID, courseName, semID);
     }
-    private void deleteCourses(){
+    private void deleteCourses() throws SQLException, ClassNotFoundException {
         System.out.println("Enter SemId: ");
         int semId=sc.nextInt();
         System.out.println("Enter courseId: ");

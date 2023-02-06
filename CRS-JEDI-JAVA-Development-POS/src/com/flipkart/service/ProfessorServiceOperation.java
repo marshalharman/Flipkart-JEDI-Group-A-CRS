@@ -32,10 +32,6 @@ public class ProfessorServiceOperation implements ProfessorInterface {
 
         List<Course> courseList = professorDAO.viewCoursesBySemID(semID);
 
-        for (Course course: courseList){
-            System.out.println(course.getCourseID() + " - " + course.getCourseName());
-        }
-
         return courseList;
     }
 
@@ -47,64 +43,15 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         professorDAO.deregisterCourseForProfessor(profID, courseName);
     }
 
-    public void viewEnrolledStudents(int semID , String courseName){
+    public List<Student> viewEnrolledStudents(int semID , String courseName){
         List<Student> students = professorDAO.viewEnrolledStudents(courseName);
 
-        for(Student student : students){
-            System.out.println(student.getUserID() + " - " + student.getName());
-        }
-
+        return students;
     }
 
-    public void addGrade(int profID , int courseID , int studentID , int score){
-//      Scanner sc = new Scanner(System.in);
+    public void addGrade(int profID , String courseName, int studentID , String grade){
 
-
-
-        for(int semID : Data.semCourseList.keySet()){
-            for(Course c: Data.semCourseList.get(semID) ){
-                if( c.getCourseID() == courseID && c.getProfID() != profID ){
-                    System.out.println("This course is not taken by you. Grade cannot be added");
-                    return;
-                }
-            }
-        }
-
-        boolean isStudent = false;
-        boolean isStudentRegistered = false;
-        for(Student s: Data.students){
-            if( s.getUserID() == studentID ){
-                isStudent = true;
-                for(Course c: Data.registeredCourses.get(studentID) ){
-                    if( c.getCourseID() == courseID ){
-                        isStudentRegistered = true;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
-        if(!isStudent){
-            System.out.println("Student does not exist. Grade cannot be added");
-            return;
-        }
-
-        if(!isStudentRegistered){
-            System.out.println("Student is not registered for the course. Grade cannot be added");
-            return;
-        }
-
-        Grade grade = new Grade();
-
-        grade.setCourseID(courseID);
-        grade.setStudentID(studentID);
-        grade.setScore(score);
-
-        if( Data.gradeList.get(studentID) == null ){
-            Data.gradeList.put(studentID, new ArrayList<Grade>() );
-        }
-        Data.gradeList.get(studentID).add(grade);
+        professorDAO.addGrade(studentID, courseName, grade);
 
     }
 }

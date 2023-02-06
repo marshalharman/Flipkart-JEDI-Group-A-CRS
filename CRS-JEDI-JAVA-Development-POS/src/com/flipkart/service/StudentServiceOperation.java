@@ -11,8 +11,11 @@ import com.flipkart.bean.Student;
 
 public class StudentServiceOperation implements StudentInterface {
 
+    StudentDAOImpl studentDAO = new StudentDAOImpl();
     Scanner sc = new Scanner(System.in);
-    public void register(int studentId, String name, String address, String username, String password, String branch){
+    public void register(int studentId, String name, String address, String username, String password, String branch, String degree){
+
+        studentDAO.register(studentId,name,address,username,password,branch,degree);
 
         for(Student s:Data.students)
         {
@@ -39,130 +42,79 @@ public class StudentServiceOperation implements StudentInterface {
         return studentDAO.getSemesterList();
     }
 
-    public List<Course> getCourses(int semID){
+    public List<Course> getCourses(int studentID){
         StudentDAO studentDAO = new StudentDAOImpl();
+        int semID = studentDAO.getStudentByID(studentID).getSemID();
         return studentDAO.getCourses(semID);
     }
 
-    public void addCourse(Student student, int choice, int semID, String courseName){
+    public void setSemID(int studentID, int semID){
+        studentDAO.setSemIDforStudent(studentID, semID);
+    }
+    public void dropCourse(int studentID, int courseID) {
 
-        for( Course course: Data.semCourseList.get(student.getSemID())){
-            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                if( choice == 1){ student.addPrimaryCourse(course); }
-                else if( choice == 2 ){ student.addAlternateCourse(course); }
-            }
-        }
-
+        studentDAO.dropCourse(studentID, courseID);
     }
 
-    public void  removeCourse(Student student, int choice){
-        Scanner sc = new Scanner(System.in);
-
-        if( choice == 1 ){
-            System.out.println("Please select course : ");
-            for(Course course: student.getPrimaryCourses()) {
-                System.out.println(course.getCourseName());
-            }
-            String courseName = sc.nextLine();
-            for(Course course: student.getPrimaryCourses()){
-                if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                    student.removePrimaryCourse(course);
-                    break;
-                }
-            }
-        }
-        else if( choice == 2 ){
-            System.out.println("Please select course : ");
-            for(Course course: student.getAlternateCourses()) {
-                System.out.println(course.getCourseName());
-            }
-            String courseName = sc.nextLine();
-            for(Course course: student.getAlternateCourses()){
-                if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                    student.removeAlternateCourse(course);
-                    break;
-                }
-            }
-        }
-    }
-    public void dropCourse(Student student, String courseName){
-
-        for(Course course: Data.semCourseList.get(student.getSemID()) ){
-            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                Data.registeredCourses.get(student.getUserID()).remove(course);
-                Data.courseEnrollmentCount.put(course.getCourseID(), Data.courseEnrollmentCount.get(course.getCourseID())-1 );
-                break;
-            }
-        }
-
-    }
-
-    public void submitPreferences(Student student){
+    public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses){
 
         int registeredCourseCount = 0;
-        Data.registeredCourses.put(student.getUserID(), new ArrayList<>());
 
-        for(Course course: student.getPrimaryCourses()){
-            if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
-                Data.courseEnrollmentCount.put(course.getCourseID(), 0);
+        StudentDAO studentDAO = new StudentDAOImpl();
+
+        Student student = studentDAO.getStudentByID(studentID);
+        int semID = student.getSemID();
+
+        HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(semID);
+        List<Integer> registeredCoursesID = new ArrayList<>();
+
+        for(Course course: primaryCourses){
+            if(!courseEnrollmentCount.containsKey(course.getCourseID())){
+                courseEnrollmentCount.put(course.getCourseID(), 0);
             }
-            int currentCount = Data.courseEnrollmentCount.get(course.getCourseID());
+            int currentCount = courseEnrollmentCount.get(course.getCourseID());
             if(currentCount < 10){
-                Data.registeredCourses.get(student.getUserID()).add(course);
+                registeredCoursesID.add(course.getCourseID());
+//                Data.registeredCourses.get(student.getUserID()).add(course);
                 currentCount++;
-                Data.courseEnrollmentCount.put(course.getCourseID(), currentCount);
+                courseEnrollmentCount.put(course.getCourseID(), currentCount);
                 registeredCourseCount++;
             }
         }
 
-        for(Course course: student.getAlternateCourses()){
-            if(!Data.courseEnrollmentCount.containsKey(course.getCourseID())){
-                Data.courseEnrollmentCount.put(course.getCourseID(), 0);
+        for(Course course: alternateCourses){
+            if(!courseEnrollmentCount.containsKey(course.getCourseID())){
+                courseEnrollmentCount.put(course.getCourseID(), 0);
             }
-            int currentCount = Data.courseEnrollmentCount.get(course.getCourseID());
+            int currentCount = courseEnrollmentCount.get(course.getCourseID());
             if(registeredCourseCount < 4 && currentCount < 10){
-                Data.registeredCourses.get(student.getUserID()).add(course);
+                registeredCoursesID.add(course.getCourseID());
+//                Data.registeredCourses.get(student.getUserID()).add(course);
                 currentCount++;
-                Data.courseEnrollmentCount.put(course.getCourseID(), currentCount);
+                courseEnrollmentCount.put(course.getCourseID(), currentCount);
                 registeredCourseCount++;
             }
         }
+
+        studentDAO.registerCourses(studentID, registeredCoursesID, semID);
 
         System.out.println("REGISTERED COURSES:");
         for(int i=0;i<registeredCourseCount;i++){
-            System.out.println(Data.registeredCourses.get(student.getUserID()).get(i).getCourseName());
+            System.out.println(registeredCoursesID.get(i));
         }
     }
 
-    public void getRegisteredCourses(Student student, int userId){
+    public void getRegisteredCourses(int studentID){
+        List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
 
-        for(Course course: Data.registeredCourses.get(userId)){
+        for(Course course: registeredCourses){
             System.out.println(course.getCourseName());
         }
     }
 
 
 
-    public void viewGrades(int studentId){
-        System.out.println();
-        if(!Data.viewGradesEnabled){
-            System.out.println("Grades are not available. Please check later");
-            return;
-        }
-        HashMap<Integer,List<Grade> > hp= Data.gradeList;
-        List<Grade> studentGrades=hp.get(studentId);
-        System.out.println("Grades :");
-
-        for(Grade grade:studentGrades){
-            for( int semID : Data.semCourseList.keySet() ){
-                for( Course c: Data.semCourseList.get(semID) ){
-                    if( grade.getCourseID() == c.getCourseID() ){
-                        System.out.println(c.getCourseName() + " : " + grade.getScore() );
-                    }
-                }
-            }
-        }
-
-
+    public HashMap<Course,String> viewGrades(int studentId){
+        return studentDAO.viewGrades(studentId);
     }
 }

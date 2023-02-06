@@ -1,154 +1,229 @@
 package com.flipkart.dao;
-import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import java.sql.*;
 import java.util.*;
 public class AdminDAOImpl implements AdminDAO{
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs-database";
+    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
     //  Database credentials
     static final String USER = "root";
     static final String PASS = "17102080";
 
-    private PreparedStatement statement = null;
-    public void deleteCourse(Integer courseId) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public void deleteCourse(int courseID) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-        System.out.println("Connecting to database...");
-        connection = DriverManager.getConnection(DB_URL,USER,PASS);
-        String sql = "delete from Course where courseId = "+courseId;
+            String sql = "delete from Course where CourseID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, courseID);
+            stmt.executeUpdate();
 
-        statement = connection.prepareStatement(sql);
+            sql = "DELETE FROM Catalog WHERE CourseId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, courseID);
+            stmt.executeUpdate();
 
-        statement.setInt(1,courseId);
-        int row = statement.executeUpdate();
-        System.out.println(row + " entries deleted");
+            sql = "DELETE FROM SemRegistration WHERE CourseID = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, courseID);
+            stmt.executeUpdate();
 
-
- //       logger.info(row + " entries deleted.");
-//        if(row == 0) {
-//            logger.error(courseId + " not in catalog!");
-//            throw new CourseNotFoundException(courseId);
-//        }
-
-        //logger.info("Course with courseId: " + courseId + " deleted.");
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
     }
-    public void addCourse(Course course) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public void addCourse(Course course, int semID) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            String sql = "insert into Course(courseID, courseName) values (?, ?)";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course.getCourseID());
+            stmt.setString(2, course.getCourseName());
+            stmt.executeUpdate();
 
-        System.out.println("Connecting to database...");
-        connection = DriverManager.getConnection(DB_URL,USER,PASS);
 
-        String sql = "insert into Course(courseId, courseName, catalogId) values (?, ?, ?)";
+            sql = "insert into Catalog(courseId, semID) values (?, ?)";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course.getCourseID());
+            stmt.setInt(2, semID);
+            stmt.executeUpdate();
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
 
 
-        statement.setInt(1, course.getCourseID());
-        statement.setString(2, course.getCourseName());
-
-        statement.setInt(3, course.getProfID());
-        int row = statement.executeUpdate();
-        System.out.println(row + " entries added");
-
-//        logger.info(row + " course added");
-//        if(row == 0) {
-//            logger.error("Course with courseId: " + course.getcourseId() + "not added to catalog.");
-//            throw new CourseFoundException(course.getcourseId());
-//        }
-//
-//        logger.info("Course with courseId: " + course.getcourseId() + " is added to catalog.");
     }
 
     public void approveStudent(int studentId) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
 
-        System.out.println("Connecting to database...");
-        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-        String sql="update Student set isApproved = 1 where studentId = ?";
-        statement=connection.prepareStatement(sql);
-        statement.setInt(1,studentId);
-        int row = statement.executeUpdate();
-        System.out.println(row + " student approved.");
-//        logger.info(row + " student approved.");
-//        if(row == 0) {
-//            //logger.error("Student with studentId: " + studentId + " not found.");
-//            throw new StudentNotFoundForApprovalException(studentId);
-//        }
+            String sql="update Student set isApproved = 1 where studentId = ?";
+            stmt=conn.prepareStatement(sql);
+            stmt.setInt(1,studentId);
+            int row = stmt.executeUpdate();
+            System.out.println(row + " student approved.");
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
 
-        //logger.info("Student with studentId: " + studentId + " approved by admin.");
     }
     @Override
     public void addUser(User user) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
 
-        System.out.println("Connecting to database...");
-        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-        String sql = "insert into User(userId, name, password, role, gender, address, country) values (?, ?, ?, ?, ?, ?, ?)";
-        statement = connection.prepareStatement(sql);
+            String sql = "insert into User(userId, name, password, role, gender, address, country) values (?, ?, ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sql);
 
-        statement.setInt(1, user.getUserID());
-        statement.setString(2, user.getUsername());
-        statement.setString(3, user.getPassword());
-        statement.setString(4, user.getRole().toString());
-        //statement.setBoolean(5, user.isApproved());
-        int row = statement.executeUpdate();
-        System.out.println(row + " user added.");
-//        logger.info(row + " user added.");
-//        if(row == 0) {
-//            logger.error("User with userId: " + user.getUserId() + " not added.");
-//            throw new UserNotAddedException(user.getUserId());
-//        }
-//
-//        logger.info("User with userId: " + user.getUserId() + " added.");
+            stmt.setInt(1, user.getUserID());
+            stmt.setString(2, user.getUsername());
+            stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getRole().toString());
+            //statement.setBoolean(5, user.isApproved());
+            int row = stmt.executeUpdate();
+            System.out.println(row + " user added.");
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
     }
 
     public void addProfessor(Professor professor) throws SQLException, ClassNotFoundException {
-        Connection connection = null;
-        PreparedStatement statement = null;
+        Connection conn = null;
+        PreparedStatement stmt = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
 
-        System.out.println("Connecting to database...");
-        connection = DriverManager.getConnection(DB_URL,USER,PASS);
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
 
-        this.addUser(professor);
-        String sql = "insert into Professor(userId, department, designation) values (?, ?, ?)";
-        statement = connection.prepareStatement(sql);
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-        statement.setInt(1, professor.getUserID());
-        statement.setString(2, professor.getName());
-        statement.setString(3, professor.getDepartment());
-        statement.setString(4, professor.getDesignation());
-        int row = statement.executeUpdate();
+            this.addUser(professor);
+            String sql = "insert into Professor(ProfId, Name, Department, Designation) values (?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sql);
 
-        System.out.println(row + " professor added. ");
+            stmt.setInt(1, professor.getUserID());
+            stmt.setString(2, professor.getName());
+            stmt.setString(3, professor.getDepartment());
+            stmt.setString(4, professor.getDesignation());
+            int row = stmt.executeUpdate();
 
-//        logger.info(row + " professor added.");
-//        if(row == 0) {
-//            logger.error("Professor with professorId: " + professor.getUserId() + " not added.");
-//            throw new ProfessorNotAddedException(professor.getUserId());
-//        }
-//
-//        logger.info("Professor with professorId: " + professor.getUserId() + " added.");
+            System.out.println(row + " professor added. ");
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
     }
-
-
 }

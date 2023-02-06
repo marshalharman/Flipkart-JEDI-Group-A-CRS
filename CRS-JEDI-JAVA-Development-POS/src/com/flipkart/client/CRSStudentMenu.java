@@ -9,9 +9,14 @@ import com.flipkart.service.StudentServiceOperation;
 import com.flipkart.service.PaymentInterface;
 import com.flipkart.service.PaymentServiceOperation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.spi.AbstractResourceBundleProvider;
+import java.util.*;
+
+import static java.util.Objects.isNull;
 
 
 public class CRSStudentMenu {
@@ -19,18 +24,10 @@ public class CRSStudentMenu {
     StudentInterface studentServiceOperation = new StudentServiceOperation();
     PaymentInterface paymentServiceOperation = new PaymentServiceOperation();
 
-    public void studentMenu(int id) {
+    List<Course> primaryCourses = new ArrayList<Course>();
+    List<Course> alternateCourses = new ArrayList<Course>();
 
-        Student student = null;
-        int semID = -1;
-
-        for(Student st: Data.students){
-            if(st.getUserID() == id){
-                student = st;
-                break;
-            }
-        }
-
+    public void studentMenu(int studentID) {
         while(true) {
             System.out.println("\nStudent Menu!");
             System.out.println("Choose one of the options");
@@ -49,43 +46,36 @@ public class CRSStudentMenu {
 
             int choice;
             choice = Integer.parseInt(obj.nextLine());
-            if(choice!=1 && choice!=10)
-            {
-                if(student.getSemID()==0)
-                {
-                    System.out.println("Please register first!");
-                    continue;
-                }
-            }
+
             switch (choice) {
                 case 1:
-                    semesterRegister(student);
+                    semesterRegister(studentID);
                     break;
                 case 2:
-                    addCourse(student);
+                    addCourse(studentID);
                     break;
                 case 3:
-                    deleteCourse(student);
+                    deleteCourse(studentID);
                     break;
                 case 4:
-                    submit(student);
+                    submit(studentID);
                     break;
                 case 5:
-                    dropCourse(student);
+                    dropCourse(studentID);
                     break;
                 case 6:
                     //System.out.println(student.getSemID());
-                    viewCourses(student.getSemID());
+                    viewCourses(studentID);
                     break;
                 case 7:
                     //System.out.println(id + "hello ");
-                    viewGrades(id);
+                    viewGrades(studentID);
                     break;
                 case 8:
-                    payFees(student);
+                    payFees(studentID);
                     break;
                 case 9:
-                    viewRegisteredCourses(student);
+                    viewRegisteredCourses(studentID);
                     break;
                 case 10:
                     System.out.println("Logged out");
@@ -100,66 +90,108 @@ public class CRSStudentMenu {
         }
     }
 
-    private void viewRegisteredCourses(Student student) {
-        studentServiceOperation.getRegisteredCourses(student);
+    private void viewRegisteredCourses(int studentID) {
+        studentServiceOperation.getRegisteredCourses(studentID);
     }
 
 
-    private void semesterRegister(Student student){
-        List<Integer> semList = studentServiceOperation.getSemesterList(student.getUserID());
+    private void semesterRegister(int studentID){
+        List<Integer> semList = studentServiceOperation.getSemesterList(studentID);
         System.out.println("Select Semester to Register:");
         Scanner sc = new Scanner(System.in);
         int semID = Integer.parseInt(sc.nextLine());
 
-        student.setSemID(semID);
+        studentServiceOperation.setSemID(studentID, semID);
     }
 
-    private void addCourse(Student student){
+    private void addCourse(int studentID){
         System.out.println("1. Add Primary Course\n2. Add Alternate Course");
         Scanner sc = new Scanner(System.in);
         int choice = Integer.parseInt(sc.nextLine());
 
         System.out.println("Select Course to Add:");
-        viewCourses(student.getSemID());
+        List<Course> courseList = viewCourses(studentID);
         String courseName = sc.nextLine();
 
-
-        for( Course course: Data.semCourseList.get(student.getSemID())){
+        for( Course course: courseList){
             if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                if( choice == 1){ student.addPrimaryCourse(course); }
-                else if( choice == 2 ){ student.addAlternateCourse(course); }
+                if( choice == 1){
+                    primaryCourses.add(course);
+                }
+                else if( choice == 2 ){
+                    alternateCourses.add(course);
+                }
             }
         }
     }
 
-    private void deleteCourse(Student student){
-        studentServiceOperation.removeCourse(student);
+    private void deleteCourse(int studentID) {
+        System.out.println("1. Delete Primary Course\n2. Delete Alternate Course");
+        Scanner sc = new Scanner(System.in);
+        int choice = Integer.parseInt(sc.nextLine());
+
+        if (choice == 1) {
+            System.out.println("Please select course : ");
+            for (Course course : primaryCourses) {
+                System.out.println(course.getCourseName());
+            }
+            String courseName = sc.nextLine();
+            for (Course course : primaryCourses) {
+                if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                    primaryCourses.remove(course);
+                    break;
+                }
+            }
+        } else if (choice == 2) {
+            System.out.println("Please select course : ");
+            for (Course course : alternateCourses) {
+                System.out.println(course.getCourseName());
+            }
+            String courseName = sc.nextLine();
+            for (Course course : alternateCourses) {
+                if (course.getCourseName().equalsIgnoreCase(courseName)) {
+                    alternateCourses.remove(course);
+                    break;
+                }
+            }
+        }
     }
 
-    public void submit(Student student){
-        studentServiceOperation.submitPreferences(student);
+    public void submit(int studentID){
+        studentServiceOperation.submitPreferences(studentID, primaryCourses, alternateCourses);
     }
 
-    public void dropCourse(Student student){
+    public void dropCourse(int studentID){
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Please enter the name of the course to be dropped : ");
-        String courseName = sc.nextLine();
+        System.out.println("Please enter the ID of the course to be dropped : ");
+        int courseID = Integer.parseInt(sc.nextLine());
 
-        studentServiceOperation.dropCourse(student, courseName);
+        studentServiceOperation.dropCourse(studentID, courseID);
     }
-    private void viewCourses(int semId){
-        List<Course> courseList = studentServiceOperation.getCourses(semId);
+    private List<Course> viewCourses(int studentID){
+        List<Course> courseList = studentServiceOperation.getCourses(studentID);
 
         for(int i=0;i<courseList.size();i++){
             System.out.println(courseList.get(i).getCourseName() + "\n");
         }
-    }
-    private void viewGrades(int studentId){
-        studentServiceOperation.viewGrades(studentId);
-    }
-    private void payFees(Student student) {
 
-        paymentServiceOperation.pay(student);
+        return courseList;
+    }
+    private void viewGrades(int studentID){
+        HashMap<Course, String> GradesInCourses = studentServiceOperation.viewGrades(studentID);
+        if(GradesInCourses==null) {
+            System.out.println("Grades not published yet");
+            return;
+        }
+
+        for(Map.Entry e: GradesInCourses.entrySet()) {
+            Course course = new Course();
+            course = (Course) e.getKey();
+            System.out.println(course.getCourseID()+ " "+course.getCourseName()+" "+e.getValue());
+        }
+    }
+    private void payFees(int studentID) {
+        paymentServiceOperation.pay(studentID);
     }
 }

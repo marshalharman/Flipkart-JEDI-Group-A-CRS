@@ -7,13 +7,13 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 public interface AdminDAO {
-    public void deleteCourse(Integer courseCode) throws SQLException, ClassNotFoundException;// throws CourseNotFoundException, CourseNotDeletedException;
+    public void deleteCourse(int courseID) throws SQLException, ClassNotFoundException;// throws CourseNotFoundException, CourseNotDeletedException;
 
-    public void addCourse(Course course) throws SQLException, ClassNotFoundException;// throws CourseFoundException;
+    public void addCourse(Course course, int semID) throws SQLException, ClassNotFoundException;// throws CourseFoundException;
 
 //    public List<Student> viewPendingAdmissions();
 
-    public void approveStudent(int studentId) throws SQLException, ClassNotFoundException;//throws StudentNotFoundForApprovalException;
+    public void approveStudent(int studentID) throws SQLException, ClassNotFoundException;//throws StudentNotFoundForApprovalException;
 
 
     public void addProfessor(Professor professor) throws SQLException, ClassNotFoundException;// throws ProfessorNotAddedException, UserIdAlreadyInUseException;

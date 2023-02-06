@@ -4,6 +4,7 @@ import com.flipkart.service.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CRSApplication {
@@ -15,7 +16,7 @@ public class CRSApplication {
     static final String USER = "root";
     static final String PASS = "root";
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws SQLException, ClassNotFoundException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -44,7 +45,7 @@ public class CRSApplication {
                         role = sc.nextLine();
 
                         UserInterface userServiceOperation = new UserServiceOperation();
-                        boolean verified = userServiceOperation.verifyCredentials(userID, password);
+                        boolean verified = userServiceOperation.verifyCredentials(userID, password, role);
 
 
                         if (role.equalsIgnoreCase("student")) {
@@ -96,8 +97,11 @@ public class CRSApplication {
                     System.out.println("Enter your branch: ");
                     String branch = sc.nextLine();
 
+                    System.out.println(("Enter your degree: "));
+                    String degree = sc.nextLine();
+
                     StudentServiceOperation studentServiceOperation = new StudentServiceOperation();
-                    studentServiceOperation.register(studentId,name,address,username, password, branch);
+                    studentServiceOperation.register(studentId,name,address,username, password, branch, degree);
                     break;
                 }
                 case 3: {

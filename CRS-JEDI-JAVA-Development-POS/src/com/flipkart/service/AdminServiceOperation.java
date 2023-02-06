@@ -110,7 +110,7 @@ public class AdminServiceOperation implements AdminInterface {
         //return false;
     }
 
-    public void addCourse(int semId , int courseId , String courseName) throws SQLException, ClassNotFoundException {
+    public void addCourse(int courseID , String courseName, int semID) throws SQLException, ClassNotFoundException {
 //        System.out.println("Enter SemId: ");
 //        int semId=sc.nextInt();
 //        System.out.println("Enter courseId: ");
@@ -121,9 +121,9 @@ public class AdminServiceOperation implements AdminInterface {
 
 //        List<Course> temp=Data.semCourseList.get(semId);
         Course c1=new Course();
-        c1.setCourseID(courseId);
+        c1.setCourseID(courseID);
         c1.setCourseName(courseName);
-        adminDaoImpl.addCourse(c1);
+        adminDaoImpl.addCourse(c1, semID);
         System.out.println(courseName + " added successfully.");
     }
 
