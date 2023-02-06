@@ -2,25 +2,11 @@ package com.flipkart.client;
 
 import com.flipkart.service.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CRSApplication {
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/test";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root";
-
-    public static void main(String args[]) throws SQLException, ClassNotFoundException {
-
-        Connection conn = null;
-        PreparedStatement stmt = null;
-
+    public static void main(String args[]){
         while(true){
 
             System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!");
@@ -36,7 +22,6 @@ public class CRSApplication {
                     while(true){
                         System.out.println("ENTER USERID");
                         userID = Integer.parseInt(sc.nextLine());
-//                        userName = sc.nextLine();
 
                         System.out.println("ENTER PASSWORD");
                         password = sc.nextLine();
