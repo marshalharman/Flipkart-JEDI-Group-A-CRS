@@ -78,9 +78,9 @@ public class CRSAdminMenu {
                     addProfessor(p);
                     break;
                 case 4:
-                    System.out.println("Give Prof name: \n");
-                    String profName = obj.nextLine();
-                    removeProfessor(profName);
+                    System.out.println("Give Professor id: \n");
+                    int profId = Integer.parseInt(obj.nextLine());
+                    removeProfessor(profId);
                     break;
                 case 5:
                     addCourses();
@@ -122,8 +122,8 @@ public class CRSAdminMenu {
     private void addProfessor(Professor p) throws SQLException, ClassNotFoundException {
         service.addProfessor(p);
     }
-    private void removeProfessor(String profName){
-        service.removeProfessor(profName);
+    private void removeProfessor(int profId){
+        service.removeProfessor(profId);
     }
     private void addCourses() throws SQLException, ClassNotFoundException {
         System.out.println("Enter SemId: ");

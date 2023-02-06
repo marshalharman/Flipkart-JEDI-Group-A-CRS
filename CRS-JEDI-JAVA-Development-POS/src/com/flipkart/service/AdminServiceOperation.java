@@ -94,8 +94,8 @@ public class AdminServiceOperation implements AdminInterface {
         return ;
     }
 
-    public void removeProfessor(String profName) {
-        //adminDaoImpl.removeProfessor(profName);
+    public void removeProfessor(int profId) {
+        adminDaoImpl.removeProfessor(profId);
 //        List<Professor> professorsList = Data.professors;
 //        for(Professor prof : professorsList)
 //        {
