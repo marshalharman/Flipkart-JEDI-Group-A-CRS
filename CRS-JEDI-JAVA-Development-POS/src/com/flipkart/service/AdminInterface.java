@@ -8,13 +8,11 @@ import java.sql.SQLException;
 
 public interface AdminInterface {
 
-    public int login(String adminName, String password);
     public void approveStudentRegistration(int studentID);
-    public void addAdmin(Admin a) throws SQLException, ClassNotFoundException;
-    public void addProfessor(Professor p) throws SQLException, ClassNotFoundException;
-    public void removeProfessor(String profName);
-    public void addCourse(int courseID,String courseName, int semID) throws SQLException, ClassNotFoundException;
-    public void removeCourse(int semId , int courseId) throws SQLException, ClassNotFoundException;
+    public void addAdmin(int userID, String userName, String password, String role, boolean isApproved, String name);
+    public void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation);
+    public void addCourse(int courseID,String courseName, int semID);
+    public void removeCourse(int semId , int courseId);
     public void generateGradeCard();
 
 }

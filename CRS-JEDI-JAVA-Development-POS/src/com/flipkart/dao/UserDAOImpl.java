@@ -27,29 +27,24 @@ public class UserDAOImpl implements UserDAO{
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            System.out.println("Creating statement...");
-            String sql="insert into employeefc values(?,?,?,?)";
-            //String sql = "UPDATE Employees set age=? WHERE id=?";
-            // String sql1="delete from employee where id=?";
-            // stmt.setInt(1, 101);
+            String sql = "SELECT * FROM User WHERE UserID = ? AND Password = ?";
+            stmt = conn.prepareStatement(sql);
 
-            String sql1 = "SELECT * FROM User WHERE userID = ? AND password = ?";
-            stmt = conn.prepareStatement(sql1);
+            stmt.setInt(1, userID);
+            stmt.setString(2, password);
 
-            stmt.setInt(1, 101);
-            stmt.setString(2, "Harman");
-//            stmt.executeUpdate();
-            ResultSet rs = stmt.executeQuery(sql1);
+            ResultSet rs = stmt.executeQuery();
 
             int count = 0;
 
             while(rs.next()){
-                if(rs.getString("Role").equalsIgnoreCase(role)) {
+                if(rs.getString("Role").equalsIgnoreCase(role) && rs.getBoolean("isApproved")) {
                     count++;
                 }
             }
 
-            verified = count == 1;
+            verified = (count == 1);
+
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
