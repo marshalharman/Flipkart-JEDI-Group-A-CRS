@@ -22,10 +22,7 @@ public class StudentDAOImpl implements StudentDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        String role = "student";
-        String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
-
-        String sql2 = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";
+        String sql = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -35,16 +32,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             System.out.println("Creating statement...");
 
-            stmt = conn.prepareStatement(sql1);
-            stmt.setInt(1,studentID);
-            stmt.setString(2,username);
-            stmt.setString(3,password);
-            stmt.setString(4,role);
-            stmt.setInt(5,0);
-
-            stmt.executeUpdate();
-
-            stmt = conn.prepareStatement(sql2);
+            stmt = conn.prepareStatement(sql);
             stmt.setInt(1,studentID);
             stmt.setString(2,name);
             stmt.setString(3,address);

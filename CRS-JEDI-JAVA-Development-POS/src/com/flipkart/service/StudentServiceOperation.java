@@ -5,6 +5,7 @@ import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.StudentDAO;
 import com.flipkart.dao.StudentDAOImpl;
+import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.data.Data;
 import java.util.*;
 import com.flipkart.bean.Student;
@@ -12,30 +13,12 @@ import com.flipkart.bean.Student;
 public class StudentServiceOperation implements StudentInterface {
 
     StudentDAOImpl studentDAO = new StudentDAOImpl();
+    UserDAOImpl userDAO = new UserDAOImpl();
     Scanner sc = new Scanner(System.in);
     public void register(int studentId, String name, String address, String username, String password, String branch, String degree){
 
+        userDAO.register(studentId,username,password,"student",false);
         studentDAO.register(studentId,name,address,username,password,branch,degree);
-
-        for(Student s:Data.students)
-        {
-            if(s.getUserID()==studentId)
-            {
-                System.out.println("Student already exists, please Login\n");
-                return;
-            }
-        }
-
-        Student student = new Student();
-        student.setUserID(studentId);
-        student.setName(name);
-        student.setAddress(address);
-        student.setUsername(username);
-        student.setPassword(password);
-        student.setBranch(branch);
-        student.setRole("Student");
-        Data.unapprovedStudents.add(student);
-        System.out.println("Registration request sent.");
     }
     public List<Integer>  getSemesterList(int studentID){
         StudentDAO studentDAO = new StudentDAOImpl();
