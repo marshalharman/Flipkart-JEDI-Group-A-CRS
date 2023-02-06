@@ -20,9 +20,9 @@ public interface AdminDAO {
     public void addProfessor(Professor professor) throws SQLException, ClassNotFoundException;// throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 
 
-//    public void removeProfessor(Professor professor) throws SQLException, ClassNotFoundException;// throws ProfessorNotAddedException, UserIdAlreadyInUseException;
+    public void removeProfessor(Integer profID) throws SQLException, ClassNotFoundException;// throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 //
-//    public void generateReportCard();
+    public void generateReportCard() throws SQLException,ClassNotFoundException;
 //    public void assignCourse(String courseCode, String professorId);// throws CourseNotFoundException, UserNotFoundException;
 //
 //    public List<Course> viewCourses(int catalogId);

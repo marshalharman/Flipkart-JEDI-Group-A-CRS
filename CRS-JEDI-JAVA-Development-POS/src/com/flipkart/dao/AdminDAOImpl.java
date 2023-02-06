@@ -230,7 +230,7 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
 
-    public void removeProfessor(int profID) {
+    public void removeProfessor(Integer profID) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -241,6 +241,40 @@ public class AdminDAOImpl implements AdminDAO {
             String sql = "delete from Professor where ProfID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, profID);
+            stmt.executeUpdate();
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+    }
+    public void generateReportCard(){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            String sql = "update from Student set GradesEnabled=1";
+            stmt = conn.prepareStatement(sql);
+            //stmt.setInt(1, profID);
             stmt.executeUpdate();
 
         } catch (SQLException se) {
