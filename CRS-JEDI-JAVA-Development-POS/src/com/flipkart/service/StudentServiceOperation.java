@@ -40,33 +40,28 @@ public class StudentServiceOperation implements StudentInterface {
         return studentDAO.getSemesterList();
     }
 
-    public List<Course> getCourses(int semID){
+    public List<Course> getCourses(int studentID){
         StudentDAO studentDAO = new StudentDAOImpl();
+        int semID = studentDAO.getStudentByID(studentID).getSemID();
         return studentDAO.getCourses(semID);
     }
 
-    public void dropCourse(Student student, String courseName){
-
-        for(Course course: Data.semCourseList.get(student.getSemID()) ){
-            if( course.getCourseName().equalsIgnoreCase(courseName) ){
-                Data.registeredCourses.get(student.getUserID()).remove(course);
-                Data.courseEnrollmentCount.put(course.getCourseID(), Data.courseEnrollmentCount.get(course.getCourseID())-1 );
-                break;
-            }
-        }
-
+    public void dropCourse(int studentID, int courseID){
     }
 
-    public void submitPreferences(Student student){
+    public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses){
 
         int registeredCourseCount = 0;
 
         StudentDAO studentDAO = new StudentDAOImpl();
-        HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(student.getSemID());
 
+        Student student = studentDAO.getStudentByID(studentID);
+        int semID = student.getSemID();
+
+        HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(semID));
         List<Integer> registeredCoursesID = new ArrayList<>();
 
-        for(Course course: student.getPrimaryCourses()){
+        for(Course course: primaryCourses){
             if(!courseEnrollmentCount.containsKey(course.getCourseID())){
                 courseEnrollmentCount.put(course.getCourseID(), 0);
             }
@@ -80,7 +75,7 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
 
-        for(Course course: student.getAlternateCourses()){
+        for(Course course: alternateCourses){
             if(!courseEnrollmentCount.containsKey(course.getCourseID())){
                 courseEnrollmentCount.put(course.getCourseID(), 0);
             }
@@ -94,7 +89,7 @@ public class StudentServiceOperation implements StudentInterface {
             }
         }
 
-        studentDAO.registerCourses(student.getUserID(), registeredCoursesID, student.getSemID());
+        studentDAO.registerCourses(studentID, registeredCoursesID, semID);
 
         System.out.println("REGISTERED COURSES:");
         for(int i=0;i<registeredCourseCount;i++){

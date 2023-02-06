@@ -169,9 +169,7 @@ public class CRSStudentMenu {
         studentServiceOperation.dropCourse(studentID, courseID);
     }
     private List<Course> viewCourses(int studentID){
-
-        int semId = studentServiceOperation.getSemID(studentID);
-        List<Course> courseList = studentServiceOperation.getCourses(semId);
+        List<Course> courseList = studentServiceOperation.getCourses(studentID);
 
         for(int i=0;i<courseList.size();i++){
             System.out.println(courseList.get(i).getCourseName() + "\n");

@@ -12,7 +12,7 @@ public interface StudentInterface {
     public void setSemID(int studentID, int semID);
     public List<Integer> getSemesterList(int studentID);
     public List<Course> getCourses(int semID);
-    public HashMap<Integer, Integer> getCourseEnrollmentCount(int courseID);
+
     public void dropCourse(int studentID, int courseID);
     public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses);
     public void getRegisteredCourses(int studentID);
