@@ -15,12 +15,14 @@ public interface AdminDAO {
 
     public void approveStudent(int studentID) throws SQLException, ClassNotFoundException;//throws StudentNotFoundForApprovalException;
 
+    public void addUser(User user) throws SQLException, ClassNotFoundException;// throws UserNotAddedException, UserIdAlreadyInUseException;
 
     public void addProfessor(Professor professor) throws SQLException, ClassNotFoundException;// throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 
-    public void addUser(User user) throws SQLException, ClassNotFoundException;// throws UserNotAddedException, UserIdAlreadyInUseException;
 
-
+//    public void removeProfessor(Professor professor) throws SQLException, ClassNotFoundException;// throws ProfessorNotAddedException, UserIdAlreadyInUseException;
+//
+//    public void generateReportCard();
 //    public void assignCourse(String courseCode, String professorId);// throws CourseNotFoundException, UserNotFoundException;
 //
 //    public List<Course> viewCourses(int catalogId);
