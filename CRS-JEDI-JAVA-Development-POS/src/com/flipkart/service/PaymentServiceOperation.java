@@ -1,5 +1,6 @@
 package com.flipkart.service;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.PaymentDAOImpl;
 import com.flipkart.data.Data;
 import java.util.Scanner;
 import java.util.*;
@@ -10,49 +11,42 @@ public class PaymentServiceOperation implements PaymentInterface {
 
     @Override
     public void pay(Student student) {
-        int s_id = student.getUserID();
-
-        int reg_courses_number = Data.registeredCourses.get(s_id).size();
-
-        int fee_amount = 1000*reg_courses_number;
-        System.out.println("Your fee amount = "+fee_amount);
+        String uniqID = UUID.randomUUID().toString();
+        String mode = "";
+        PaymentDAOImpl paydao = new PaymentDAOImpl();
+        int reg_courses_number = paydao.numOfRegisteredCourses(student.getUserID());
+        int fee_amount = 1000 * reg_courses_number;
+        System.out.println("Your fee amount = " + fee_amount);
         System.out.println("Select a method to pay -");
         System.out.println("1.UPI   2.Debit/Credit card   3.Cash");
-
         Scanner obj = new Scanner(System.in);
         int choice;
         choice = Integer.parseInt(obj.nextLine());
-
         switch (choice) {
             case 1:
                 System.out.println("Please enter you upi id: ");
-                int upiID = Integer.parseInt(obj.nextLine());
-                Data.upiIDS.put(s_id, upiID);
+                String upiID = obj.nextLine();
+                paydao.addUPI(uniqID, upiID);
+                mode = "UPI";
                 break;
             case 2:
                 System.out.println("Enter card details: ");
-                String cardNumber, cvv, expdate;
+                String cardNumber, name, cvv, expdate;
                 cardNumber = obj.nextLine();
+                name = obj.nextLine();
                 cvv = obj.nextLine();
                 expdate = obj.nextLine();
-                List<String> temp = new ArrayList<String>();
-                temp.add(cardNumber);
-                temp.add(cvv);
-                temp.add(expdate);
-                Data.cardDetails.put(s_id, temp );
-
+                paydao.addCard(cardNumber, name, cvv, expdate, uniqID);
+                mode = "CARD";
                 break;
             case 3:
-                System.out.println("received amount of "+fee_amount);
+                System.out.println("received amount of " + fee_amount);
+                mode = "CASH";
                 break;
             default:
                 System.out.println("Please enter a valid input\n");
+
         }
-
-        System.out.println("Payment done");
-
-        String uniqueID = UUID.randomUUID().toString();
-        sendNotification(s_id,uniqueID,"Payment successful!");
     }
 
     @Override
@@ -61,5 +55,7 @@ public class PaymentServiceOperation implements PaymentInterface {
         System.out.println("Student ID"+id);
         System.out.println("Reference ID: "+transactionID);
         System.out.println(msg);
+        PaymentDAOImpl paydao = new PaymentDAOImpl();
+        paydao.saveNotification(transactionID,msg);
     }
 }
