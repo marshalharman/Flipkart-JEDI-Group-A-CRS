@@ -7,12 +7,12 @@ import com.flipkart.bean.Student;
 public interface AdminInterface {
 
     public int login(String adminName, String password);
-    public void approveStudentRegistration();
+    public void approveStudentRegistration(int studentID);
     public boolean addAdmin(Admin a);
     public boolean addProfessor(Professor p);
     public boolean removeProfessor(String profName);
-    public void addCourse();
-    public void removeCourse();
+    public void addCourse(int semId , int courseId , String courseName);
+    public void removeCourse(int semId , int courseId);
     public void generateGradeCard();
 
 }

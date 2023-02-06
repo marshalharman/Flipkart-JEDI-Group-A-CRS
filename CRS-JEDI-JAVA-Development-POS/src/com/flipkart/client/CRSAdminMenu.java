@@ -8,10 +8,12 @@ import com.flipkart.data.Data;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class CRSAdminMenu {
     AdminInterface service = new AdminServiceOperation();
+    Scanner sc = new Scanner(System.in);
     public void adminMenu(int id)
     {
 
@@ -100,7 +102,21 @@ public class CRSAdminMenu {
         }
     }
 	private void approvedStudentRegistration(){
-        service.approveStudentRegistration();
+        List<Student> unapprovedStudents =Data.unapprovedStudents;
+        if(unapprovedStudents.isEmpty())
+        {
+            System.out.println("No unapproved student.");
+            return;
+
+        }
+        System.out.println("List of unapproved students : ");
+        for(Student s: unapprovedStudents){
+            System.out.println(s.getUserID() + " - " + s.getUsername());
+        }
+
+        System.out.println("Enter the student ID to approve : ");
+        int studentID = Integer.parseInt(sc.nextLine());
+        service.approveStudentRegistration(studentID);
     }
     private void addAdmin(Admin a){ service.addAdmin(a);}
     private void addProfessor(Professor p){
@@ -110,10 +126,20 @@ public class CRSAdminMenu {
         service.removeProfessor(profName);
     }
     private void addCourses(){
-        service.addCourse();
+        System.out.println("Enter SemId: ");
+        int semId=sc.nextInt();
+        System.out.println("Enter courseId: ");
+        int courseId=sc.nextInt();
+        System.out.println("Enter courseName: ");
+        String courseName=sc.next();
+        service.addCourse(semId,courseId ,courseName);
     }
     private void deleteCourses(){
-        service.removeCourse();
+        System.out.println("Enter SemId: ");
+        int semId=sc.nextInt();
+        System.out.println("Enter courseId: ");
+        int courseId=sc.nextInt();
+        service.removeCourse(semId,courseId);
     }
     private void generateReportCard(){
     	service.generateGradeCard();

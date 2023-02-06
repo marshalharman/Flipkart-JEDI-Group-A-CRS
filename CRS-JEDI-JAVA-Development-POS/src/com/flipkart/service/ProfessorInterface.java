@@ -5,7 +5,7 @@ import com.flipkart.bean.Professor;
 import java.util.List;
 
 public interface ProfessorInterface {
-    public int login(String professorname, String password);
+    public int login(String professorName, String password);
 
     public List<Course> viewCourse(int semID);
 
@@ -13,7 +13,7 @@ public interface ProfessorInterface {
 
     public void deregisterCourse(Course courseName);
 
-    public void viewEnrolledStudents();
+    public void viewEnrolledStudents(int semID , String courseName);
 
-    public void addGrade(Professor professor);
+    public void addGrade(Professor professor , int courseID , int studentID , int score);
 }

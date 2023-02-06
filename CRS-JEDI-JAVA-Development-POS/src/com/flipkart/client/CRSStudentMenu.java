@@ -141,7 +141,12 @@ public class CRSStudentMenu {
     }
 
     public void dropCourse(Student student){
-        studentServiceOperation.dropCourse(student);
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Please enter the name of the course to be dropped : ");
+        String courseName = sc.nextLine();
+
+        studentServiceOperation.dropCourse(student, courseName);
     }
     private void viewCourses(int semId){
         List<Course> courseList = studentServiceOperation.getCourses(semId);
