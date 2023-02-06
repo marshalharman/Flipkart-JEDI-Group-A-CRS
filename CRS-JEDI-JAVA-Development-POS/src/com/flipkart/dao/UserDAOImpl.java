@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class UserDAOImpl implements UserDAO{
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
     //  Database credentials
@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO{
 
         boolean verified = false;
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -78,7 +78,7 @@ public class UserDAOImpl implements UserDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
