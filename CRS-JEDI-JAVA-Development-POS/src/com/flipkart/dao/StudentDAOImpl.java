@@ -299,7 +299,10 @@ public class StudentDAOImpl implements StudentDAO{
 
         HashMap<Course, String> GradesInCourses = new HashMap<>() ;
 
-        String sql = " SELECT Courses.CourseID AS CourseID, Grade, Name AS CourseName FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = 101;";
+        String sql1 = "select GradesEnabled from Student where StudentID=(?);";
+
+
+        String sql = "SELECT Courses.CourseID AS CourseID, Grade, Name AS CourseName FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = 101;";
 
         try{
 
@@ -307,6 +310,14 @@ public class StudentDAOImpl implements StudentDAO{
 
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql1);
+            stmt.setInt(1,studentID);
+
+            ResultSet rs1 =stmt.executeQuery();
+            if(!rs1.getBoolean("GradesEnabled")) {
+                return GradesInCourses;
+            }
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentID);

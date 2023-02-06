@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.spi.AbstractResourceBundleProvider;
+import java.util.*;
+
+import static java.util.Objects.isNull;
 
 
 public class CRSStudentMenu {
@@ -180,7 +183,17 @@ public class CRSStudentMenu {
         return courseList;
     }
     private void viewGrades(int studentID){
-        studentServiceOperation.viewGrades(studentID);
+        HashMap<Course, String> GradesInCourses = studentServiceOperation.viewGrades(studentID)
+        if(GradesInCourses==null) {
+            System.out.println("Grades not published yet");
+            return;
+        }
+
+        for(Map.Entry e: GradesInCourses.entrySet()) {
+            Course course = new Course();
+            course = (Course) e.getKey();
+            System.out.println(course.getCourseID()+ " "+course.getCourseName()+" "+e.getValue());
+        }
     }
     private void payFees(int studentID) {
         paymentServiceOperation.pay(student);
