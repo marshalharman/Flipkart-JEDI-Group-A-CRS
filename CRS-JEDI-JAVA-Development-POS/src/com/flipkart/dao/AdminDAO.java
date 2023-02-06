@@ -9,7 +9,7 @@ import com.flipkart.bean.User;
 public interface AdminDAO {
     public void deleteCourse(int courseID) throws SQLException, ClassNotFoundException;// throws CourseNotFoundException, CourseNotDeletedException;
 
-    public void addCourse(Course course) throws SQLException, ClassNotFoundException;// throws CourseFoundException;
+    public void addCourse(Course course, int semID) throws SQLException, ClassNotFoundException;// throws CourseFoundException;
 
 //    public List<Student> viewPendingAdmissions();
 

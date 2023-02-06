@@ -57,7 +57,7 @@ public class AdminDAOImpl implements AdminDAO{
             }//end finally try
         }//end try
     }
-    public void addCourse(Course course) throws SQLException, ClassNotFoundException {
+    public void addCourse(Course course, int semID) throws SQLException, ClassNotFoundException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -65,14 +65,18 @@ public class AdminDAOImpl implements AdminDAO{
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            String sql = "insert into Course(courseId, courseName, catalogId) values (?, ?, ?)";
-
+            String sql = "insert into Course(courseID, courseName) values (?, ?)";
+            stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
             stmt.setString(2, course.getCourseName());
+            stmt.executeUpdate();
 
-            stmt.setInt(3, course.getProfID());
-            int row = stmt.executeUpdate();
-            System.out.println(row + " entries added");
+
+            sql = "insert into Catalog(courseId, semID) values (?, ?)";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course.getCourseID());
+            stmt.setInt(2, semID);
+            stmt.executeUpdate();
         } catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
@@ -190,7 +194,7 @@ public class AdminDAOImpl implements AdminDAO{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             this.addUser(professor);
-            String sql = "insert into Professor(userId, department, designation) values (?, ?, ?)";
+            String sql = "insert into Professor(ProfId, Name, Department, Designation) values (?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, professor.getUserID());

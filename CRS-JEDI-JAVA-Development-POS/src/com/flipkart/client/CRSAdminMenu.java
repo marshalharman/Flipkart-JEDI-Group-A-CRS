@@ -8,6 +8,7 @@ import com.flipkart.data.Data;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -125,14 +126,14 @@ public class CRSAdminMenu {
     private void removeProfessor(String profName){
         service.removeProfessor(profName);
     }
-    private void addCourses(){
+    private void addCourses() throws SQLException, ClassNotFoundException {
         System.out.println("Enter SemId: ");
-        int semId=sc.nextInt();
+        int semID=sc.nextInt();
         System.out.println("Enter courseId: ");
-        int courseId=sc.nextInt();
+        int courseID=sc.nextInt();
         System.out.println("Enter courseName: ");
         String courseName=sc.next();
-        service.addCourse(semId,courseId ,courseName);
+        service.addCourse(courseID, courseName, semID);
     }
     private void deleteCourses(){
         System.out.println("Enter SemId: ");
