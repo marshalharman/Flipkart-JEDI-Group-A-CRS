@@ -110,8 +110,6 @@ public class CRSStudentMenu {
         int choice = Integer.parseInt(sc.nextLine());
 
         System.out.println("Select Course to Add:");
-        int semId = studentServiceOperation.getSemID(studentID);
-
         List<Course> courseList = viewCourses(studentID);
         String courseName = sc.nextLine();
 
@@ -129,7 +127,7 @@ public class CRSStudentMenu {
 
     private void deleteCourse(int studentID) {
         System.out.println("1. Delete Primary Course\n2. Delete Alternate Course");
-        Scanner sc = new Scanner(System.in);\
+        Scanner sc = new Scanner(System.in);
         int choice = Integer.parseInt(sc.nextLine());
 
         if (choice == 1) {
@@ -181,7 +179,7 @@ public class CRSStudentMenu {
         return courseList;
     }
     private void viewGrades(int studentID){
-        HashMap<Course, String> GradesInCourses = studentServiceOperation.viewGrades(studentID)
+        HashMap<Course, String> GradesInCourses = studentServiceOperation.viewGrades(studentID);
         if(GradesInCourses==null) {
             System.out.println("Grades not published yet");
             return;
@@ -194,6 +192,6 @@ public class CRSStudentMenu {
         }
     }
     private void payFees(int studentID) {
-        paymentServiceOperation.pay(student);
+        paymentServiceOperation.pay(studentID);
     }
 }
