@@ -15,7 +15,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "somil0412";
+    static final String PASS = "root1234";
     Connection connection = null;
     PreparedStatement statement = null;
     String sql ="";
@@ -29,6 +29,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             statement = connection.prepareStatement(sql);
             statement.setInt(1, s_id);
             ResultSet result = statement.executeQuery();
+            result.next();
             return result.getInt(1);
         }
         catch(SQLException se){
@@ -50,7 +51,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setString(2, upiID);
-            statement.executeQuery();
+            statement.executeUpdate();
         }
         catch(SQLException se){
             //Handle errors for JDBC
@@ -95,7 +96,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             statement.setString(3, mode);
             statement.setInt(4,amount);
             statement.setString(5, description);
-            statement.executeQuery();
+            statement.executeUpdate();
         }
         catch(SQLException se){
             //Handle errors for JDBC

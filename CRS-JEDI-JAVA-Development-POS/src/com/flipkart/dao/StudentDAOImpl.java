@@ -16,7 +16,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "somil0412";
+    static final String PASS = "root1234";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree){
         Connection conn = null;
@@ -84,14 +84,12 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            System.out.println("Creating statement...");
 
             String sql1 = "SELECT DISTINCT semID FROM Catalog";
             stmt = conn.prepareStatement(sql1);
-            ResultSet rs = stmt.executeQuery(sql1);
+            ResultSet rs = stmt.executeQuery();
+
 
             while(rs.next()){
                 int semID = rs.getInt(1);
@@ -174,17 +172,15 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            System.out.println("Creating statement...");
             String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
                     "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);
 
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
 
@@ -235,13 +231,15 @@ public class StudentDAOImpl implements StudentDAO{
 
             System.out.println("Creating statement...");
 
-            String sql = "SELECT CourseID, COUNT(studentID) AS Frequency FROM SemRegistration where CourseID = ?";
+            String sql = "SELECT CourseID, COUNT(studentID) AS Frequency FROM SemRegistration GROUP BY CourseID";
             stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
                 int courseID = rs.getInt("CourseID");
                 int count = rs.getInt("Frequency");
+
+                System.out.println(courseID + ":" + count);
 
                 courseEnrollmentCount.put(courseID, count);
             }
@@ -279,7 +277,7 @@ public class StudentDAOImpl implements StudentDAO{
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            String sql = "INSERT INTO SemRegistration (?, ?, ?, ?)";
+            String sql = "INSERT INTO SemRegistration (`StudentID`, `CourseID`, `SemID`) VALUES  (?, ?, ?)";
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1,studentID);
@@ -364,11 +362,10 @@ public class StudentDAOImpl implements StudentDAO{
 
         List<Course> registeredCourse = new ArrayList<>();
 
-        String sql = " SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?;";
+        String sql = " SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?";
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql);
@@ -382,6 +379,8 @@ public class StudentDAOImpl implements StudentDAO{
                 regCourse.setCourseID(rs.getInt("Courses.CourseID"));
                 regCourse.setCourseName(rs.getString("Courses.Name"));
                 regCourse.setCourseName(rs.getString("Courses.ProfID"));
+
+                System.out.println(studentID + ":" + regCourse.getCourseName() + ":" + regCourse.getCourseID() + ":" + regCourse.getProfID());
 
                 registeredCourse.add(regCourse);
             }
@@ -434,6 +433,8 @@ public class StudentDAOImpl implements StudentDAO{
             stmt.setInt(1,studentID);
 
             ResultSet rs1 =stmt.executeQuery();
+
+            rs1.next();
             if(!rs1.getBoolean("GradesEnabled")) {
                 return GradesInCourses;
             }
@@ -443,8 +444,8 @@ public class StudentDAOImpl implements StudentDAO{
 
             ResultSet rs = stmt.executeQuery();
 
+            System.out.println("GRADE CARD:");
             while(rs.next()){
-
                 Course course = new Course();
 
                 course.setCourseID(rs.getInt("CourseID"));
@@ -500,6 +501,7 @@ public class StudentDAOImpl implements StudentDAO{
             stmt.setInt(1, studentID);
 
             ResultSet rs = stmt.executeQuery();
+            rs.next();
 
             student.setUserID(rs.getInt("StudentID"));
             student.setName(rs.getString("Name"));

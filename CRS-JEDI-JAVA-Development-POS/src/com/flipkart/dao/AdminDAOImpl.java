@@ -77,7 +77,6 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
-
         } catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();

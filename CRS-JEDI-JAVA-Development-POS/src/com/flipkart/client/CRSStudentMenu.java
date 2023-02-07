@@ -36,7 +36,7 @@ public class CRSStudentMenu {
             System.out.println("3. Remove Course");
             System.out.println("4. Submit");
             System.out.println("5. Drop Course");
-            System.out.println("6. View Course");
+            System.out.println("6. View Courses");
             System.out.println("7. View grades");
             System.out.println("8. Make Payment");
             System.out.println("9. View Registered Courses");
@@ -98,6 +98,9 @@ public class CRSStudentMenu {
     private void semesterRegister(int studentID){
         List<Integer> semList = studentServiceOperation.getSemesterList(studentID);
         System.out.println("Select Semester to Register:");
+        for(int semID: semList){
+            System.out.println("SEM " + semID);
+        }
         Scanner sc = new Scanner(System.in);
         int semID = Integer.parseInt(sc.nextLine());
 
@@ -112,6 +115,8 @@ public class CRSStudentMenu {
         System.out.println("Select Course to Add:");
         List<Course> courseList = viewCourses(studentID);
         String courseName = sc.nextLine();
+
+        System.out.println("Selected course: " + courseName);
 
         for( Course course: courseList){
             if( course.getCourseName().equalsIgnoreCase(courseName) ){
