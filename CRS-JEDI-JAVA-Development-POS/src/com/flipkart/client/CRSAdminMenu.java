@@ -3,6 +3,7 @@ package com.flipkart.client;
 
 import com.flipkart.bean.Admin;
 import com.flipkart.data.Data;
+import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
@@ -11,8 +12,7 @@ import java.util.Scanner;
 public class CRSAdminMenu {
     AdminInterface service = new AdminServiceOperation();
     Scanner sc = new Scanner(System.in);
-    public void adminMenu(int id)
-    {
+    public void adminMenu(int id) throws CourseAlreadyPresentException, CourseNotDeletedException, CourseNotFoundException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException {
 
         while(true) {
 
@@ -98,7 +98,7 @@ public class CRSAdminMenu {
             if(choice == 7){break;}
         }
     }
-	private void approvedStudentRegistration(){
+	private void approvedStudentRegistration() throws StudentNotFoundForApprovalException {
         System.out.println("Enter the student ID to approve : ");
         int studentID = Integer.parseInt(sc.nextLine());
         service.approveStudentRegistration(studentID);
@@ -106,10 +106,10 @@ public class CRSAdminMenu {
     private void addAdmin(int userID, String userName, String password, String role, boolean isApproved, String name){
         service.addAdmin(userID, userName, password, role, isApproved, name);
     }
-    private void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation){
+    private void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation) throws UserIdAlreadyInUseException, ProfessorNotAddedException {
         service.addProfessor(userID,userName,password,role,name,dept,designation);
     }
-    private void addCourses() {
+    private void addCourses() throws CourseAlreadyPresentException {
         System.out.println("Enter SemId: ");
         int semID=sc.nextInt();
         System.out.println("Enter courseId: ");
@@ -118,7 +118,7 @@ public class CRSAdminMenu {
         String courseName=sc.next();
         service.addCourse(courseID, courseName, semID);
     }
-    private void deleteCourses(){
+    private void deleteCourses() throws CourseNotDeletedException, CourseNotFoundException {
         System.out.println("Enter SemId: ");
         int semId=sc.nextInt();
         System.out.println("Enter courseId: ");

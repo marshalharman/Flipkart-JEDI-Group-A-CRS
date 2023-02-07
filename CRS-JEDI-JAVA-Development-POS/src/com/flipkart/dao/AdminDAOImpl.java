@@ -1,7 +1,11 @@
 package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.User;
+import com.flipkart.exception.*;
+
 import java.sql.*;
+import java.util.*;
 public class AdminDAOImpl implements AdminDAO {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -9,7 +13,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root1234";
+    static final String PASS = "17102080";
 
     public void addAdmin(int userID, String name){
 
@@ -52,7 +56,8 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
-    public void deleteCourse(int courseID) {
+    @Override
+    public void deleteCourse(int courseID) throws CourseNotDeletedException , CourseNotFoundException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -75,11 +80,16 @@ public class AdminDAOImpl implements AdminDAO {
             sql = "DELETE FROM Courses WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
-            stmt.executeUpdate();
+            int row=stmt.executeUpdate();
+            if(row==0){
+                System.out.println(courseID + " not in catalog!");
+                throw new CourseNotFoundException(courseID);
+            }
 
         } catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
+            throw new CourseNotDeletedException(courseID);
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -98,7 +108,7 @@ public class AdminDAOImpl implements AdminDAO {
             }//end finally try
         }//end try
     }
-    public void addCourse(Course course, int semID){
+    public void addCourse(Course course, int semID)throws CourseAlreadyPresentException{
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -126,6 +136,8 @@ public class AdminDAOImpl implements AdminDAO {
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
+            throw new CourseAlreadyPresentException(course.getCourseID());
+
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -147,7 +159,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
-    public void approveStudent(int studentId){
+    public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -161,7 +173,12 @@ public class AdminDAOImpl implements AdminDAO {
 
             stmt=conn.prepareStatement(sql);
             stmt.setInt(1,studentId);
-            stmt.executeUpdate();
+            int row = stmt.executeUpdate();
+            if(row==0)
+            {
+                System.out.println("Student with "+studentId+" not found.");
+                throw new StudentNotFoundForApprovalException(studentId);
+            }
 
         } catch(SQLException se){
             //Handle errors for JDBC
@@ -186,7 +203,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
-    public void addProfessor(Professor professor){
+    public void addProfessor(Professor professor) throws ProfessorNotAddedException,UserIdAlreadyInUseException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -204,14 +221,22 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setString(2, professor.getName());
             stmt.setString(3, professor.getDepartment());
             stmt.setString(4, professor.getDesignation());
-            stmt.executeUpdate();
+            int row = stmt.executeUpdate();
+            if(row==0)
+            {
+                System.out.println("Professor not added.");
+                throw new ProfessorNotAddedException(professor.getUserID());
+
+            }
 
         } catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
+            throw new UserIdAlreadyInUseException(professor.getUserID());
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
+
         }finally{
             //finally block used to close resources
             try{
