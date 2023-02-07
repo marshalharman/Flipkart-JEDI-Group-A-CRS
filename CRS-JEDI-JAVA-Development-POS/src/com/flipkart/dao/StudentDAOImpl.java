@@ -18,7 +18,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "somil0412";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
@@ -63,11 +63,10 @@ public class StudentDAOImpl implements StudentDAO{
         catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
-        }
-        catch(Exception e){
+        }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
-        } finally{
+        }finally{
             //finally block used to close resources
             try{
                 if(stmt!=null)
@@ -370,7 +369,8 @@ public class StudentDAOImpl implements StudentDAO{
 
         List<Course> registeredCourse = new ArrayList<>();
 
-        String sql = " SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?";
+        String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
+                "FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID=?";
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -386,9 +386,7 @@ public class StudentDAOImpl implements StudentDAO{
 
                 regCourse.setCourseID(rs.getInt("Courses.CourseID"));
                 regCourse.setCourseName(rs.getString("Courses.Name"));
-                regCourse.setCourseName(rs.getString("Courses.ProfID"));
-
-                System.out.println(studentID + ":" + regCourse.getCourseName() + ":" + regCourse.getCourseID() + ":" + regCourse.getProfID());
+                regCourse.setProfID(rs.getInt("Courses.ProfID"));
 
                 registeredCourse.add(regCourse);
             }

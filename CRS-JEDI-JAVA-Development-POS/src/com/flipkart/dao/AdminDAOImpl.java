@@ -62,17 +62,19 @@ public class AdminDAOImpl implements AdminDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "DELETE FROM SemRegistration WHERE CourseID = ?";
+            String sql = "DELETE FROM Catalog WHERE CourseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
-            sql = "DELETE FROM Catalog WHERE CourseId = ?";
+            sql = "DELETE FROM SemRegistration WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
-            sql = "DELETE FROM Course WHERE CourseID = ?";
+
+
+            sql = "DELETE FROM Courses WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();

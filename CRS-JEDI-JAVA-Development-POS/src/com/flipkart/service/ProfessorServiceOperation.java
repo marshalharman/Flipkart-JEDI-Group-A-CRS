@@ -20,23 +20,23 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         return courseList;
     }
 
-    public void registerCourse(int profID, String courseName, int semID){
-        professorDAO.registerCourseForProfessor(profID, courseName, semID);
+    public void registerCourse(int profID, int courseID, int semID){
+        professorDAO.registerCourseForProfessor(profID, courseID, semID);
     }
 
-    public void deregisterCourse(int profID, String courseName, int semID){
-        professorDAO.deregisterCourseForProfessor(profID, courseName);
+    public void deregisterCourse(int profID, int courseID, int semID){
+        professorDAO.deregisterCourseForProfessor(profID, courseID);
     }
 
-    public List<Student> viewEnrolledStudents(int semID , String courseName){
-        List<Student> students = professorDAO.viewEnrolledStudents(courseName);
+    public List<Student> viewEnrolledStudents(int semID , int courseID){
+        List<Student> students = professorDAO.viewEnrolledStudents(courseID);
 
         return students;
     }
 
-    public void addGrade(int profID , String courseName, int studentID , String grade){
+    public void addGrade(int profID , int courseID, int studentID , String grade){
 
-        professorDAO.addGrade(studentID, courseName, grade);
+        professorDAO.addGrade(studentID, courseID, grade);
 
     }
 }
