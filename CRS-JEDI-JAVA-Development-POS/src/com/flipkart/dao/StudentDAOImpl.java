@@ -18,16 +18,16 @@ public class StudentDAOImpl implements StudentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root1234";
+    static final String PASS = "Fk!_186802";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        Student s=getStudentByID(studentID);
-        if(s!=null)
-        {
-            throw new DuplicateUserException(studentID);
-        }
+//        Student s=getStudentByID(studentID);
+//        if(s!=null)
+//        {
+//            throw new DuplicateUserException(studentID);
+//        }
 
         String role = "student";
         String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
