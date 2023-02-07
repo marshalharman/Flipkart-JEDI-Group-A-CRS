@@ -23,7 +23,13 @@ public class CRSApplication {
             System.out.println("1. Login \n2. Registration of the Student \n3. Update Password \n4. Exit");
 
             Scanner sc = new Scanner(System.in);
-            int choice = Integer.parseInt(sc.nextLine());
+
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Input should be numerical!");
+            }
 
             switch (choice) {
                 case 1: {
@@ -123,7 +129,19 @@ public class CRSApplication {
                 }
                 case 3: {
                     System.out.println("Update Password");
-
+                    System.out.println("Enter your UserID : ");
+                    int userId;
+                    try{
+                        userId= Integer.parseInt(sc.nextLine());
+                    }catch(Exception e)
+                    {
+                        System.out.println("Please provide ID\n");
+                        break;
+                    }
+                    System.out.println("Enter your password: ");
+                    String password = sc.nextLine();
+                    UserInterface userServiceOperation = new UserServiceOperation();
+                    userServiceOperation.updatePassword(userId,password);
                     break;
                 }
                 case 4: {

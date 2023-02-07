@@ -1,6 +1,8 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Dao;
 import com.flipkart.data.Data;
 
 import java.sql.*;
@@ -13,17 +15,15 @@ public class PaymentDAOImpl implements PaymentDAO{
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root1234";
-    Connection connection = null;
-    PreparedStatement statement = null;
-    String sql ="";
+    Connection connection;
+    PreparedStatement statement;
 
     public int numOfRegisteredCourses( int s_id){
+
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            connection = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             String mode = "";
             String sql = "select count(*) from SemRegistration where StudentID = ?";
             statement = connection.prepareStatement(sql);
@@ -45,9 +45,9 @@ public class PaymentDAOImpl implements PaymentDAO{
     {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            connection = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             statement = null;
-            sql = "insert into UPI values(?,?)";
+            String sql = "insert into UPI values(?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setString(2, upiID);
@@ -65,9 +65,9 @@ public class PaymentDAOImpl implements PaymentDAO{
     {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            connection = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             statement = null;
-            sql = "insert into CardDetails values(?,?,?,?)";
+            String sql = "insert into CardDetails values(?,?,?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setString(2, cardNumber);
@@ -87,9 +87,9 @@ public class PaymentDAOImpl implements PaymentDAO{
     {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            connection = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             statement = null;
-            sql = "insert into Payment values(?,?,?,?,?)";
+            String sql = "insert into Payment values(?,?,?,?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setInt(2, s_id);
@@ -110,7 +110,7 @@ public class PaymentDAOImpl implements PaymentDAO{
     {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL,USER,PASS);
+            connection = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             String notificationID = UUID.randomUUID().toString();
             statement = null;
             String sql = "insert into Notification values(?,?,?)";

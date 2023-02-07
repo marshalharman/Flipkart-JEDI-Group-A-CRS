@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +15,7 @@ import java.util.Scanner;
 
 public class ProfessorDAOImpl implements ProferssorDAO{
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root1234";
-
     static Connection conn = null;
-
 
     public List<Course> viewCoursesBySemID(int semID){
 
@@ -38,8 +31,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);
@@ -94,8 +86,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, profID);
@@ -140,8 +131,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, -1);
@@ -193,8 +183,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseName);
@@ -253,8 +242,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentID);
@@ -310,8 +298,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, profID);
@@ -368,8 +355,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, grade);
@@ -414,8 +400,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
@@ -465,8 +450,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseName);
@@ -524,8 +508,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
@@ -584,7 +567,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, profID);

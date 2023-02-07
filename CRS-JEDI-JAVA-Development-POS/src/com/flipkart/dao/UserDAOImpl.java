@@ -1,6 +1,10 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.User;
+
+import com.flipkart.bean.Student;
+import com.flipkart.constant.Dao;
+import com.flipkart.exception.DuplicateUserException;
 import com.flipkart.exception.UserNotFoundException;
 
 import java.sql.*;
@@ -14,17 +18,17 @@ public class UserDAOImpl implements UserDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
 
-//        Student s=studentDAO.getStudentByID(userID);
-//        if(s==null)
-//        {
-//            throw new UserNotFoundException(userID);
-//        }
+        User s=getUserByID(userID);
+        if(s==null)
+        {
+            throw new UserNotFoundException(userID);
+        }
 
         boolean verified = false;
         try{
             Class.forName(JDBC_DRIVER);
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "SELECT * FROM User WHERE UserID=? AND Password=?";
             stmt = conn.prepareStatement(sql);
@@ -79,8 +83,7 @@ public class UserDAOImpl implements UserDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userID);
@@ -120,8 +123,7 @@ public class UserDAOImpl implements UserDAO{
         String sql = "UPDATE USER SET Password = ? where UserID = ?";
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, password);
             stmt.setInt(2, userID);
@@ -160,8 +162,7 @@ public class UserDAOImpl implements UserDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
 
