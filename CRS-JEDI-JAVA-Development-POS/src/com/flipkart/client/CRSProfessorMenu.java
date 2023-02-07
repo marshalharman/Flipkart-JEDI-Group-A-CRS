@@ -27,7 +27,10 @@ public class CRSProfessorMenu {
 
         while(true) {
 
-            System.out.println("\nProfessor Menu!");
+            System.out.println("****************************************************");
+            System.out.println("****************** PROFESSOR MENU ******************");
+            System.out.println("****************************************************");
+            System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. View Courses");
             System.out.println("2. Register Course for Teaching");

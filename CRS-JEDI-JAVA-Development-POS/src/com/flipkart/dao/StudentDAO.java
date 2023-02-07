@@ -2,13 +2,14 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.DuplicateUserException;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface StudentDAO {
 
-    public void register(int studentID, String name, String address, String username, String password, String branch, String degree);
+    public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException;
     public List<Integer> getSemesterList();
 
 //    public void setSemester(int studentID, int semID);

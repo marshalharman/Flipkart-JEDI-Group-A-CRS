@@ -3,6 +3,8 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.exception.PrimaryKeyException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,9 +20,14 @@ public class StudentDAOImpl implements StudentDAO{
     static final String USER = "root";
     static final String PASS = "root1234";
 
-    public void register(int studentID, String name, String address, String username, String password, String branch, String degree){
+    public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
         PreparedStatement stmt = null;
+        Student s=getStudentByID(studentID);
+        if(s!=null)
+        {
+            throw new DuplicateUserException(studentID);
+        }
 
         String role = "student";
         String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
