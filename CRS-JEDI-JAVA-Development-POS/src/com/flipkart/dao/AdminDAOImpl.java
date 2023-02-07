@@ -72,7 +72,7 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
-            sql = "DELETE FROM Course WHERE CourseID = ?";
+            sql = "DELETE FROM Courses WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
