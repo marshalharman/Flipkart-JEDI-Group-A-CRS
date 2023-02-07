@@ -11,7 +11,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "somil0412";
+    static final String PASS = "Fk!_186802";
 
     public void addAdmin(int userID, String name){
 
@@ -74,7 +74,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 
 
-            sql = "DELETE FROM Course WHERE CourseID = ?";
+            sql = "DELETE FROM Courses WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
