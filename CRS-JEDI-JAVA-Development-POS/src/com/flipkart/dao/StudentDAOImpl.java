@@ -1,10 +1,8 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.DuplicateUserException;
-import com.flipkart.exception.PrimaryKeyException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -177,7 +175,8 @@ public class StudentDAOImpl implements StudentDAO{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
-                    "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?";
+                    "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?"+
+                    "WHERE ProfID NOT IN (NULL, -1)";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);
@@ -486,7 +485,7 @@ public class StudentDAOImpl implements StudentDAO{
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        Student student = new Student();
+        Student student = null;
 
         String sql = "Select StudentID, Name, Address, Branch, Degree, SemID FROM Student WHERE StudentID = (?)";
 
@@ -500,14 +499,17 @@ public class StudentDAOImpl implements StudentDAO{
             stmt.setInt(1, studentID);
 
             ResultSet rs = stmt.executeQuery();
-            rs.next();
 
-            student.setUserID(rs.getInt("StudentID"));
-            student.setName(rs.getString("Name"));
-            student.setAddress(rs.getString("Address"));
-            student.setBranch(rs.getString("Branch"));
-            student.setDegree(rs.getString("Degree"));
-            student.setSemID(rs.getInt("SemID"));
+            while (rs.next()) {
+                student = new Student();
+
+                student.setUserID(rs.getInt("StudentID"));
+                student.setName(rs.getString("Name"));
+                student.setAddress(rs.getString("Address"));
+                student.setBranch(rs.getString("Branch"));
+                student.setDegree(rs.getString("Degree"));
+                student.setSemID(rs.getInt("SemID"));
+            }
 
             rs.close();
 

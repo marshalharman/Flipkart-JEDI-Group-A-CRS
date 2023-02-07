@@ -360,7 +360,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         PreparedStatement stmt = null;
 
-        Course course = getCourseByName(courseName)
+        Course course = getCourseByName(courseName);
 
         String sql = "UPDATE SemRegistration SET Grade = (?) WHERE StudentID = (?) AND CourseID = (?)";
 
