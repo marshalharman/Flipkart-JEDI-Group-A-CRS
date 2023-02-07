@@ -4,6 +4,9 @@ import com.flipkart.exception.PrimaryKeyException;
 import com.flipkart.exception.*;
 import com.flipkart.service.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class CRSApplication {
@@ -45,6 +48,11 @@ public class CRSApplication {
                         UserInterface userServiceOperation = new UserServiceOperation();
                         boolean verified = userServiceOperation.verifyCredentials(userID, password, role);
 
+                        LocalDateTime localDateTime = LocalDateTime.now();
+                        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                        String formatDateTime = localDateTime.format(format);
+
+                        System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
 
                         if (role.equalsIgnoreCase("student")) {
                             if(verified) {

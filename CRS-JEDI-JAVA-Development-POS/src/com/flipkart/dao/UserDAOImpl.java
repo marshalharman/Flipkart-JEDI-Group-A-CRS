@@ -1,9 +1,6 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.User;
-
-import com.flipkart.bean.Student;
-import com.flipkart.exception.DuplicateUserException;
 import com.flipkart.exception.UserNotFoundException;
 
 import java.sql.*;
@@ -17,11 +14,11 @@ public class UserDAOImpl implements UserDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        Student s=studentDAO.getStudentByID(userID);
-        if(s==null)
-        {
-            throw new UserNotFoundException(userID);
-        }
+//        Student s=studentDAO.getStudentByID(userID);
+//        if(s==null)
+//        {
+//            throw new UserNotFoundException(userID);
+//        }
 
         boolean verified = false;
         try{
