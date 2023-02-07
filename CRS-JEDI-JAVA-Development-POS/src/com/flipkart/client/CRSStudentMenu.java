@@ -37,7 +37,7 @@ public class CRSStudentMenu {
             System.out.println("1. Semester Registration");
             System.out.println("2. Add Course");
             System.out.println("3. Remove Course");
-            System.out.println("4. Submit");
+            System.out.println("4. Submit Preferences");
             System.out.println("5. Drop Course");
             System.out.println("6. View Courses");
             System.out.println("7. View grades");
