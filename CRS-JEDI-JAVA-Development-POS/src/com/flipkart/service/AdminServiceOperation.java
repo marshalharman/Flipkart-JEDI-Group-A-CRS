@@ -64,4 +64,12 @@ public class AdminServiceOperation implements AdminInterface {
     public void generateGradeCard() {
         adminDaoImpl.generateGradeCard();
     }
+
+    public List<Student> viewUnapprovedStudents(){
+        return adminDaoImpl.viewUnapprovedStudents();
+    }
+
+    public void approveAllStudents(){
+        adminDaoImpl.approveAllStudents();
+    }
 }

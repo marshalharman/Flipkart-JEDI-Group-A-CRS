@@ -16,4 +16,6 @@ public interface AdminDAO {
     public void approveStudent(int studentID) throws StudentNotFoundForApprovalException;
     public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
     public void generateGradeCard();
+    public List<Student> viewUnapprovedStudents();
+    public void approveAllStudents();
 }

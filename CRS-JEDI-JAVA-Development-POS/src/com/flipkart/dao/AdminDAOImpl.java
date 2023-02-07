@@ -1,6 +1,7 @@
 package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.Dao;
 import com.flipkart.exception.*;
@@ -53,7 +54,7 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public void deleteCourse(int courseID) throws CourseNotDeletedException , CourseNotFoundException {
+    public void deleteCourse(int courseID) throws CourseNotDeletedException, CourseNotFoundException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -76,8 +77,8 @@ public class AdminDAOImpl implements AdminDAO {
             sql = "DELETE FROM Courses WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
-            int row=stmt.executeUpdate();
-            if(row==0){
+            int row = stmt.executeUpdate();
+            if (row == 0) {
                 System.out.println(courseID + " not in catalog!");
                 throw new CourseNotFoundException(courseID);
             }
@@ -104,7 +105,8 @@ public class AdminDAOImpl implements AdminDAO {
             }//end finally try
         }//end try
     }
-    public void addCourse(Course course, int semID)throws CourseAlreadyPresentException{
+
+    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -158,19 +160,18 @@ public class AdminDAOImpl implements AdminDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql="UPDATE User SET isApproved = 1 WHERE UserId = ?";
+        String sql = "UPDATE User SET isApproved = 1 WHERE UserId = ?";
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
-            stmt=conn.prepareStatement(sql);
-            stmt.setInt(1,studentId);
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, studentId);
             int row = stmt.executeUpdate();
-            if(row==0)
-            {
-                System.out.println("Student with "+studentId+" not found.");
+            if (row == 0) {
+                System.out.println("Student with " + studentId + " not found.");
                 throw new StudentNotFoundForApprovalException(studentId);
             }
 
@@ -197,7 +198,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
-    public void addProfessor(Professor professor) throws ProfessorNotAddedException,UserIdAlreadyInUseException {
+    public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -215,8 +216,7 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setString(3, professor.getDepartment());
             stmt.setString(4, professor.getDesignation());
             int row = stmt.executeUpdate();
-            if(row==0)
-            {
+            if (row == 0) {
                 System.out.println("Professor not added.");
                 throw new ProfessorNotAddedException(professor.getUserID());
 
@@ -286,5 +286,98 @@ public class AdminDAOImpl implements AdminDAO {
             }//end finally try
         }//end try
 
+    }
+
+    public List<Student> viewUnapprovedStudents() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        String sql = "SECLET UserID, UserName from crs_database.User where isApproved = 0";
+
+        List<Student> userList = new ArrayList<Student>();
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(Dao.DB_URL, Dao.USER, Dao.PASS);
+            stmt = conn.prepareStatement(sql);
+//            System.out.println("Hello");
+
+            ResultSet resultSet = stmt.executeQuery();
+
+//            System.out.println("Hello " + resultSet);
+
+            while (resultSet.next()) {
+                Student user = new Student();
+                user.setUserID(resultSet.getInt(1));
+                user.setName(resultSet.getString(2));
+                userList.add(user);
+            }
+//            System.out.println("Hello");
+
+        }
+        catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end t
+        return userList;
+    }
+
+    public void approveAllStudents() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE User SET isApproved = 1";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(Dao.DB_URL, Dao.USER, Dao.PASS);
+
+            stmt = conn.prepareStatement(sql);
+//            stmt.setInt(1,studentId);
+            int row = stmt.executeUpdate();
+            if (row == 0) {
+                System.out.println("No student to approve.");
+            }
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end tr
     }
 }

@@ -1,5 +1,6 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.User;
 import com.flipkart.exception.UserNotFoundException;
 
 public interface UserDAO {
@@ -9,4 +10,6 @@ public interface UserDAO {
 
     public void register(int userID,String userName, String password, String role, boolean isApproved);
     public void updatePassword(int userID, String password);
-}
+    public User getUserByID(int userID);
+
+    }

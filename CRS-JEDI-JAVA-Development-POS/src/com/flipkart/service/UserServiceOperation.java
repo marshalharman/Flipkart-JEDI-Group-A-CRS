@@ -12,7 +12,7 @@ import com.flipkart.exception.UserNotFoundException;
  */
 public class UserServiceOperation implements UserInterface{
 
-    UserDAOImpl userDAO = new UserDAOImpl();
+    UserDAO userDAO = new UserDAOImpl();
     /**
      * Method to verify login credentials of the user
      * @param userID
