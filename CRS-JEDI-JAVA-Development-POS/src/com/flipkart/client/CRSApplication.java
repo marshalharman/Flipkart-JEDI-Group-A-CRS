@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import com.flipkart.exception.PrimaryKeyException;
 import com.flipkart.service.*;
 
 import java.util.Scanner;
@@ -65,7 +66,16 @@ public class CRSApplication {
                 }
                 case 2: {
                     System.out.println("Enter your student ID: ");
-                    int studentId = Integer.parseInt(sc.nextLine());
+
+                    int studentId;
+                    try{
+                    studentId= Integer.parseInt(sc.nextLine());
+                    }catch(Exception e)
+                    {
+                        System.out.println("Please provide ID\n");
+                        return;
+                    }
+
 
                     System.out.println("Enter your name: ");
                     String name = sc.nextLine();
