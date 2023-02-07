@@ -15,7 +15,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root1234";
+    static final String PASS = "17102080";
     Connection connection = null;
     PreparedStatement statement = null;
     String sql ="";

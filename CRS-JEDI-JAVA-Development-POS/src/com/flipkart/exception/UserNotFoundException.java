@@ -1,11 +1,28 @@
 package com.flipkart.exception;
 
-public class UserNotFoundException extends Exception{
-    private String userID;
-    public UserNotFoundException(String userID) {
-        this.userID=userID;
+/**
+ * Exception to check if user exists
+ * @author JEDI-2.0 Team A
+ *
+ */
+public class UserNotFoundException extends Exception {
+
+    private String userId;
+
+    /***
+     * Getter function for UserId
+     * @param userId
+     */
+    public UserNotFoundException(String userId) {
+        this.userId = userId;
     }
+
+    /**
+     * Message thrown by exception
+     */
+    @Override
     public String getMessage() {
-        return "User with UserID: "+userID+" not found.";
+        return "User with userId: " + userId + " not found.";
     }
+
 }

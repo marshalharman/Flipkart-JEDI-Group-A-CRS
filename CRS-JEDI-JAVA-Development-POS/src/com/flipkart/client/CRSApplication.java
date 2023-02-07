@@ -1,12 +1,13 @@
 package com.flipkart.client;
 
+import com.flipkart.exception.*;
 import com.flipkart.service.*;
 
 import java.util.Scanner;
 
 public class CRSApplication {
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws CourseNotDeletedException, CourseNotFoundException, CourseAlreadyPresentException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException {
         while(true){
 
             System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!");

@@ -18,7 +18,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root1234 ";
+    static final String PASS = "17102080 ";
 
     static Connection conn = null;
 
