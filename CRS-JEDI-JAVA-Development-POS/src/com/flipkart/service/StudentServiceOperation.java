@@ -108,7 +108,7 @@ public class StudentServiceOperation implements StudentInterface {
         List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
 
         for(Course course: registeredCourses){
-            System.out.println(course.getCourseName());
+            System.out.println(course.getCourseID() + " - " + course.getCourseName());
         }
     }
 

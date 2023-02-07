@@ -362,7 +362,8 @@ public class StudentDAOImpl implements StudentDAO{
 
         List<Course> registeredCourse = new ArrayList<>();
 
-        String sql = " SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?";
+        String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
+                "FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID=?";
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -378,9 +379,7 @@ public class StudentDAOImpl implements StudentDAO{
 
                 regCourse.setCourseID(rs.getInt("Courses.CourseID"));
                 regCourse.setCourseName(rs.getString("Courses.Name"));
-                regCourse.setCourseName(rs.getString("Courses.ProfID"));
-
-                System.out.println(studentID + ":" + regCourse.getCourseName() + ":" + regCourse.getCourseID() + ":" + regCourse.getProfID());
+                regCourse.setProfID(rs.getInt("Courses.ProfID"));
 
                 registeredCourse.add(regCourse);
             }
