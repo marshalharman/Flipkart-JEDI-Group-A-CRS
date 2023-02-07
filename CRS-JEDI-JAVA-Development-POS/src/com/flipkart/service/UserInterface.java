@@ -13,6 +13,12 @@ public interface UserInterface {
      * @return boolean if the user exists in the DB
      */
     public boolean verifyCredentials(int userID, String password, String role);
+    /**
+     * Method to update login credentials of the user
+     * @param userID
+     * @param password
+     * @return boolean if the user exists in the DB
+     */
     public void updatePassword(int userID,String password);
 
 }
