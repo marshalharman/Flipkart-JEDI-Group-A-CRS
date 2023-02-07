@@ -11,7 +11,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "Fk!_186802";
+    static final String PASS = "Ruthvik@3";
 
     public void addAdmin(int userID, String name){
 

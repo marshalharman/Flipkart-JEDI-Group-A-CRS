@@ -16,7 +16,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "somil0412";
+    static final String PASS = "Ruthvik@3";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree){
         Connection conn = null;

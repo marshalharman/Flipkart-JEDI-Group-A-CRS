@@ -4,9 +4,21 @@ import com.flipkart.dao.UserDAO;
 import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.data.Data;
 
+/**
+ *
+ * Implementations of User Interface
+ *
+ */
 public class UserServiceOperation implements UserInterface{
 
     UserDAO userDAO = new UserDAOImpl();
+    /**
+     * Method to verify login credentials of the user
+     * @param userID
+     * @param password
+     * @param role
+     * @return boolean if the user exists in the DB
+     */
     @Override
     public boolean verifyCredentials(int userID, String password, String role) {
 

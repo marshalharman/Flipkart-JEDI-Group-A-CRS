@@ -7,8 +7,18 @@ import java.util.*;
 import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.lang.Math;
 
+/**
+ *
+ * Implementations of Payment Interface
+ *
+ */
+
 public class PaymentServiceOperation implements PaymentInterface {
 
+    /**
+     * Method to pay fees
+     * @param studentID
+     */
     @Override
     public void pay(int studentID) {
         String uniqID = UUID.randomUUID().toString();
@@ -49,7 +59,12 @@ public class PaymentServiceOperation implements PaymentInterface {
         }
         payDao.savePayment(uniqID,studentID,mode,fee_amount,"payment successful");
     }
-
+    /**
+     * Method to send payment notification to the student
+     * @param id
+     * @param transactionID
+     * @param msg
+     */
     @Override
     public void sendNotification(int id,String transactionID, String msg) {
         System.out.println("Your payment details...");
