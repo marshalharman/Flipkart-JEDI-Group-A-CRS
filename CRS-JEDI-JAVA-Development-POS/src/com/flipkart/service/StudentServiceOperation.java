@@ -8,33 +8,20 @@ import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.data.Data;
 import java.util.*;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.DuplicateUserException;
 
 public class StudentServiceOperation implements StudentInterface {
 
     StudentDAOImpl studentDAO = new StudentDAOImpl();
     Scanner sc = new Scanner(System.in);
     public void register(int studentId, String name, String address, String username, String password, String branch, String degree){
-
-        studentDAO.register(studentId,name,address,username,password,branch,degree);
-
-        for(Student s:Data.students)
-        {
-            if(s.getUserID()==studentId)
-            {
-                System.out.println("Student already exists, please Login\n");
-                return;
-            }
+        try {
+            studentDAO.register(studentId, name, address, username, password, branch, degree);
         }
-
-        Student student = new Student();
-        student.setUserID(studentId);
-        student.setName(name);
-        student.setAddress(address);
-        student.setUsername(username);
-        student.setPassword(password);
-        student.setBranch(branch);
-        student.setRole("Student");
-        Data.unapprovedStudents.add(student);
+        catch(DuplicateUserException e){
+            System.out.println(e.getMessage());
+            return;
+        }
         System.out.println("Registration request sent.");
     }
     public List<Integer>  getSemesterList(int studentID){
@@ -108,7 +95,7 @@ public class StudentServiceOperation implements StudentInterface {
         List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
 
         for(Course course: registeredCourses){
-            System.out.println(course.getCourseName());
+            System.out.println(course.getCourseID() + " - " + course.getCourseName());
         }
     }
 
