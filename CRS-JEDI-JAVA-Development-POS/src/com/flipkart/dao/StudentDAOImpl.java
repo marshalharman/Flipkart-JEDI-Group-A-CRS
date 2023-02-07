@@ -18,7 +18,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "LIKITHl1.#";
+    static final String PASS = "root1234";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
@@ -492,7 +492,7 @@ public class StudentDAOImpl implements StudentDAO{
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        Student student = new Student();
+        Student student = null;
 
         String sql = "Select StudentID, Name, Address, Branch, Degree, SemID FROM Student WHERE StudentID = (?)";
 
@@ -507,14 +507,17 @@ public class StudentDAOImpl implements StudentDAO{
             stmt.setInt(1, studentID);
 
             ResultSet rs = stmt.executeQuery();
-            rs.next();
 
-            student.setUserID(rs.getInt("StudentID"));
-            student.setName(rs.getString("Name"));
-            student.setAddress(rs.getString("Address"));
-            student.setBranch(rs.getString("Branch"));
-            student.setDegree(rs.getString("Degree"));
-            student.setSemID(rs.getInt("SemID"));
+            while (rs.next()) {
+                student = new Student();
+
+                student.setUserID(rs.getInt("StudentID"));
+                student.setName(rs.getString("Name"));
+                student.setAddress(rs.getString("Address"));
+                student.setBranch(rs.getString("Branch"));
+                student.setDegree(rs.getString("Degree"));
+                student.setSemID(rs.getInt("SemID"));
+            }
 
             rs.close();
 

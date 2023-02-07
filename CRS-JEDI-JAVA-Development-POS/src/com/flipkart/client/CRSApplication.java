@@ -1,16 +1,22 @@
 package com.flipkart.client;
 
 import com.flipkart.exception.PrimaryKeyException;
+import com.flipkart.exception.*;
 import com.flipkart.service.*;
 
 import java.util.Scanner;
 
 public class CRSApplication {
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws CourseNotDeletedException, CourseNotFoundException, CourseAlreadyPresentException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException {
         while(true){
 
-            System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!");
+            System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!\n");
+
+            System.out.println("****************************************************");
+            System.out.println("********************* MAIN MENU ********************");
+            System.out.println("****************************************************");
+            System.out.println();
             System.out.println("1. Login \n2. Registration of the Student \n3. Update Password \n4. Exit");
 
             Scanner sc = new Scanner(System.in);

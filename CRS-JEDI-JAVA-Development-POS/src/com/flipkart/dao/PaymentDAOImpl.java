@@ -15,7 +15,7 @@ public class PaymentDAOImpl implements PaymentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "LIKITHl1.#";
+    static final String PASS = "root1234";
     Connection connection = null;
     PreparedStatement statement = null;
     String sql ="";
@@ -73,7 +73,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             statement.setString(2, cardNumber);
             statement.setString(3, name);
             statement.setString(4, expdate);
-            statement.executeQuery();
+            statement.executeUpdate();
         }
         catch(SQLException se){
             //Handle errors for JDBC

@@ -1,8 +1,8 @@
 package com.flipkart.exception;
 
 public class UserNotFoundException extends Exception{
-    private String userID;
-    public UserNotFoundException(String userID) {
+    private int userID;
+    public UserNotFoundException(int userID) {
         this.userID=userID;
     }
     public String getMessage() {
