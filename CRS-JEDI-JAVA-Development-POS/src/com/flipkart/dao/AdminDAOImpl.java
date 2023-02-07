@@ -62,7 +62,7 @@ public class AdminDAOImpl implements AdminDAO {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            String sql = "delete from Course where CourseID = ?";
+            String sql = "DELETE FROM SemRegistration WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
@@ -72,10 +72,11 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
-            sql = "DELETE FROM SemRegistration WHERE CourseID = ?";
+            sql = "DELETE FROM Course WHERE CourseID = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
+
 
         } catch(SQLException se){
             //Handle errors for JDBC
@@ -109,7 +110,7 @@ public class AdminDAOImpl implements AdminDAO {
 
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
-            String sql = "INSERT INTO Course(courseID, courseName) VALUES (?, ?)";
+            String sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
@@ -117,7 +118,7 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.executeUpdate();
 
 
-            sql = "INSERT INTO Catalog(courseId, semID) VALUES (?, ?)";
+            sql = "INSERT INTO Catalog(CourseId, SemID) VALUES (?, ?)";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
             stmt.setInt(2, semID);
