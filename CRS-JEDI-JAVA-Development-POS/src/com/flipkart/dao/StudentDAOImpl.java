@@ -1,33 +1,26 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.DuplicateUserException;
-import com.flipkart.exception.PrimaryKeyException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.flipkart.constant.Dao.*;
+
 public class StudentDAOImpl implements StudentDAO{
-
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "Fk!_186802";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
         PreparedStatement stmt = null;
-//        Student s=getStudentByID(studentID);
-//        if(s!=null)
-//        {
-//            throw new DuplicateUserException(studentID);
-//        }
+        Student s=getStudentByID(studentID);
+        if(s!=null)
+        {
+            throw new DuplicateUserException(studentID);
+        }
 
         String role = "student";
         String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
@@ -182,7 +175,8 @@ public class StudentDAOImpl implements StudentDAO{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
-                    "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?";
+                    "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?"+
+                    "AND ProfID NOT IN (NULL, -1)";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);
@@ -432,7 +426,6 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql1);
@@ -492,7 +485,7 @@ public class StudentDAOImpl implements StudentDAO{
         PreparedStatement stmt = null;
         Connection conn = null;
 
-        Student student = new Student();
+        Student student = null;
 
         String sql = "Select StudentID, Name, Address, Branch, Degree, SemID FROM Student WHERE StudentID = (?)";
 
@@ -500,21 +493,23 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentID);
 
             ResultSet rs = stmt.executeQuery();
-            rs.next();
 
-            student.setUserID(rs.getInt("StudentID"));
-            student.setName(rs.getString("Name"));
-            student.setAddress(rs.getString("Address"));
-            student.setBranch(rs.getString("Branch"));
-            student.setDegree(rs.getString("Degree"));
-            student.setSemID(rs.getInt("SemID"));
+            while (rs.next()) {
+                student = new Student();
+
+                student.setUserID(rs.getInt("StudentID"));
+                student.setName(rs.getString("Name"));
+                student.setAddress(rs.getString("Address"));
+                student.setBranch(rs.getString("Branch"));
+                student.setDegree(rs.getString("Degree"));
+                student.setSemID(rs.getInt("SemID"));
+            }
 
             rs.close();
 

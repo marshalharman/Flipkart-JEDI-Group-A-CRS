@@ -7,6 +7,7 @@ import com.flipkart.bean.Student;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
+import java.util.Scanner;
 //import java.sql.PreparedStatement;
 //import java.sql.Connection;
 //import java.sql.SQLException;
@@ -82,10 +83,11 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         return courseList;
     }
 
-    public boolean registerCourseForProfessor(int profID, int cousrseID, int semID){
+    public boolean registerCourseForProfessor(int profID, String cousrseName, int semID){
 
         PreparedStatement stmt = null;
 
+        Course course = getCourseByName(cousrseName);
         String sql = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
 
         try{
@@ -97,7 +99,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, profID);
-            stmt.setInt(2, cousrseID);
+            stmt.setInt(2, course.getCourseID());
 
             stmt.executeUpdate();
 
@@ -126,11 +128,11 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     }
 
 
-    public boolean deregisterCourseForProfessor(int profID, int courseID){
+    public boolean deregisterCourseForProfessor(int profID, String courseName){
 
         PreparedStatement stmt = null;
 
-        //Course course = getCourseByID(courseID);
+        Course course = getCourseByName(courseName);
 
         String sql = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
 
@@ -143,10 +145,14 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, -1);
-            stmt.setInt(2, courseID);
+            stmt.setInt(2, course.getCourseID());
 
-            stmt.executeUpdate();
-
+            if( course.getProfID() == profID) {
+                stmt.executeUpdate();
+            }
+            else{
+                System.out.println("You are not registered to take this course");
+            }
 
         }catch(SQLException se){
             //Handle errors for JDBC
@@ -172,14 +178,16 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         return true;
     }
 
-    public List<Student> viewEnrolledStudents(int courseID){
+    public List<Student> viewEnrolledStudents(String courseName){
 
         PreparedStatement stmt = null;
 
         List<Student> studentList = new ArrayList<Student>();
 
+        Course course = getCourseByName(courseName);
+
         String sql = "SELECT * FROM SemRegistration " +
-                "INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE CourseID =?";
+                "INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE Name =?";
 
         try{
 
@@ -189,7 +197,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, courseID);
+            stmt.setString(1, courseName);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -237,7 +245,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         PreparedStatement stmt = null;
 
-        Student student = new Student();
+        Student student = null;
 
         String sql = "Select StudentID, Name, Address, Branch, Degree FROM Student WHERE StudentID = (?)";
 
@@ -253,11 +261,15 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            student.setUserID(rs.getInt("StudentID"));
-            student.setName(rs.getString("Name"));
-            student.setAddress(rs.getString("Address"));
-            student.setBranch(rs.getString("Branch"));
-            student.setDegree(rs.getString("Degree"));
+            while(rs.next()) {
+                student = new Student();
+
+                student.setUserID(rs.getInt("StudentID"));
+                student.setName(rs.getString("Name"));
+                student.setAddress(rs.getString("Address"));
+                student.setBranch(rs.getString("Branch"));
+                student.setDegree(rs.getString("Degree"));
+            }
 
             rs.close();
 
@@ -344,9 +356,11 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     }
 
     @Override
-    public Boolean addGrade(int studentId, int courseID, String grade) {
+    public Boolean addGrade(int studentId, String courseName, String grade) {
 
         PreparedStatement stmt = null;
+
+        Course course = getCourseByName(courseName);
 
         String sql = "UPDATE SemRegistration SET Grade = (?) WHERE StudentID = (?) AND CourseID = (?)";
 
@@ -360,7 +374,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, grade);
             stmt.setInt(2, studentId);
-            stmt.setInt(3, courseID);
+            stmt.setInt(3, course.getCourseID());
 
             stmt.executeUpdate();
 
@@ -408,7 +422,9 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            semID = rs.getInt("SemID");
+            while( rs.next() ) {
+                semID = rs.getInt("SemID");
+            }
 
             rs.close();
 
@@ -441,7 +457,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        Course course = new Course();
+        Course course = null;
 
         String sql = "SELECT CourseID, Name, ProfID FROM Courses WHERE Name=?";
 
@@ -457,13 +473,17 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            int cid = rs. getInt("CourseID");
-            String name = rs.getString("Name");
-            int pid = rs.getInt("ProfID");
+            while (rs.next()) {
+                course = new Course();
 
-            course.setCourseID(cid);
-            course.setCourseName(name);
-            course.setProfID(pid);
+                int cid = rs.getInt("CourseID");
+                String name = rs.getString("Name");
+                int pid = rs.getInt("ProfID");
+
+                course.setCourseID(cid);
+                course.setCourseName(name);
+                course.setProfID(pid);
+            }
 
             rs.close();
 
@@ -496,7 +516,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        Course course = new Course();
+        Course course = null;
 
         String sql = "SELECT CourseID, Name, ProfID FROM Courses WHERE CourseID=?";
 
@@ -512,13 +532,18 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            int cid = rs. getInt("CourseID");
-            String name = rs.getString("Name");
-            int pid = rs.getInt("ProfID");
+            while (rs.next()) {
+                course = new Course();
 
-            course.setCourseID(cid);
-            course.setCourseName(name);
-            course.setProfID(pid);
+                int cid = rs.getInt("CourseID");
+                String name = rs.getString("Name");
+                int pid = rs.getInt("ProfID");
+
+                course.setCourseID(cid);
+                course.setCourseName(name);
+                course.setProfID(pid);
+
+            }
 
             rs.close();
 
@@ -549,7 +574,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     @Override
     public Professor getProfessorById(int profID) {
 
-        Professor professor = new Professor();
+        Professor professor = null;
 
         PreparedStatement stmt = null;
 
@@ -559,7 +584,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql);
@@ -567,15 +591,19 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
             ResultSet rs = stmt.executeQuery();
 
-            int pid = rs.getInt("ProfID");
-            String name = rs.getString("Name");
-            String department = rs.getString("Department");
-            String designation = rs.getString("Designation");
+            while (rs.next()) {
+                professor = new Professor();
 
-            professor.setUserID(pid);
-            professor.setName(name);
-            professor.setDepartment(department);
-            professor.setDesignation(designation);
+                int pid = rs.getInt("ProfID");
+                String name = rs.getString("Name");
+                String department = rs.getString("Department");
+                String designation = rs.getString("Designation");
+
+                professor.setUserID(pid);
+                professor.setName(name);
+                professor.setDepartment(department);
+                professor.setDesignation(designation);
+            }
 
             rs.close();
 

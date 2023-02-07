@@ -116,7 +116,6 @@ public class AdminDAOImpl implements AdminDAO {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            System.out.println("Connecting to database...");
 
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -169,7 +168,6 @@ public class AdminDAOImpl implements AdminDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.prepareStatement(sql);
@@ -211,7 +209,6 @@ public class AdminDAOImpl implements AdminDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             String sql = "INSERT INTO Professor(ProfId, Name, Department, Designation) values (?, ?, ?, ?)";
@@ -263,7 +260,6 @@ public class AdminDAOImpl implements AdminDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
             stmt = conn.prepareStatement(sql);

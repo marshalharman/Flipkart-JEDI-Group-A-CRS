@@ -28,8 +28,14 @@ public class CRSApplication {
                     int userID;
                     while(true){
                         System.out.println("ENTER USERID");
+                        try{
                         userID = Integer.parseInt(sc.nextLine());
-
+                        }
+                        catch(Exception e)
+                        {
+                            System.out.println("Please provide ID\n");
+                            break;
+                        }
                         System.out.println("ENTER PASSWORD");
                         password = sc.nextLine();
 
@@ -66,20 +72,22 @@ public class CRSApplication {
                                 }
                                 System.out.println("Wrong Credentials\n");
                                 break;
-                        }
+                        } else{
+                                System.out.println("Please Provide valid role\n");
+                                break;
+                            }
                     }
                     break;
                 }
                 case 2: {
                     System.out.println("Enter your student ID: ");
-
                     int studentId;
                     try{
                     studentId= Integer.parseInt(sc.nextLine());
                     }catch(Exception e)
                     {
                         System.out.println("Please provide ID\n");
-                        return;
+                        break;
                     }
 
 
@@ -107,6 +115,7 @@ public class CRSApplication {
                 }
                 case 3: {
                     System.out.println("Update Password");
+
                     break;
                 }
                 case 4: {

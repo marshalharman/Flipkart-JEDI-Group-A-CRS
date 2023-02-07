@@ -20,30 +20,30 @@ public interface ProfessorInterface {
     /**
      * Method to register the professor to the course
      * @param profID
-     * @param courseID
+     * @param courseName
      * @param semID
      */
-    public void registerCourse(int profID, int courseID, int semID);
+    public void registerCourse(int profID, String courseName, int semID);
     /**
      * Method to de-register the professor from the course
      * @param profID
-     * @param courseID
+     * @param courseName
      * @param semID
      */
-    public void deregisterCourse(int profID, int courseID, int semID);
+    public void deregisterCourse(int profID, String courseName, int semID);
     /**
      * Method to students enrolled in a course
      * @param semID
-     * @param courseID
+     * @param courseName
      * @return List of enrolled students in the course
      */
-    public List<Student> viewEnrolledStudents(int semID , int courseID);
+    public List<Student> viewEnrolledStudents(int semID , String courseName);
     /**
      * Method to assign grades to a student enrolled in the course
      * @param profID
-     * @param courseID
+     * @param courseName
      * @param studentID
      * @param grade
      */
-    public void addGrade(int profID , int courseID, int studentID , String grade);
+    public void addGrade(int profID , String courseName, int studentID , String grade);
 }

@@ -89,10 +89,10 @@ public class CRSProfessorMenu {
 
         service.viewCourse(semID);
 
-        System.out.println("Enter Course ID : ");
-        int courseID = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
 
-        service.registerCourse(userID, courseID, semID);
+        service.registerCourse(userID, courseName, semID);
 
     }
 
@@ -104,10 +104,10 @@ public class CRSProfessorMenu {
 
         service.viewCourse(semID);
 
-        System.out.println("Enter Course ID : ");
-        int courseID = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
 
-        service.deregisterCourse(userID, courseID, semID);
+        service.deregisterCourse(userID, courseName, semID);
 
     }
     private void viewEnrolledStudent(int userID){
@@ -115,18 +115,18 @@ public class CRSProfessorMenu {
         int semID = Integer.parseInt(sc.nextLine());
         service.viewCourse(semID);
 
-        System.out.println("Enter Course ID : ");
-        int courseID = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
 
-        List<Student> students = service.viewEnrolledStudents(semID,courseID);
+        List<Student> students = service.viewEnrolledStudents(semID,courseName);
 
         for(Student student : students){
             System.out.println(student.getUserID() + " - " + student.getName());
         }
     }
     private void addGrades(int userID){
-        System.out.println("Enter Course ID : ");
-        int courseID = Integer.parseInt(sc.nextLine());
+        System.out.println("Enter Course Name : ");
+        String courseName = sc.nextLine();
 
         System.out.println("Enter student ID : ");
         int studentID = Integer.parseInt(sc.nextLine());
@@ -134,6 +134,6 @@ public class CRSProfessorMenu {
         System.out.println("Enter score : ");
         String score = sc.nextLine();
 
-        service.addGrade(userID,courseID,studentID,score);
+        service.addGrade(userID,courseName,studentID,score);
     }
 }
