@@ -1,24 +1,17 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.DuplicateUserException;
-import com.flipkart.exception.PrimaryKeyException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.flipkart.constant.Dao.*;
+
 public class StudentDAOImpl implements StudentDAO{
-
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root1234";
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
@@ -433,7 +426,6 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql1);
@@ -501,7 +493,6 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             stmt = conn.prepareStatement(sql);

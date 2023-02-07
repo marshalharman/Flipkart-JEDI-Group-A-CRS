@@ -8,18 +8,9 @@ import com.flipkart.exception.UserNotFoundException;
 
 import java.sql.*;
 
+import static com.flipkart.constant.Dao.*;
+
 public class UserDAOImpl implements UserDAO{
-
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root1234";
-
-    StudentDAOImpl studentDAO = new StudentDAOImpl();
-
-    // login - return bool
     @Override
     public boolean login(int userID, String password, String role) throws UserNotFoundException {
 
@@ -34,9 +25,8 @@ public class UserDAOImpl implements UserDAO{
 
         boolean verified = false;
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(JDBC_DRIVER);
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             String sql = "SELECT * FROM User WHERE UserID=? AND Password=?";
@@ -104,6 +94,41 @@ public class UserDAOImpl implements UserDAO{
 
             stmt.executeUpdate();
 
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+    }
+    public void updatePassword(int userID, String password)
+    {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE USER SET Password = ? where UserID = ?";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, password);
+            stmt.setInt(2, userID);
+            stmt.executeUpdate();
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
