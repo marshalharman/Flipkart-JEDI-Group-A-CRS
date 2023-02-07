@@ -2,14 +2,10 @@ package com.flipkart.client;
 
 
 import com.flipkart.bean.Admin;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 public class CRSAdminMenu {

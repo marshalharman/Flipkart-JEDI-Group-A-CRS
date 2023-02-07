@@ -2,13 +2,8 @@ package com.flipkart.service;
 
 import com.flipkart.bean.*;
 import com.flipkart.dao.UserDAOImpl;
-import com.flipkart.data.Data;
-
-import com.flipkart.dao.AdminDAO;
 import com.flipkart.dao.AdminDAOImpl;
 
-import java.sql.SQLException;
-import java.time.Period;
 import java.util.*;
 
 
