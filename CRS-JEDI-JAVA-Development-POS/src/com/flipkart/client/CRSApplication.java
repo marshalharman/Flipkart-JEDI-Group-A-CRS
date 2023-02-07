@@ -78,7 +78,7 @@ public class CRSApplication {
                     }catch(Exception e)
                     {
                         System.out.println("Please provide ID\n");
-                        return;
+                        break;
                     }
 
 
