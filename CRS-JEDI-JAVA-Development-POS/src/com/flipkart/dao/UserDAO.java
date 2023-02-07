@@ -10,7 +10,7 @@ import com.flipkart.exception.UserNotFoundException;
 public interface UserDAO {
 
     /**
-     * Method to login using credentials
+     * Method to verify login using credentials from Database
      * @param userID
      * @param password
      * @param role
@@ -19,7 +19,7 @@ public interface UserDAO {
      */
     public boolean login(int userID, String password, String role) throws UserNotFoundException;
     /**
-     * Method to register a user
+     * Method to register a user in Database
      * @param userID
      * @param userName
      * @param password
@@ -28,13 +28,13 @@ public interface UserDAO {
      */
     public void register(int userID,String userName, String password, String role, boolean isApproved);
     /**
-     * Method to update password of a user
+     * Method to update password of a user in Database
      * @param userID
      * @param password
      */
     public void updatePassword(int userID, String password);
     /**
-     * Method to get details of user by id
+     * Method to get details of user by id from the Database
      * @param userID
      * @return user object with all the details
      */
