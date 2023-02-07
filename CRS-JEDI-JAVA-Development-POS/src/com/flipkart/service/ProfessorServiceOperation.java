@@ -9,11 +9,6 @@ import com.flipkart.data.*;
 import java.awt.desktop.SystemEventListener;
 import java.util.*;
 
-/**
- *
- * Implementations of Professor Interface
- *
- */
 public class ProfessorServiceOperation implements ProfessorInterface {
 
     ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
