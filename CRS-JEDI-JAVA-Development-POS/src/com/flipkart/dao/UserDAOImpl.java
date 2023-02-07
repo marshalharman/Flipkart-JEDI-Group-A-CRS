@@ -2,18 +2,9 @@ package com.flipkart.dao;
 
 import java.sql.*;
 
+import static com.flipkart.constant.Dao.*;
+
 public class UserDAOImpl implements UserDAO{
-
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
-
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "root1234";
-
-
-
-    // login - return bool
     @Override
     public boolean login(int userID, String password, String role) {
 
@@ -22,9 +13,8 @@ public class UserDAOImpl implements UserDAO{
 
         boolean verified = false;
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(JDBC_DRIVER);
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
             String sql = "SELECT * FROM User WHERE UserID=? AND Password=?";
