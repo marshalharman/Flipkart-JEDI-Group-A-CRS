@@ -33,12 +33,11 @@ public class UserServiceOperation implements UserInterface{
         }
     public void updatePassword(int userID,String password)
     {
-         if(userDAO.getUserbyID!=null)
+         if(userDAO.getUserByID(userID)!=null)
          {
              userDAO.updatePassword(userID, password);
              return;
          }
          System.out.println("User doesn't exist\n");
-         return;
     }
 }

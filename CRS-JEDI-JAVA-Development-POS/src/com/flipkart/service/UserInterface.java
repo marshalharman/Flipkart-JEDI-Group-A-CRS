@@ -13,4 +13,6 @@ public interface UserInterface {
      * @return boolean if the user exists in the DB
      */
     public boolean verifyCredentials(int userID, String password, String role);
+    public void updatePassword(int userID,String password);
+
 }

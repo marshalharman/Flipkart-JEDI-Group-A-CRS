@@ -17,7 +17,7 @@ public class UserDAOImpl implements UserDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        Student s=studentDAO.getStudentByID(userID);
+        User s=getUserByID(userID);
         if(s==null)
         {
             throw new UserNotFoundException(userID);

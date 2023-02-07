@@ -115,7 +115,19 @@ public class CRSApplication {
                 }
                 case 3: {
                     System.out.println("Update Password");
-
+                    System.out.println("Enter your UserID : ");
+                    int userId;
+                    try{
+                        userId= Integer.parseInt(sc.nextLine());
+                    }catch(Exception e)
+                    {
+                        System.out.println("Please provide ID\n");
+                        break;
+                    }
+                    System.out.println("Enter your password: ");
+                    String password = sc.nextLine();
+                    UserInterface userServiceOperation = new UserServiceOperation();
+                    userServiceOperation.updatePassword(userId,password);
                     break;
                 }
                 case 4: {
