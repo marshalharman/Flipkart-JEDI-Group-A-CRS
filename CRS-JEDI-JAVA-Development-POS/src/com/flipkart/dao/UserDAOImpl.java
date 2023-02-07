@@ -2,6 +2,10 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.User;
 
+import com.flipkart.bean.Student;
+import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.exception.UserNotFoundException;
+
 import java.sql.*;
 
 public class UserDAOImpl implements UserDAO{
@@ -13,14 +17,20 @@ public class UserDAOImpl implements UserDAO{
     static final String USER = "root";
     static final String PASS = "root1234";
 
-
+    StudentDAOImpl studentDAO = new StudentDAOImpl();
 
     // login - return bool
     @Override
-    public boolean login(int userID, String password, String role) {
+    public boolean login(int userID, String password, String role) throws UserNotFoundException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
+
+        Student s=studentDAO.getStudentByID(userID);
+        if(s==null)
+        {
+            throw new UserNotFoundException(userID);
+        }
 
         boolean verified = false;
         try{
