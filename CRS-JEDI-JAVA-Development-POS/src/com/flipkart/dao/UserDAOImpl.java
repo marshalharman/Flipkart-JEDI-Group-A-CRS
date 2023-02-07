@@ -9,7 +9,7 @@ public class UserDAOImpl implements UserDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "somil0412";
+    static final String PASS = "root1234";
 
 
 
