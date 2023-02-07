@@ -30,5 +30,15 @@ public class UserServiceOperation implements UserInterface{
             System.out.println(e.getMessage());
             return false;
         }
+        }
+    public void updatePassword(int userID,String password)
+    {
+         if(userDAO.getUserbyID!=null)
+         {
+             userDAO.updatePassword(userID, password);
+             return;
+         }
+         System.out.println("User doesn't exist\n");
+         return;
     }
 }
