@@ -1,5 +1,7 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.User;
+
 import java.sql.*;
 
 public class UserDAOImpl implements UserDAO{
@@ -112,5 +114,62 @@ public class UserDAOImpl implements UserDAO{
                 se.printStackTrace();
             }//end finally try
         }//end try
+    }
+
+    public User getUserByID(int userID){
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        User user = null;
+
+        String sql = "SELECT * FROM User WHERE UserID=?";
+
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+
+            System.out.println("Connecting to database...");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, userID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                user = new User();
+
+                user.setUserID(rs.getInt("UserID"));
+                user.setUsername(rs.getString("UserName"));
+                user.setPassword(rs.getString("Password"));
+                user.setRole(rs.getString("Role"));
+                user.setIsApproved(rs.getBoolean("IsApproved"));
+            }
+
+            rs.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return user;
     }
 }
