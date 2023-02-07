@@ -36,28 +36,38 @@ public class PaymentServiceOperation implements PaymentInterface {
             case 1:
                 System.out.println("Please enter you upi id: ");
                 String upiID = obj.nextLine();
+                payDao.savePayment(uniqID,studentID,mode,fee_amount,"payment successful");
                 payDao.addUPI(uniqID, upiID);
                 mode = "UPI";
                 break;
             case 2:
-                System.out.println("Enter card details: ");
+                System.out.println("Enter Card Details: ");
                 String cardNumber, name, cvv, expdate;
+
+                System.out.println("Enter card Number: ");
                 cardNumber = obj.nextLine();
+
+                System.out.println("Enter Name: ");
                 name = obj.nextLine();
+
+                System.out.println("Enter cvv: ");
                 cvv = obj.nextLine();
+
+                System.out.println("Enter expiry date: ");
                 expdate = obj.nextLine();
+                payDao.savePayment(uniqID,studentID,mode,fee_amount,"payment successful");
                 payDao.addCard(cardNumber, name, cvv, expdate, uniqID);
                 mode = "CARD";
                 break;
             case 3:
                 System.out.println("received amount of " + fee_amount);
                 mode = "CASH";
+                payDao.savePayment(uniqID,studentID,mode,fee_amount,"payment successful");
                 break;
             default:
                 System.out.println("Please enter a valid input\n");
 
         }
-        payDao.savePayment(uniqID,studentID,mode,fee_amount,"payment successful");
     }
     /**
      * Method to send payment notification to the student

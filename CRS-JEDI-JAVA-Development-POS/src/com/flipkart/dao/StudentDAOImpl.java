@@ -3,6 +3,8 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Grade;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.exception.PrimaryKeyException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,11 +18,16 @@ public class StudentDAOImpl implements StudentDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "Ruthvik@3";
+    static final String PASS = "root1234";
 
-    public void register(int studentID, String name, String address, String username, String password, String branch, String degree){
+    public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
         PreparedStatement stmt = null;
+        Student s=getStudentByID(studentID);
+        if(s!=null)
+        {
+            throw new DuplicateUserException(studentID);
+        }
 
         String role = "student";
         String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
@@ -362,7 +369,8 @@ public class StudentDAOImpl implements StudentDAO{
 
         List<Course> registeredCourse = new ArrayList<>();
 
-        String sql = " SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?";
+        String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
+                "FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID=?";
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
@@ -378,9 +386,7 @@ public class StudentDAOImpl implements StudentDAO{
 
                 regCourse.setCourseID(rs.getInt("Courses.CourseID"));
                 regCourse.setCourseName(rs.getString("Courses.Name"));
-                regCourse.setCourseName(rs.getString("Courses.ProfID"));
-
-                System.out.println(studentID + ":" + regCourse.getCourseName() + ":" + regCourse.getCourseID() + ":" + regCourse.getProfID());
+                regCourse.setProfID(rs.getInt("Courses.ProfID"));
 
                 registeredCourse.add(regCourse);
             }

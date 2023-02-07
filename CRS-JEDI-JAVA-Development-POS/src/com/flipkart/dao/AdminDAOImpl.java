@@ -1,9 +1,7 @@
 package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
-import com.flipkart.bean.User;
 import java.sql.*;
-import java.util.*;
 public class AdminDAOImpl implements AdminDAO {
 
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -11,7 +9,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "Ruthvik@3";
+    static final String PASS = "root1234";
 
     public void addAdmin(int userID, String name){
 

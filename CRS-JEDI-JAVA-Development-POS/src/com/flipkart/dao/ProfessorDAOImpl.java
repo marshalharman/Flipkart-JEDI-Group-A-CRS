@@ -18,7 +18,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "Ruthvik@3";
+    static final String PASS = "root1234";
 
     static Connection conn = null;
 
@@ -178,7 +178,8 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         List<Student> studentList = new ArrayList<Student>();
 
-        String sql = "SELECT StudentID FROM SemRegistration WHERE CourseID = (?)";
+        String sql = "SELECT * FROM SemRegistration " +
+                "INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE CourseID =?";
 
         try{
 
@@ -193,9 +194,15 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                int studentID = rs.getInt("StudentID");
 
-                Student student = getStudentByID(studentID);
+                Student student = new Student();
+
+                student.setUserID(rs.getInt("Student.StudentID"));
+                student.setName(rs.getString("Student.Name"));
+                student.setAddress(rs.getString("Student.Address"));
+                student.setBranch(rs.getString("Student.Branch"));
+                student.setDegree(rs.getString("Student.Degree"));
+                student.setSemID(rs.getInt("SemID"));
 
                 studentList.add(student);
             }

@@ -2,14 +2,10 @@ package com.flipkart.client;
 
 
 import com.flipkart.bean.Admin;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 public class CRSAdminMenu {
@@ -20,7 +16,10 @@ public class CRSAdminMenu {
 
         while(true) {
 
-            System.out.println("\nAdmin Menu!");
+            System.out.println("****************************************************");
+            System.out.println("******************** ADMIN MENU ********************");
+            System.out.println("****************************************************");
+            System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. Approve Student Registration");
             System.out.println("2. Add Admin");
@@ -42,7 +41,7 @@ public class CRSAdminMenu {
                     System.out.println("Enter Admin ID");
                     int userID = Integer.parseInt(obj.nextLine());
 
-                    System.out.println("Enter Admin name");
+                    System.out.println("Enter Username");
                     String userName =obj.nextLine();
 
                     System.out.println("Enter Password");
