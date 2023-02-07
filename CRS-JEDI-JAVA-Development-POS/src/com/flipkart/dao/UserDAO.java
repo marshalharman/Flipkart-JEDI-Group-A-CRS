@@ -6,4 +6,5 @@ public interface UserDAO {
     public boolean login(int userID, String password, String role);
 
     public void register(int userID,String userName, String password, String role, boolean isApproved);
+    public void updatePassword(int userID, String password);
 }
