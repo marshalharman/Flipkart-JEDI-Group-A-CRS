@@ -292,21 +292,17 @@ public class AdminDAOImpl implements AdminDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "SECLET UserID, UserName from crs_database.User where isApproved = 0";
+        String sql = "SELECT UserID, UserName from crs_database.User where isApproved = 0";
 
         List<Student> userList = new ArrayList<Student>();
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(Dao.DB_URL, Dao.USER, Dao.PASS);
             stmt = conn.prepareStatement(sql);
-//            System.out.println("Hello");
 
             ResultSet resultSet = stmt.executeQuery();
-
-//            System.out.println("Hello " + resultSet);
 
             while (resultSet.next()) {
                 Student user = new Student();
@@ -314,7 +310,6 @@ public class AdminDAOImpl implements AdminDAO {
                 user.setName(resultSet.getString(2));
                 userList.add(user);
             }
-//            System.out.println("Hello");
 
         }
         catch (SQLException se) {
@@ -349,7 +344,6 @@ public class AdminDAOImpl implements AdminDAO {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(Dao.DB_URL, Dao.USER, Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
