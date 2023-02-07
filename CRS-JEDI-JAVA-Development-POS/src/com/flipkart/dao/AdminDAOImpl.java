@@ -11,7 +11,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     //  Database credentials
     static final String USER = "root";
-    static final String PASS = "root1234";
+    static final String PASS = "Fk!_186802";
 
     public void addAdmin(int userID, String name){
 
@@ -108,8 +108,9 @@ public class AdminDAOImpl implements AdminDAO {
             System.out.println("Connecting to database...");
 
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            String sql = "INSERT INTO Course(courseID, courseName) VALUES (?, ?)";
+            String Name = course.getCourseName();
+            int courseID = course.getCourseID();
+            String sql = "INSERT INTO Courses(courseID, Name) VALUES (?, ?)";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
