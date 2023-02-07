@@ -2,6 +2,7 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Dao;
 import com.flipkart.exception.DuplicateUserException;
 
 import java.sql.*;
@@ -30,10 +31,7 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            System.out.println("Creating statement...");
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql1);
             stmt.setInt(1,studentID);
@@ -84,7 +82,7 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql1 = "SELECT DISTINCT semID FROM Catalog";
             stmt = conn.prepareStatement(sql1);
@@ -128,10 +126,8 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
-            System.out.println("Creating statement...");
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, semID);
@@ -172,7 +168,7 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
                     "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?"+
@@ -227,8 +223,7 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             System.out.println("Creating statement...");
 
@@ -276,7 +271,7 @@ public class StudentDAOImpl implements StudentDAO{
         PreparedStatement stmt = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "INSERT INTO SemRegistration (`StudentID`, `CourseID`, `SemID`) VALUES  (?, ?, ?)";
             stmt = conn.prepareStatement(sql);
@@ -322,8 +317,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
@@ -368,7 +362,7 @@ public class StudentDAOImpl implements StudentDAO{
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentID);
@@ -426,7 +420,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql1);
             stmt.setInt(1,studentID);
@@ -493,7 +487,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentID);

@@ -2,18 +2,14 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.User;
+import com.flipkart.constant.Dao;
 import com.flipkart.exception.*;
 
 import java.sql.*;
 import java.util.*;
 public class AdminDAOImpl implements AdminDAO {
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://localhost/crs_database";
 
-    //  Database credentials
-    static final String USER = "root";
-    static final String PASS = "17102080";
 
     public void addAdmin(int userID, String name){
 
@@ -24,7 +20,7 @@ public class AdminDAOImpl implements AdminDAO {
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
 
@@ -63,7 +59,7 @@ public class AdminDAOImpl implements AdminDAO {
 
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "DELETE FROM Catalog WHERE CourseId = ?";
             stmt = conn.prepareStatement(sql);
@@ -116,7 +112,7 @@ public class AdminDAOImpl implements AdminDAO {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
 
@@ -167,7 +163,7 @@ public class AdminDAOImpl implements AdminDAO {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt=conn.prepareStatement(sql);
             stmt.setInt(1,studentId);
@@ -209,7 +205,7 @@ public class AdminDAOImpl implements AdminDAO {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "INSERT INTO Professor(ProfId, Name, Department, Designation) values (?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql);
@@ -261,7 +257,7 @@ public class AdminDAOImpl implements AdminDAO {
         try{
             Class.forName("com.mysql.jdbc.Driver");
 
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, 1);
