@@ -2,11 +2,14 @@ package com.flipkart.client;
 
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Student;
 import com.flipkart.data.Data;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
+import java.util.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CRSAdminMenu {
@@ -99,9 +102,35 @@ public class CRSAdminMenu {
         }
     }
 	private void approvedStudentRegistration() throws StudentNotFoundForApprovalException {
-        System.out.println("Enter the student ID to approve : ");
-        int studentID = Integer.parseInt(sc.nextLine());
-        service.approveStudentRegistration(studentID);
+        List<Student>  unapprovedStudents = service.viewUnapprovedStudents();
+        if(unapprovedStudents.isEmpty())
+        {
+            System.out.println("No students to approve.");
+            return ;
+        }
+        System.out.println("List of unapproved students: ");
+        for(Student student: unapprovedStudents)
+        {
+            System.out.println("Student ID : "+student.getUserID() + " , " + "Student Name : "+student.getName());
+        }
+        System.out.println("1. Approve students by ID.");
+        System.out.println("2. Approve all students.");
+
+        int choice = sc.nextInt();
+        switch (choice)
+        {
+            case 1:
+                System.out.println("Enter the student ID to approve : ");
+                service.approveStudentRegistration(sc.nextInt());
+                break;
+            case 2:
+                service.approveAllStudents();
+                break;
+            default:
+                System.out.println("Wrong input");
+                break;
+        }
+
     }
     private void addAdmin(int userID, String userName, String password, String role, boolean isApproved, String name){
         service.addAdmin(userID, userName, password, role, isApproved, name);
