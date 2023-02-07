@@ -20,7 +20,10 @@ public class CRSAdminMenu {
 
         while(true) {
 
-            System.out.println("\nAdmin Menu!");
+            System.out.println("****************************************************");
+            System.out.println("******************** ADMIN MENU ********************");
+            System.out.println("****************************************************");
+            System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. Approve Student Registration");
             System.out.println("2. Add Admin");
@@ -42,7 +45,7 @@ public class CRSAdminMenu {
                     System.out.println("Enter Admin ID");
                     int userID = Integer.parseInt(obj.nextLine());
 
-                    System.out.println("Enter Admin name");
+                    System.out.println("Enter Username");
                     String userName =obj.nextLine();
 
                     System.out.println("Enter Password");
