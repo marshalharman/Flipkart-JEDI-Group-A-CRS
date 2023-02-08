@@ -6,5 +6,5 @@ public class Dao {
 
     //  Database credentials
     public static final String USER = "root";
-    public static final String PASS = "Fk!_186819";
+    public static final String PASS = "Ruthvik@3";
 }
