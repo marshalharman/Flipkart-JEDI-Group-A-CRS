@@ -61,17 +61,13 @@ public class AdminServiceOperation implements AdminInterface {
         try {
             adminDaoImpl.deleteCourse(courseId);
         }
+
         catch(CourseNotDeletedException e)
         {
             System.out.println(e.getMessage());
             return;
         }
-        catch (CourseNotFoundException e)
-        {
-            System.out.println(e.getMessage());
-            return;
-        }
-        System.out.println("removed successfully.");
+
     }
 
     public void generateGradeCard() {
