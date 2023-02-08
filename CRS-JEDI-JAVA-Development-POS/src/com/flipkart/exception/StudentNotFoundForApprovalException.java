@@ -1,5 +1,7 @@
 package com.flipkart.exception;
 
+import com.flipkart.constant.Colours;
+
 /**
  * Exception thrown when student is not found for approval
  * @author JEDI-2.0 Team A
@@ -26,6 +28,6 @@ public class StudentNotFoundForApprovalException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "studentId: " + studentId + " not found for approval!" ;
+        return Colours.ANSI_YELLOW+"studentId: " + studentId + " not found for approval!"+Colours.ANSI_RESET ;
     }
 }

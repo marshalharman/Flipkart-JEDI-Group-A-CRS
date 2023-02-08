@@ -1,5 +1,5 @@
 package com.flipkart.exception;
-
+import com.flipkart.constant.Colours;
 
 /**
  * Exception to check if course is available in catalog
@@ -30,6 +30,6 @@ public class CourseAlreadyPresentException extends Exception{
     @Override
     public String getMessage()
     {
-        return "Course with courseID: " + courseCode + " already present";
+        return Colours.ANSI_YELLOW+"Course with courseID: " + courseCode + " already present"+Colours.ANSI_RESET;
     }
 }

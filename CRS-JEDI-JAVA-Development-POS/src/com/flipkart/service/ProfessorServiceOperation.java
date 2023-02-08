@@ -32,6 +32,15 @@ public class ProfessorServiceOperation implements ProfessorInterface {
 
     public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException {
         try {
+            List<Course> registeredCourses = professorDAO.getCoursesByProfessor(profID);
+
+            Formatter fmt = new Formatter();
+            fmt.format("%15s %15s\n", "CourseID", "CourseName");
+            for(Course course: registeredCourses){
+                fmt.format("%14s %14s\n",course.getCourseID() , course.getCourseName());
+            }
+            System.out.println(fmt);
+
             professorDAO.deregisterCourseForProfessor(profID, courseName);
         }
         catch (CourseNotFoundByNameException exception){
