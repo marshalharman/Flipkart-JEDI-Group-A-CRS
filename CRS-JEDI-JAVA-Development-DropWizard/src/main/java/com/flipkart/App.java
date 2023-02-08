@@ -24,7 +24,7 @@ public class App extends Application<Configuration> {
         //e.jersey().register(new AdminRestAPI());
         //e.jersey().register(new PaymentRestAPI());
         e.jersey().register(new ProfessorRestAPI(e.getValidator()));
-        //e.jersey().register(new StudentRestAPI());
+        e.jersey().register(new StudentRestAPI(e.getValidator()));
         //e.jersey().register(new UserRestAPI());
 
     }
