@@ -36,7 +36,7 @@ public class CRSAdminMenu {
             Scanner obj = new Scanner(System.in);
             int choice = 0;
             try {
-                choice = Integer.parseInt(sc.nextLine());
+                choice = Integer.parseInt(obj.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Input should be numerical!");
             }
