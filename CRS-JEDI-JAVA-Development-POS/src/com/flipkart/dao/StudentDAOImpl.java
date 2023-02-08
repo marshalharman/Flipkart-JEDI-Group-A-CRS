@@ -2,9 +2,11 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
 import com.flipkart.constant.Dao;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,11 +17,13 @@ import static com.flipkart.constant.Dao.*;
 
 public class StudentDAOImpl implements StudentDAO{
 
+    UserDAO userDAO = new UserDAOImpl();
+
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        Student s=getStudentByID(studentID);
-        if(s!=null)
+        User u=userDAO.getUserByID(studentID);
+        if(u!=null)
         {
             throw new DuplicateUserException(studentID);
         }
@@ -226,8 +230,6 @@ public class StudentDAOImpl implements StudentDAO{
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
-            System.out.println("Creating statement...");
-
             String sql = "SELECT CourseID, COUNT(studentID) AS Frequency FROM SemRegistration GROUP BY CourseID";
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -235,9 +237,6 @@ public class StudentDAOImpl implements StudentDAO{
             while(rs.next()){
                 int courseID = rs.getInt("CourseID");
                 int count = rs.getInt("Frequency");
-
-                System.out.println(courseID + ":" + count);
-
                 courseEnrollmentCount.put(courseID, count);
             }
             rs.close();

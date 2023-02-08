@@ -3,9 +3,11 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundByNameException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.service.ProfessorServiceOperation;
 
+import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 public class CRSProfessorMenu {
@@ -13,7 +15,7 @@ public class CRSProfessorMenu {
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
     Scanner sc = new Scanner(System.in);
-    public void professorMenu(int userID) throws CourseNotFoundException {
+    public void professorMenu(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
 
         while(true) {
 
@@ -77,12 +79,19 @@ public class CRSProfessorMenu {
         }
 
         List<Course> courseList = service.viewCourse(semID);
-
-        for (Course course: courseList){
-            System.out.println(course.getCourseID() + " - " + course.getCourseName());
+        if(courseList.size()==0)
+        {
+            System.out.println("No availble courses\n");
+            return;
         }
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
+        for (Course course: courseList){
+            fmt.format("%14s %14s\n",course.getCourseID(), course.getCourseName());
+        }
+        System.out.println(fmt);
     }
-    private void registerCourse(int userID) throws CourseNotFoundException {
+    private void registerCourse(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -103,7 +112,7 @@ public class CRSProfessorMenu {
 
     }
 
-    private void deRegisterCourse(int userID) throws CourseNotFoundException {
+    private void deRegisterCourse(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -138,10 +147,12 @@ public class CRSProfessorMenu {
         String courseName = sc.nextLine();
 
         List<Student> students = service.viewEnrolledStudents(semID,courseName);
-
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "StudentID", "StudentName");
         for(Student student : students){
-            System.out.println(student.getUserID() + " - " + student.getName());
+            fmt.format("%14s %14s\n",student.getUserID(), student.getName());
         }
+        System.out.println(fmt);
     }
     private void addGrades(int userID){
         System.out.println("Enter Course Name : ");

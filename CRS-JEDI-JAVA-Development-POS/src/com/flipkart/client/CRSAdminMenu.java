@@ -2,6 +2,7 @@ package com.flipkart.client;
 
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.*;
@@ -123,10 +124,14 @@ public class CRSAdminMenu {
             return ;
         }
         System.out.println("List of unapproved students: ");
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "StudentID", "StudentName");
         for(Student student: unapprovedStudents)
         {
-            System.out.println("Student ID : "+student.getUserID() + " , " + "Student Name : "+student.getName());
+            fmt.format("%14s %14s\n",student.getUserID(),student.getName());
         }
+        System.out.println(fmt);
+
         System.out.println("1. Approve students by ID.");
         System.out.println("2. Approve all students.");
 
