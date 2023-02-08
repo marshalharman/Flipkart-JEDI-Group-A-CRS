@@ -206,6 +206,11 @@ public class CRSStudentMenu {
     }
     private List<Course> viewCourses(int studentID){
         List<Course> courseList = studentServiceOperation.getCourses(studentID);
+        if(courseList.size()==0)
+        {
+            System.out.println("No Courses to view\n");
+            return courseList;
+        }
         Formatter fmt = new Formatter();
         fmt.format("%15s %15s\n", "CourseID", "CourseName");
         for(int i=0;i<courseList.size();i++){
