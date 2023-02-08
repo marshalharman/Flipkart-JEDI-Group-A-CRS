@@ -38,17 +38,17 @@ public class AdminRestAPI {
     }
     @PUT
     @Path("/approveStudentByID")
-    public Response approveStudentByID(@QueryParam("studentID") Integer studentID)
-    {
+    public Response approveStudentByID(@QueryParam("studentID") Integer studentID) {
         try {
+
             service.approveStudentRegistration(studentID);
-            return Response.status(201).entity( "Approved Student "+studentID+" successfully").build();
-        }
-        catch (StudentNotFoundForApprovalException e)
-        {
-            return Response.status(201).entity( e.getMessage()).build();
+            return Response.ok("Approved Student " + studentID + " successfully").build();
+
+        } catch (StudentNotFoundForApprovalException e) {
+            return Response.status(400).entity(e.getMessage()).build();
         }
 //        return Response.status(500).entity("Something went wrong, please try again!").build();
+
     }
 
     @PUT
