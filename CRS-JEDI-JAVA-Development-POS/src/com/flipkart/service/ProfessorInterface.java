@@ -2,6 +2,7 @@ package com.flipkart.service;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundByNameException;
 import com.flipkart.exception.CourseNotFoundException;
 
 import java.util.List;
@@ -24,14 +25,14 @@ public interface ProfessorInterface {
      * @param courseName
      * @param semID
      */
-    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundException;
+    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException;
     /**
      * Method to de-register the professor from the course
      * @param profID
      * @param courseName
      * @param semID
      */
-    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundException;
+    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException;
     /**
      * Method to students enrolled in a course
      * @param semID
