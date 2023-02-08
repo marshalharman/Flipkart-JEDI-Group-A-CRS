@@ -9,6 +9,7 @@ import com.flipkart.exception.CourseNotFoundException;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfessorServiceOperation implements ProfessorInterface {
 
@@ -21,22 +22,14 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         return courseList;
     }
 
-    public void registerCourse(int profID, String courseName, int semID) {
-        try {
-            professorDAO.registerCourseForProfessor(profID, courseName, semID);
-        }
-        catch (CourseNotFoundByNameException exception){
-            System.out.println(exception.getMessage());
-        }
+    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundByNameException {
+
+        professorDAO.registerCourseForProfessor(profID, courseName, semID);
     }
 
-    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException {
-        try {
-            professorDAO.deregisterCourseForProfessor(profID, courseName);
-        }
-        catch (CourseNotFoundByNameException exception){
-            System.out.println(exception.getMessage());
-        }
+    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundByNameException {
+
+        professorDAO.deregisterCourseForProfessor(profID, courseName);
     }
 
     public List<Student> viewEnrolledStudents(int semID , String courseName){
@@ -59,7 +52,7 @@ public class ProfessorServiceOperation implements ProfessorInterface {
 
     }
 
-    public void  viewRegisteredCourses(int profID){
+    public List<Course> viewRegisteredCourses(int profID){
         List<Course> registeredCourses = professorDAO.getCoursesByProfessor(profID);
 
         Formatter fmt = new Formatter();
@@ -69,5 +62,6 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         }
         System.out.println(fmt);
 
+        return registeredCourses;
     }
 }

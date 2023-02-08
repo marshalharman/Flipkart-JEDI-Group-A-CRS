@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CRS-JEDI-JAVA-Development-DropWizard/CRS-JEDI-JAVA-Development-DropWizard.iml" filepath="$PROJECT_DIR$/CRS-JEDI-JAVA-Development-DropWizard/CRS-JEDI-JAVA-Development-DropWizard.iml" />
       <module fileurl="file://$PROJECT_DIR$/Flipkart-JEDI-Group-A-CRS.iml" filepath="$PROJECT_DIR$/Flipkart-JEDI-Group-A-CRS.iml" />
     </modules>
   </component>
