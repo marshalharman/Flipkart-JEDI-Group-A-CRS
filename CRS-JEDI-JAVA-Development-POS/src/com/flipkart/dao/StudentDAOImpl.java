@@ -2,9 +2,11 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
 import com.flipkart.constant.Dao;
 import com.flipkart.constant.Role;
 import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.exception.UserIdAlreadyInUseException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,11 +17,13 @@ import static com.flipkart.constant.Dao.*;
 
 public class StudentDAOImpl implements StudentDAO{
 
+    UserDAO userDAO = new UserDAOImpl();
+
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
         Connection conn = null;
         PreparedStatement stmt = null;
-        Student s=getStudentByID(studentID);
-        if(s!=null)
+        User u=userDAO.getUserByID(studentID);
+        if(u!=null)
         {
             throw new DuplicateUserException(studentID);
         }
@@ -30,7 +34,7 @@ public class StudentDAOImpl implements StudentDAO{
         String sql2 = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";
 
         try{
-            Class.forName(DB_URL);
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 

@@ -83,19 +83,24 @@ public class StudentServiceOperation implements StudentInterface {
         }
 
         studentDAO.registerCourses(studentID, registeredCoursesID, semID);
-
         System.out.println("REGISTERED COURSES:");
+        Formatter fmt = new Formatter();
+        fmt.format("%15s\n", "CourseID");
         for(int i=0;i<registeredCourseCount;i++){
-            System.out.println(registeredCoursesID.get(i));
+            fmt.format("%14s\n",registeredCoursesID.get(i));
         }
+        System.out.println(fmt);
+
     }
 
     public void getRegisteredCourses(int studentID){
         List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
-
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
         for(Course course: registeredCourses){
-            System.out.println(course.getCourseID() + " - " + course.getCourseName());
+            fmt.format("%14s %14s\n",course.getCourseID() , course.getCourseName());
         }
+        System.out.println(fmt);
     }
 
 

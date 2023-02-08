@@ -41,7 +41,7 @@ public interface PaymentDAO {
      * Method to save payment details in DB
      * @param transID
      * @param s_id
-     * @paeram mode
+     * @param mode
      * @param amount
      * @param description
      */
