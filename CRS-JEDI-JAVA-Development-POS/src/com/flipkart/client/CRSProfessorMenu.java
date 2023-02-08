@@ -3,6 +3,8 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.UserDAO;
+import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.exception.CourseNotFoundByNameException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.service.ProfessorServiceOperation;
@@ -14,6 +16,7 @@ public class CRSProfessorMenu {
 
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
+    UserDAO userDAO = new UserDAOImpl();
     Scanner sc = new Scanner(System.in);
     public void professorMenu(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
 
@@ -22,6 +25,8 @@ public class CRSProfessorMenu {
             System.out.println("****************************************************");
             System.out.println("****************** PROFESSOR MENU ******************");
             System.out.println("****************************************************");
+            System.out.println();
+            System.out.println("Welcome "+ userDAO.getUserByID(userID).getUsername()+" !");
             System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. View Courses");
@@ -118,8 +123,13 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("Please provide Course Name\n");
+            return;
+        }
         service.registerCourse(userID, courseName, semID);
+
     }
 
     private void deRegisterCourse(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
@@ -140,7 +150,11 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("Please provide Course Name\n");
+            return;
+        }
         service.deregisterCourse(userID, courseName, semID);
 
     }
@@ -176,7 +190,11 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("PLaese provide Course Name\n");
+            return;
+        }
         List<Student> students = service.viewEnrolledStudents(semID,courseName);
         Formatter fmt = new Formatter();
         fmt.format("%15s %15s\n", "StudentID", "StudentName");

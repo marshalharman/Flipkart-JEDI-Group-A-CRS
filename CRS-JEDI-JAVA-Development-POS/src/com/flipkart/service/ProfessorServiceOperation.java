@@ -21,7 +21,7 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         return courseList;
     }
 
-    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException {
+    public void registerCourse(int profID, String courseName, int semID) {
         try {
             professorDAO.registerCourseForProfessor(profID, courseName, semID);
         }
@@ -40,7 +40,15 @@ public class ProfessorServiceOperation implements ProfessorInterface {
     }
 
     public List<Student> viewEnrolledStudents(int semID , String courseName){
-        List<Student> students = professorDAO.viewEnrolledStudents(courseName);
+
+        List<Student> students = new ArrayList<>();
+
+        try {
+            students = professorDAO.viewEnrolledStudents(courseName);
+        }
+        catch (CourseNotFoundByNameException exception){
+            System.out.println(exception.getMessage());
+        }
 
         return students;
     }

@@ -39,7 +39,7 @@ public interface ProferssorDAO {
      * @param courseName
      * @return list of enrolled students in a course
      */
-    public List<Student> viewEnrolledStudents( String courseName);
+    public List<Student> viewEnrolledStudents( String courseName) throws CourseNotFoundByNameException;
     /**
      * Method to get student details with id
      * @param studentID

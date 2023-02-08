@@ -171,7 +171,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         return true;
     }
 
-    public List<Student> viewEnrolledStudents(String courseName){
+    public List<Student> viewEnrolledStudents(String courseName) throws CourseNotFoundByNameException{
 
         PreparedStatement stmt = null;
 
@@ -179,8 +179,12 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         Course course = getCourseByName(courseName);
 
+        if( course==null ){
+            throw new CourseNotFoundByNameException(courseName);
+        }
+
         String sql = "SELECT * FROM SemRegistration " +
-                "INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE Name =?";
+                "INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE SemRegistration.CourseID=?";
 
         try{
 
@@ -189,7 +193,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, courseName);
+            stmt.setInt(1, course.getCourseID());
 
             ResultSet rs = stmt.executeQuery();
 
