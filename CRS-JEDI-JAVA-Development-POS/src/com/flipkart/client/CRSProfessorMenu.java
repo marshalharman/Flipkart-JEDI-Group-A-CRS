@@ -123,8 +123,13 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("Please provide Course Name\n");
+            return;
+        }
         service.registerCourse(userID, courseName, semID);
+
     }
 
     private void deRegisterCourse(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
@@ -145,7 +150,11 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("Please provide Course Name\n");
+            return;
+        }
         service.deregisterCourse(userID, courseName, semID);
 
     }
@@ -181,7 +190,11 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("PLaese provide Course Name\n");
+            return;
+        }
         List<Student> students = service.viewEnrolledStudents(semID,courseName);
         Formatter fmt = new Formatter();
         fmt.format("%15s %15s\n", "StudentID", "StudentName");
