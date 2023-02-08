@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Dao;
+import com.flipkart.constant.Role;
 import com.flipkart.exception.DuplicateUserException;
 
 import java.sql.*;
@@ -23,7 +24,7 @@ public class StudentDAOImpl implements StudentDAO{
             throw new DuplicateUserException(studentID);
         }
 
-        String role = "student";
+        String role = Role.STUDENT;
         String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
 
         String sql2 = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";

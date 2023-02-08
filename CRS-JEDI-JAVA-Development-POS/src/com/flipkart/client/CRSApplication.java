@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import com.flipkart.constant.Role;
 import com.flipkart.exception.PrimaryKeyException;
 import com.flipkart.exception.*;
 import com.flipkart.service.*;
@@ -60,7 +61,7 @@ public class CRSApplication {
 
                         System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
 
-                        if (role.equalsIgnoreCase("student")) {
+                        if (role.equalsIgnoreCase(Role.STUDENT)) {
                             if(verified) {
                                 CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                                 crsStudentMenu.studentMenu(userID);
@@ -69,7 +70,7 @@ public class CRSApplication {
                             System.out.println("Wrong Credentials\n");
                             break;
                         } else
-                            if (role.equalsIgnoreCase("professor")) {
+                            if (role.equalsIgnoreCase(Role.PROFESSOR)) {
                                 if( verified ) {
                                     CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
                                     crsProfessorMenu.professorMenu(userID);
@@ -78,7 +79,7 @@ public class CRSApplication {
                                 System.out.println("Wrong Credentials\n");
                                 break;
                         } else
-                            if (role.equalsIgnoreCase("admin")) {
+                            if (role.equalsIgnoreCase(Role.ADMIN)) {
                                 if(verified) {
                                     CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
                                     crsAdminMenu.adminMenu(userID);

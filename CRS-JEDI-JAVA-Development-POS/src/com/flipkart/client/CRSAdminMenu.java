@@ -3,6 +3,7 @@ package com.flipkart.client;
 
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Role;
 import com.flipkart.data.Data;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
@@ -65,7 +66,7 @@ public class CRSAdminMenu {
                     System.out.println("Enter Name");
                     String name = obj.nextLine();
 
-                    addAdmin(userID, userName, password, "admin", true, name);
+                    addAdmin(userID, userName, password, Role.ADMIN, true, name);
 
                     for(Admin a: Data.admins){
                         System.out.println(a.getName());
@@ -98,7 +99,7 @@ public class CRSAdminMenu {
                     System.out.println("Enter Designation");
                     String designation = obj.nextLine();
 
-                    addProfessor(userID, userName, password, "professor", name, dept, designation);
+                    addProfessor(userID, userName, password, Role.PROFESSOR, name, dept, designation);
                     break;
                 case 4:
                     addCourses();
