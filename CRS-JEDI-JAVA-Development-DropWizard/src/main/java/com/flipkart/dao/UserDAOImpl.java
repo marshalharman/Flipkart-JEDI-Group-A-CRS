@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.User;
 import com.flipkart.constant.ColourConstant;
 import com.flipkart.constant.ConnectionConstant;
+import com.flipkart.exception.DuplicateUserException;
 import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
@@ -78,13 +79,12 @@ public class UserDAOImpl implements UserDAO{
         return verified;
     }
 
-    public void register(int userID, String userName, String password, String role, boolean isApproved){
+    public void register(int userID, String userName, String password, String role, boolean isApproved) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
 
         String sql = "INSERT INTO User VALUES (?, ?, ?, ?, ?)";
-
         try{
 
             Class.forName(ConnectionConstant.JDBC_DRIVER);
@@ -100,7 +100,8 @@ public class UserDAOImpl implements UserDAO{
 
             stmt.executeUpdate();
 
-        }catch(SQLException se){
+        }
+        catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
         }catch(Exception e){
