@@ -2,7 +2,6 @@ package com.flipkart.service;
 
 import com.flipkart.dao.UserDAO;
 import com.flipkart.dao.UserDAOImpl;
-import com.flipkart.data.Data;
 import com.flipkart.exception.UserNotFoundException;
 
 public class UserServiceOperation implements UserInterface{

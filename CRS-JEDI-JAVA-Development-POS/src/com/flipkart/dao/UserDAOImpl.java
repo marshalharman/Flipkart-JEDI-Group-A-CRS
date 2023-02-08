@@ -81,7 +81,7 @@ public class UserDAOImpl implements UserDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -122,7 +122,7 @@ public class UserDAOImpl implements UserDAO{
 
         String sql = "UPDATE USER SET Password = ? where UserID = ?";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, password);
@@ -160,7 +160,7 @@ public class UserDAOImpl implements UserDAO{
         String sql = "SELECT * FROM User WHERE UserID=?";
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 

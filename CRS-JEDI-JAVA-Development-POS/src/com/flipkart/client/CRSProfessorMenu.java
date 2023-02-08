@@ -3,7 +3,6 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.data.Data;
 import com.flipkart.service.ProfessorServiceOperation;
 
 import java.util.List;
@@ -15,15 +14,6 @@ public class CRSProfessorMenu {
     Scanner sc = new Scanner(System.in);
     public void professorMenu(int userID)
     {
-
-        Professor professor = null;
-
-        for(Professor p : Data.professors){
-            if( p.getUserID() == userID ){
-                professor = p;
-                break;
-            }
-        }
 
         while(true) {
 

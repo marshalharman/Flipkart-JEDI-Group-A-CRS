@@ -1,9 +1,6 @@
 package com.flipkart.client;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
-import com.flipkart.data.Data;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentServiceOperation;
 import com.flipkart.service.PaymentInterface;

@@ -5,7 +5,6 @@ import com.flipkart.bean.User;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.StudentDAO;
 import com.flipkart.dao.StudentDAOImpl;
-import com.flipkart.data.Data;
 import java.util.*;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.DuplicateUserException;

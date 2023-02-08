@@ -4,7 +4,6 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.ProfessorDAOImpl;
-import com.flipkart.data.*;
 
 import java.awt.desktop.SystemEventListener;
 import java.util.*;

@@ -30,7 +30,7 @@ public class StudentDAOImpl implements StudentDAO{
         String sql2 = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(DB_URL);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -81,7 +81,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         List<Integer> semList = new ArrayList<Integer>();
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -125,7 +125,7 @@ public class StudentDAOImpl implements StudentDAO{
         String sql = "UPDATE Student SET SemID = ? WHERE StudentID = ?";
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -167,7 +167,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         List<Course> courseList = new ArrayList<Course>();
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -222,7 +222,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -271,7 +271,7 @@ public class StudentDAOImpl implements StudentDAO{
         Connection conn = null;
         PreparedStatement stmt = null;
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "INSERT INTO SemRegistration (`StudentID`, `CourseID`, `SemID`) VALUES  (?, ?, ?)";
@@ -316,7 +316,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -361,7 +361,7 @@ public class StudentDAOImpl implements StudentDAO{
         String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
                 "FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID=?";
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -419,7 +419,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -486,7 +486,7 @@ public class StudentDAOImpl implements StudentDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 

@@ -20,7 +20,7 @@ public class AdminDAOImpl implements AdminDAO {
         String sql = "INSERT INTO Admin VALUES (?, ?)";
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             stmt = conn.prepareStatement(sql);
@@ -59,7 +59,7 @@ public class AdminDAOImpl implements AdminDAO {
         PreparedStatement stmt = null;
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "DELETE FROM Catalog WHERE CourseId = ?";
@@ -112,7 +112,7 @@ public class AdminDAOImpl implements AdminDAO {
         PreparedStatement stmt = null;
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -163,7 +163,7 @@ public class AdminDAOImpl implements AdminDAO {
         String sql = "UPDATE User SET isApproved = 1 WHERE UserId = ?";
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -204,7 +204,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -255,7 +255,7 @@ public class AdminDAOImpl implements AdminDAO {
         String sql = "UPDATE Student SET GradesEnabled = ? WHERE GradesEnabled = ?";
 
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -297,7 +297,7 @@ public class AdminDAOImpl implements AdminDAO {
         List<Student> userList = new ArrayList<Student>();
         try {
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL, Dao.USER, Dao.PASS);
             stmt = conn.prepareStatement(sql);
@@ -342,7 +342,7 @@ public class AdminDAOImpl implements AdminDAO {
         String sql = "UPDATE User SET isApproved = 1";
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL, Dao.USER, Dao.PASS);
 

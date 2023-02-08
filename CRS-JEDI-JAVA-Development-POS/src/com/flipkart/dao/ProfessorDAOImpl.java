@@ -29,7 +29,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -84,7 +84,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -129,7 +129,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -181,7 +181,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -240,7 +240,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -296,7 +296,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -353,7 +353,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -398,7 +398,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -448,7 +448,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -506,7 +506,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
@@ -565,7 +565,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         try{
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 

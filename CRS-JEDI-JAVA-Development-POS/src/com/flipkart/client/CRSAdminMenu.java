@@ -4,7 +4,6 @@ package com.flipkart.client;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
-import com.flipkart.data.Data;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
@@ -67,10 +66,6 @@ public class CRSAdminMenu {
                     String name = obj.nextLine();
 
                     addAdmin(userID, userName, password, Role.ADMIN, true, name);
-
-                    for(Admin a: Data.admins){
-                        System.out.println(a.getName());
-                    }
                     break;
                 }
                 case 3:

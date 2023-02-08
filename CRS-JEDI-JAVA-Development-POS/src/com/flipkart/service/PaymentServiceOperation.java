@@ -1,7 +1,6 @@
 package com.flipkart.service;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.PaymentDAOImpl;
-import com.flipkart.data.Data;
 import java.util.Scanner;
 import java.util.*;
 import javax.swing.plaf.synth.SynthTextAreaUI;
