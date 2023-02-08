@@ -41,19 +41,36 @@ public class AdminServiceOperation implements AdminInterface {
         adminDaoImpl.addProfessor(professor);
     }
 
-    public void addCourse(int courseID , String courseName, int semID)throws CourseAlreadyPresentException {
-
+    public void addCourse(int courseID , String courseName, int semID) {
         Course c1=new Course();
         c1.setCourseID(courseID);
         c1.setCourseName(courseName);
-        adminDaoImpl.addCourse(c1, semID);
+        try {
+            adminDaoImpl.addCourse(c1, semID);
+        }
+        catch(CourseAlreadyPresentException e)
+        {
+            System.out.println(e.getMessage());
+            return;
+        }
         System.out.println(courseName + " added successfully.");
 
     }
 
     public void removeCourse(int semId , int courseId) throws CourseNotDeletedException, CourseNotFoundException {
-
-        adminDaoImpl.deleteCourse(courseId);
+        try {
+            adminDaoImpl.deleteCourse(courseId);
+        }
+        catch(CourseNotDeletedException e)
+        {
+            System.out.println(e.getMessage());
+            return;
+        }
+        catch (CourseNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+            return;
+        }
         System.out.println("removed successfully.");
     }
 

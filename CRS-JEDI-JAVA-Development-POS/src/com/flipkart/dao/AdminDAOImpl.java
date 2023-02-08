@@ -85,7 +85,6 @@ public class AdminDAOImpl implements AdminDAO {
 
         } catch(SQLException se){
             //Handle errors for JDBC
-            se.printStackTrace();
             throw new CourseNotDeletedException(courseID);
         }catch(Exception e){
             //Handle errors for Class.forName
@@ -110,7 +109,6 @@ public class AdminDAOImpl implements AdminDAO {
 
         Connection conn = null;
         PreparedStatement stmt = null;
-
         try{
             Class.forName(Dao.JDBC_DRIVER);
 
@@ -132,7 +130,6 @@ public class AdminDAOImpl implements AdminDAO {
 
         }catch(SQLException se){
             //Handle errors for JDBC
-            se.printStackTrace();
             throw new CourseAlreadyPresentException(course.getCourseID());
 
         }catch(Exception e){
