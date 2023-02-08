@@ -33,7 +33,12 @@ public class CRSAdminMenu {
             System.out.println("7. Logout");
 
             Scanner obj = new Scanner(System.in);
-            int choice = Integer.parseInt(obj.nextLine());
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Input should be numerical!");
+            }
 
             switch (choice) {
                 case 1:
@@ -42,7 +47,14 @@ public class CRSAdminMenu {
 
                 case 2:{
                     System.out.println("Enter Admin ID");
-                    int userID = Integer.parseInt(obj.nextLine());
+
+                    int userID = 0;
+                    try {
+                        userID = Integer.parseInt(obj.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input should be numerical!");
+                        break;
+                    }
 
                     System.out.println("Enter Username");
                     String userName =obj.nextLine();
@@ -63,7 +75,13 @@ public class CRSAdminMenu {
                 case 3:
 
                     System.out.println("Enter Prof ID");
-                    int userID = Integer.parseInt(obj.nextLine());
+                    int userID = 0;
+                    try {
+                        userID = Integer.parseInt(sc.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input should be numerical!");
+                        break;
+                    }
 
                     System.out.println("Enter Username");
                     String userName =obj.nextLine();
@@ -95,7 +113,7 @@ public class CRSAdminMenu {
                     System.out.println("Logged out\n");
                     break;
                 default:
-                    System.out.println("Choose in the given options\n");
+                    System.out.println("Enter valid input!\n");
             }
 
             if(choice == 7){break;}

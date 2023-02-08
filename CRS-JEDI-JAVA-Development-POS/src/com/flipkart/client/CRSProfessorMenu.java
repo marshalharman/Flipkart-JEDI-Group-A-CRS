@@ -40,7 +40,12 @@ public class CRSProfessorMenu {
             System.out.println("6. Logout");
 
             Scanner obj = new Scanner(System.in);
-            int choice = Integer.parseInt(obj.nextLine());
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Input should be numerical!");
+            }
 
             switch (choice) {
                 case 1:
@@ -73,7 +78,13 @@ public class CRSProfessorMenu {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
-        int semID = Integer.parseInt(sc.nextLine());
+        int semID = 0;
+        try {
+            semID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
 
         List<Course> courseList = service.viewCourse(semID);
 
@@ -85,7 +96,13 @@ public class CRSProfessorMenu {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
-        int semID = Integer.parseInt(sc.nextLine());
+        int semID = 0;
+        try {
+            semID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
 
         service.viewCourse(semID);
 
@@ -100,7 +117,13 @@ public class CRSProfessorMenu {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
-        int semID = Integer.parseInt(sc.nextLine());
+        int semID = 0;
+        try {
+            semID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
 
         service.viewCourse(semID);
 
@@ -112,7 +135,13 @@ public class CRSProfessorMenu {
     }
     private void viewEnrolledStudent(int userID){
         System.out.println("Enter Semester ID : ");
-        int semID = Integer.parseInt(sc.nextLine());
+        int semID = 0;
+        try {
+            semID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
         service.viewCourse(semID);
 
         System.out.println("Enter Course Name : ");
@@ -129,7 +158,13 @@ public class CRSProfessorMenu {
         String courseName = sc.nextLine();
 
         System.out.println("Enter student ID : ");
-        int studentID = Integer.parseInt(sc.nextLine());
+        int studentID;
+        try {
+            studentID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
 
         System.out.println("Enter score : ");
         String score = sc.nextLine();

@@ -171,8 +171,8 @@ public class StudentDAOImpl implements StudentDAO{
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
             String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
-                    "FROM Catalog INNER JOIN Courses ON Catalog.CourseId = Courses.CourseID WHERE semID = ?"+
-                    "AND ProfID NOT IN (NULL, -1)";
+                    "FROM crs_database.Catalog INNER JOIN crs_database.Courses ON Catalog.CourseId = Courses.CourseID " +
+                    "WHERE semID = ? AND ProfID IS NOT NULL AND ProfID != -1";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);

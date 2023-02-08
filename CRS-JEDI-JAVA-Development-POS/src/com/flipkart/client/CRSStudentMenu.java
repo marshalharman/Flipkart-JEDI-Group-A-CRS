@@ -47,8 +47,12 @@ public class CRSStudentMenu {
 
             Scanner obj = new Scanner(System.in);
 
-            int choice;
-            choice = Integer.parseInt(obj.nextLine());
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(obj.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Input should be numerical!");
+            }
 
             switch (choice) {
                 case 1:
@@ -105,7 +109,15 @@ public class CRSStudentMenu {
             System.out.println("SEM " + semID);
         }
         Scanner sc = new Scanner(System.in);
-        int semID = Integer.parseInt(sc.nextLine());
+
+        int semID = 0;
+        try {
+            semID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
+
 
         studentServiceOperation.setSemID(studentID, semID);
     }
@@ -113,7 +125,13 @@ public class CRSStudentMenu {
     private void addCourse(int studentID){
         System.out.println("1. Add Primary Course\n2. Add Alternate Course");
         Scanner sc = new Scanner(System.in);
-        int choice = Integer.parseInt(sc.nextLine());
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
 
         System.out.println("Select Course to Add:");
         List<Course> courseList = viewCourses(studentID);
@@ -136,8 +154,14 @@ public class CRSStudentMenu {
     private void deleteCourse(int studentID) {
         System.out.println("1. Delete Primary Course\n2. Delete Alternate Course");
         Scanner sc = new Scanner(System.in);
-        int choice = Integer.parseInt(sc.nextLine());
 
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
         if (choice == 1) {
             System.out.println("Please select course : ");
             for (Course course : primaryCourses) {
@@ -173,7 +197,13 @@ public class CRSStudentMenu {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Please enter the ID of the course to be dropped : ");
-        int courseID = Integer.parseInt(sc.nextLine());
+        int courseID = 0;
+        try {
+            courseID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+            return;
+        }
 
         studentServiceOperation.dropCourse(studentID, courseID);
     }

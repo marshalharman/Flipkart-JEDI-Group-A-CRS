@@ -20,8 +20,13 @@ public class PaymentServiceOperation implements PaymentInterface {
         System.out.println("Select a method to pay -");
         System.out.println("1.UPI   2.Debit/Credit card   3.Cash");
         Scanner obj = new Scanner(System.in);
-        int choice;
-        choice = Integer.parseInt(obj.nextLine());
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(obj.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Input should be numerical!");
+        }
+
         switch (choice) {
             case 1:
                 System.out.println("Please enter you upi id: ");

@@ -33,16 +33,16 @@ public class CRSApplication {
 
             switch (choice) {
                 case 1: {
-                    String userName, password, role;
+                    String password, role;
                     int userID;
                     while(true){
                         System.out.println("ENTER USERID");
                         try{
-                        userID = Integer.parseInt(sc.nextLine());
+                            userID = Integer.parseInt(sc.nextLine());
                         }
                         catch(Exception e)
                         {
-                            System.out.println("Please provide ID\n");
+                            System.out.println("Please provide ID in proper format\n");
                             break;
                         }
                         System.out.println("ENTER PASSWORD");
@@ -97,7 +97,7 @@ public class CRSApplication {
                     System.out.println("Enter your student ID: ");
                     int studentId;
                     try{
-                    studentId= Integer.parseInt(sc.nextLine());
+                        studentId= Integer.parseInt(sc.nextLine());
                     }catch(Exception e)
                     {
                         System.out.println("Please provide ID\n");
