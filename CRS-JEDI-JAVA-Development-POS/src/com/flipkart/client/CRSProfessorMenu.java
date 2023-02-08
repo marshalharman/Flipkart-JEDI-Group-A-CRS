@@ -6,6 +6,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.service.ProfessorServiceOperation;
 
+import java.util.Formatter;
 import java.util.List;
 import java.util.Scanner;
 public class CRSProfessorMenu {
@@ -77,10 +78,17 @@ public class CRSProfessorMenu {
         }
 
         List<Course> courseList = service.viewCourse(semID);
-
-        for (Course course: courseList){
-            System.out.println(course.getCourseID() + " - " + course.getCourseName());
+        if(courseList.size()==0)
+        {
+            System.out.println("No availble courses\n");
+            return;
         }
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
+        for (Course course: courseList){
+            fmt.format("%14s %14s\n",course.getCourseID(), course.getCourseName());
+        }
+        System.out.println(fmt);
     }
     private void registerCourse(int userID) throws CourseNotFoundException {
         Scanner sc = new Scanner(System.in);
@@ -138,10 +146,12 @@ public class CRSProfessorMenu {
         String courseName = sc.nextLine();
 
         List<Student> students = service.viewEnrolledStudents(semID,courseName);
-
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "StudentID", "StudentName");
         for(Student student : students){
-            System.out.println(student.getUserID() + " - " + student.getName());
+            fmt.format("%14s %14s\n",student.getUserID(), student.getName());
         }
+        System.out.println(fmt);
     }
     private void addGrades(int userID){
         System.out.println("Enter Course Name : ");
