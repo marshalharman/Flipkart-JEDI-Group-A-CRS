@@ -73,6 +73,12 @@ public interface ProferssorDAO {
      */
     public Course getCourseByName(String courseName);
     /**
+     * Method to get Course details by id
+     * @param courseID
+     * @return course object with all the details
+     */
+    public Course getCourseByID(int courseID);
+    /**
      * Method to get professor details by id
      * @param profID
      * @return professor object with all details

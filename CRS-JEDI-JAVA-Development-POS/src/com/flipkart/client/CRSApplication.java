@@ -59,10 +59,10 @@ public class CRSApplication {
                         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
                         String formatDateTime = localDateTime.format(format);
 
-                        System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
 
                         if (role.equalsIgnoreCase(Role.STUDENT)) {
                             if(verified) {
+                                System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
                                 CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                                 crsStudentMenu.studentMenu(userID);
                                 break;
@@ -72,6 +72,7 @@ public class CRSApplication {
                         } else
                             if (role.equalsIgnoreCase(Role.PROFESSOR)) {
                                 if( verified ) {
+                                    System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
                                     CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
                                     crsProfessorMenu.professorMenu(userID);
                                     break;
@@ -81,6 +82,7 @@ public class CRSApplication {
                         } else
                             if (role.equalsIgnoreCase(Role.ADMIN)) {
                                 if(verified) {
+                                    System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
                                     CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
                                     crsAdminMenu.adminMenu(userID);
                                     break;

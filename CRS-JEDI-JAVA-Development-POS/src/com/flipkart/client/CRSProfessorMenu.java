@@ -41,7 +41,7 @@ public class CRSProfessorMenu {
 
             switch (choice) {
                 case 1:
-                    viewCourses(userID);
+                    viewCourses();
                     break;
                 case 2:
                     registerCourse(userID);
@@ -66,7 +66,7 @@ public class CRSProfessorMenu {
 
         }
     }
-	private void viewCourses(int userID){
+	private void viewCourses(){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -103,13 +103,23 @@ public class CRSProfessorMenu {
             return;
         }
 
-        service.viewCourse(semID);
+        List<Course> courseList = service.viewCourse(semID);
+        if(courseList.size()==0)
+        {
+            System.out.println("No availble courses\n");
+            return;
+        }
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
+        for (Course course: courseList){
+            fmt.format("%14s %14s\n",course.getCourseID(), course.getCourseName());
+        }
+        System.out.println(fmt);
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
 
         service.registerCourse(userID, courseName, semID);
-
     }
 
     private void deRegisterCourse(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
@@ -124,7 +134,7 @@ public class CRSProfessorMenu {
             return;
         }
 
-        service.viewCourse(semID);
+//        service.viewCourse(semID);
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();

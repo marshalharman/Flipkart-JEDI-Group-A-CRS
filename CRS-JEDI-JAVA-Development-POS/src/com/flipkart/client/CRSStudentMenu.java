@@ -130,8 +130,8 @@ public class CRSStudentMenu {
             return;
         }
 
-        System.out.println("Select Course to Add:");
         List<Course> courseList = viewCourses(studentID);
+        System.out.println("Enter name of the Course to add:");
         String courseName = sc.nextLine();
 
         System.out.println("Selected course: " + courseName);
