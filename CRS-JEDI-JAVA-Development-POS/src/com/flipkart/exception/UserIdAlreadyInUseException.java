@@ -1,6 +1,8 @@
 
 package com.flipkart.exception;
 
+import com.flipkart.constant.Colours;
+
 /**
  * @author JEDI-2.0 Team A
  *
@@ -23,7 +25,7 @@ public class UserIdAlreadyInUseException extends Exception{
 
     @Override
     public String getMessage() {
-        return "userId: " + userId + " is already in use.";
+        return Colours.ANSI_YELLOW+"userId: " + userId + " is already in use."+Colours.ANSI_RESET;
     }
 
 }

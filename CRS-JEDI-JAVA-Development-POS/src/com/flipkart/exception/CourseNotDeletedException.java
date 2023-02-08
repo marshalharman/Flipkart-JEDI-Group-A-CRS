@@ -1,5 +1,7 @@
 package com.flipkart.exception;
 
+import com.flipkart.constant.Colours;
+
 /**
  * Exception course is deleted from catalog
  * @author JEDI-2.0 Team A
@@ -28,6 +30,6 @@ public class CourseNotDeletedException extends Exception{
     @Override
     public String getMessage()
     {
-        return "Course with courseCode: " + courseCode + " can not be deleted.";
+        return Colours.ANSI_YELLOW+"Course with courseCode: " + courseCode + " can not be deleted."+Colours.ANSI_RESET;
     }
 }
