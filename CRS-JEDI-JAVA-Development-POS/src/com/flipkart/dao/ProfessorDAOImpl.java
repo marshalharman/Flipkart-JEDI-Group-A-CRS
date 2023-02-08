@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Dao;
+import com.flipkart.exception.CourseNotFoundByNameException;
 import com.flipkart.exception.CourseNotFoundException;
 
 import java.util.ArrayList;
@@ -76,11 +77,14 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         return courseList;
     }
 
-    public boolean registerCourseForProfessor(int profID, String courseName, int semID) throws CourseNotFoundException {
+    public boolean registerCourseForProfessor(int profID, String courseName, int semID) throws CourseNotFoundByNameException {
 
         PreparedStatement stmt = null;
+        Course course = null;
 
-        Course course = getCourseByName(courseName);
+        course = getCourseByName(courseName);
+        if( course == null ){ throw new CourseNotFoundByNameException(courseName); }
+
         String sql = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
 
         try{
@@ -98,7 +102,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
-            throw new CourseNotFoundException(course.getCourseID());
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -121,12 +124,12 @@ public class ProfessorDAOImpl implements ProferssorDAO{
     }
 
 
-    public boolean deregisterCourseForProfessor(int profID, String courseName) throws CourseNotFoundException{
+    public boolean deregisterCourseForProfessor(int profID, String courseName) throws CourseNotFoundByNameException{
 
         PreparedStatement stmt = null;
 
         Course course = getCourseByName(courseName);
-
+        if( course == null ){ throw new CourseNotFoundByNameException(courseName); }
         String sql = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
 
         try{
@@ -149,7 +152,6 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         }catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
-            throw new CourseNotFoundException(course.getCourseID());
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();

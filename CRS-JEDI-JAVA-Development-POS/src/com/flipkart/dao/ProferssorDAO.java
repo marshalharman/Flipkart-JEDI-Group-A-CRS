@@ -2,6 +2,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundByNameException;
 import com.flipkart.exception.CourseNotFoundException;
 
 import java.util.*;
@@ -25,14 +26,14 @@ public interface ProferssorDAO {
      * @param semID
      * @return a boolean indicating if professor is registered from a course
      */
-    public boolean registerCourseForProfessor(int profID, String courseName, int semID) throws CourseNotFoundException;
+    public boolean registerCourseForProfessor(int profID, String courseName, int semID) throws CourseNotFoundByNameException;
     /**
      * Method to de- register a professor to a course
      * @param profID
      * @param courseName
      * @return a boolean indicating if professor is de-registered from a course
      */
-    public boolean deregisterCourseForProfessor(int profID, String courseName) throws CourseNotFoundException;
+    public boolean deregisterCourseForProfessor(int profID, String courseName) throws CourseNotFoundByNameException;
     /**
      * Method to view enrolled students in a course
      * @param courseName
