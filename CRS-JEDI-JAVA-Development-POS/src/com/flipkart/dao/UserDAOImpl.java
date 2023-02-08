@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO{
 
         boolean verified = false;
         try{
-            Class.forName(JDBC_DRIVER);
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 

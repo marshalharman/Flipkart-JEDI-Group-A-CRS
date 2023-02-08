@@ -30,7 +30,7 @@ public class StudentDAOImpl implements StudentDAO{
         String sql2 = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";
 
         try{
-            Class.forName(DB_URL);
+            Class.forName(Dao.JDBC_DRIVER);
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
