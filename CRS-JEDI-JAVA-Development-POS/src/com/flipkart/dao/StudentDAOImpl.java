@@ -226,8 +226,6 @@ public class StudentDAOImpl implements StudentDAO{
 
             conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
 
-            System.out.println("Creating statement...");
-
             String sql = "SELECT CourseID, COUNT(studentID) AS Frequency FROM SemRegistration GROUP BY CourseID";
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -235,9 +233,6 @@ public class StudentDAOImpl implements StudentDAO{
             while(rs.next()){
                 int courseID = rs.getInt("CourseID");
                 int count = rs.getInt("Frequency");
-
-                System.out.println(courseID + ":" + count);
-
                 courseEnrollmentCount.put(courseID, count);
             }
             rs.close();

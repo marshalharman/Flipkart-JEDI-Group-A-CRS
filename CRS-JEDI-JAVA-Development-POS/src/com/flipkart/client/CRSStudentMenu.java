@@ -191,8 +191,8 @@ public class CRSStudentMenu {
     }
 
     public void dropCourse(int studentID){
+        viewRegisteredCourses(studentID);
         Scanner sc = new Scanner(System.in);
-
         System.out.println("Please enter the ID of the course to be dropped : ");
         int courseID = 0;
         try {
