@@ -3,6 +3,7 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.service.ProfessorServiceOperation;
 
 import java.util.List;
@@ -12,8 +13,7 @@ public class CRSProfessorMenu {
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
     Scanner sc = new Scanner(System.in);
-    public void professorMenu(int userID)
-    {
+    public void professorMenu(int userID) throws CourseNotFoundException {
 
         while(true) {
 
@@ -82,7 +82,7 @@ public class CRSProfessorMenu {
             System.out.println(course.getCourseID() + " - " + course.getCourseName());
         }
     }
-    private void registerCourse(int userID){
+    private void registerCourse(int userID) throws CourseNotFoundException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");
@@ -103,7 +103,7 @@ public class CRSProfessorMenu {
 
     }
 
-    private void deRegisterCourse(int userID){
+    private void deRegisterCourse(int userID) throws CourseNotFoundException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Semester ID : ");

@@ -4,6 +4,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.ProfessorDAOImpl;
+import com.flipkart.exception.CourseNotFoundException;
 
 import java.awt.desktop.SystemEventListener;
 import java.util.*;
@@ -19,11 +20,11 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         return courseList;
     }
 
-    public void registerCourse(int profID, String courseName, int semID){
+    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundException {
         professorDAO.registerCourseForProfessor(profID, courseName, semID);
     }
 
-    public void deregisterCourse(int profID, String courseName, int semID){
+    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundException {
         professorDAO.deregisterCourseForProfessor(profID, courseName);
     }
 
