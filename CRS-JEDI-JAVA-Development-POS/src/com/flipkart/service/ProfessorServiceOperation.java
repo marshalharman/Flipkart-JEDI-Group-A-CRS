@@ -50,4 +50,16 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         professorDAO.addGrade(studentID, courseName, grade);
 
     }
+
+    public void  viewRegisteredCourses(int profID){
+        List<Course> registeredCourses = professorDAO.getCoursesByProfessor(profID);
+
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
+        for(Course course: registeredCourses){
+            fmt.format("%14s %14s\n",course.getCourseID() , course.getCourseName());
+        }
+        System.out.println(fmt);
+
+    }
 }
