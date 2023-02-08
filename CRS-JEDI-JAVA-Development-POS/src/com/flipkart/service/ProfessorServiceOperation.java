@@ -21,7 +21,7 @@ public class ProfessorServiceOperation implements ProfessorInterface {
         return courseList;
     }
 
-    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException {
+    public void registerCourse(int profID, String courseName, int semID) {
         try {
             professorDAO.registerCourseForProfessor(profID, courseName, semID);
         }

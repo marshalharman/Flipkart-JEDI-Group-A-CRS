@@ -1,6 +1,8 @@
 package com.flipkart.client;
 
 import com.flipkart.bean.Course;
+import com.flipkart.dao.UserDAO;
+import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentServiceOperation;
 import com.flipkart.service.PaymentInterface;
@@ -20,6 +22,7 @@ public class CRSStudentMenu {
 
     StudentInterface studentServiceOperation = new StudentServiceOperation();
     PaymentInterface paymentServiceOperation = new PaymentServiceOperation();
+    UserDAO userDAO = new UserDAOImpl();
 
     List<Course> primaryCourses = new ArrayList<Course>();
     List<Course> alternateCourses = new ArrayList<Course>();
@@ -29,6 +32,8 @@ public class CRSStudentMenu {
             System.out.println("****************************************************");
             System.out.println("******************* STUDENT MENU *******************");
             System.out.println("****************************************************");
+            System.out.println();
+            System.out.println("Welcome "+ userDAO.getUserByID(studentID).getUsername()+" !");
             System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. Semester Registration");

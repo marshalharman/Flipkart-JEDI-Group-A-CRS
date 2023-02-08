@@ -5,6 +5,8 @@ import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Role;
+import com.flipkart.dao.UserDAO;
+import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
@@ -15,6 +17,7 @@ import java.util.Scanner;
 
 public class CRSAdminMenu {
     AdminInterface service = new AdminServiceOperation();
+    UserDAO userDAO = new UserDAOImpl();
     Scanner sc = new Scanner(System.in);
     public void adminMenu(int id) throws CourseAlreadyPresentException, CourseNotDeletedException, CourseNotFoundException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException {
 
@@ -23,6 +26,8 @@ public class CRSAdminMenu {
             System.out.println("****************************************************");
             System.out.println("******************** ADMIN MENU ********************");
             System.out.println("****************************************************");
+            System.out.println();
+            System.out.println("Welcome "+ userDAO.getUserByID(id).getUsername()+" !");
             System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. Approve Student Registration");
