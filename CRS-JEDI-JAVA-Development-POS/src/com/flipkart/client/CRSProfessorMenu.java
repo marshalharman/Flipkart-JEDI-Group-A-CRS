@@ -136,6 +136,8 @@ public class CRSProfessorMenu {
 
 //        service.viewCourse(semID);
 
+        service.viewRegisteredCourses(userID);
+
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
 
