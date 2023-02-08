@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.User;
 
 import com.flipkart.bean.Student;
+import com.flipkart.constant.Colours;
 import com.flipkart.constant.Dao;
 import com.flipkart.exception.DuplicateUserException;
 import com.flipkart.exception.UserNotApprovedException;
@@ -54,7 +55,7 @@ public class UserDAOImpl implements UserDAO{
             verified = (count == 1);
 
         }catch (UserNotApprovedException exception){
-            System.out.println("User " + exception.getUserId() + " not registered! Contact Admin for approval");
+            System.out.println(Colours.ANSI_YELLOW+"User " + exception.getUserId() + " not registered! Contact Admin for approval"+Colours.ANSI_RESET);
         }
         catch(SQLException se){
             //Handle errors for JDBC
