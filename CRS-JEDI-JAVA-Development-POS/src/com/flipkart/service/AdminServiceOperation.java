@@ -39,6 +39,7 @@ public class AdminServiceOperation implements AdminInterface {
         professor.setDesignation(designation);
 
         adminDaoImpl.addProfessor(professor);
+        System.out.println("Professor added successfully.");
     }
 
     public void addCourse(int courseID , String courseName, int semID) {

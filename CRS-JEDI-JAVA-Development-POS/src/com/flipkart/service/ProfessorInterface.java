@@ -48,4 +48,6 @@ public interface ProfessorInterface {
      * @param grade
      */
     public void addGrade(int profID , String courseName, int studentID , String grade);
+
+    public void  viewRegisteredCourses(int profID);
 }

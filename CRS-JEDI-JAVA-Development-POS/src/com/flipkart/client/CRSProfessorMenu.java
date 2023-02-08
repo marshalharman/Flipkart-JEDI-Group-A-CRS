@@ -118,8 +118,13 @@ public class CRSProfessorMenu {
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("Please provide Course Name\n");
+            return;
+        }
         service.registerCourse(userID, courseName, semID);
+
     }
 
     private void deRegisterCourse(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
@@ -136,9 +141,15 @@ public class CRSProfessorMenu {
 
 //        service.viewCourse(semID);
 
+        service.viewRegisteredCourses(userID);
+
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
-
+        if(courseName=="")
+        {
+            System.out.println("Please provide Course Name\n");
+            return;
+        }
         service.deregisterCourse(userID, courseName, semID);
 
     }
@@ -151,7 +162,8 @@ public class CRSProfessorMenu {
             System.out.println("Input should be numerical!");
             return;
         }
-        service.viewCourse(semID);
+
+        service.viewRegisteredCourses(userID);
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
@@ -165,8 +177,26 @@ public class CRSProfessorMenu {
         System.out.println(fmt);
     }
     private void addGrades(int userID){
+
+        System.out.println("Enter Sem ID : ");
+        int semID = Integer.parseInt(sc.nextLine());
+
+        service.viewRegisteredCourses(userID);
+
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
+        if(courseName=="")
+        {
+            System.out.println("PLaese provide Course Name\n");
+            return;
+        }
+        List<Student> students = service.viewEnrolledStudents(semID,courseName);
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "StudentID", "StudentName");
+        for(Student student : students){
+            fmt.format("%14s %14s\n",student.getUserID(), student.getName());
+        }
+        System.out.println(fmt);
 
         System.out.println("Enter student ID : ");
         int studentID;
@@ -177,7 +207,7 @@ public class CRSProfessorMenu {
             return;
         }
 
-        System.out.println("Enter score : ");
+        System.out.println("Enter Grade (A/A-/B/..) : ");
         String score = sc.nextLine();
 
         service.addGrade(userID,courseName,studentID,score);
