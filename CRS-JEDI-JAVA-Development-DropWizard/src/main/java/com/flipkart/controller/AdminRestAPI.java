@@ -98,6 +98,20 @@ public class AdminRestAPI {
         service.generateGradeCard();
         return Response.status(201).entity( "Published Grade Card successfully!!!").build();
     }
+
+    @POST
+    @Path("/addCourse")
+    public Response addCourse(@QueryParam("courseID") Integer courseID, @QueryParam("courseName") String courseName, @QueryParam("semID") Integer semID){
+
+        try {
+            service.addCourse(courseID, courseName, semID);
+            return Response.ok("Course added Successfulle!").build();
+        }
+        catch (CourseAlreadyPresentException exception){
+            return Response.status(201).entity("Course is Already presesnt. Cannot be added").build();
+        }
+    }
+
     @DELETE
     @Path("/removeCourse")
     public Response removeCourse(@QueryParam("semID") Integer semID,@QueryParam("courseID") Integer courseID)
