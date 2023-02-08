@@ -221,7 +221,6 @@ public class AdminDAOImpl implements AdminDAO {
 
         } catch(SQLException se){
             //Handle errors for JDBC
-            se.printStackTrace();
             throw new UserIdAlreadyInUseException(professor.getUserID());
         }catch(Exception e){
             //Handle errors for Class.forName
