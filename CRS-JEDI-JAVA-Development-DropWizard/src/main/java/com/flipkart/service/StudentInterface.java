@@ -57,7 +57,7 @@ public interface StudentInterface {
      * Method for a student to get all the courses they are registered in
      * @param studentID
      */
-    public void getRegisteredCourses(int studentID);
+    public List<Course> getRegisteredCourses(int studentID);
     /**
      * Method to view grades assigned to a student in respective courses
      * @param studentId

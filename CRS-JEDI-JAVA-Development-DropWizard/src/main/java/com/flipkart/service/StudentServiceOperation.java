@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDAO;
 import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.exception.DuplicateUserException;
+import org.glassfish.jersey.process.internal.RequestScoped;
 
 import java.util.*;
 
@@ -23,12 +24,10 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Registration request sent.");
     }
     public List<Integer>  getSemesterList(int studentID){
-        StudentDAO studentDAO = new StudentDAOImpl();
         return studentDAO.getSemesterList();
     }
 
     public List<Course> getCourses(int studentID){
-        StudentDAO studentDAO = new StudentDAOImpl();
         int semID = studentDAO.getStudentByID(studentID).getSemID();
         return studentDAO.getCourses(semID);
     }
@@ -44,8 +43,6 @@ public class StudentServiceOperation implements StudentInterface {
     public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses){
 
         int registeredCourseCount = 0;
-
-        StudentDAO studentDAO = new StudentDAOImpl();
 
         Student student = studentDAO.getStudentByID(studentID);
         int semID = student.getSemID();
@@ -92,7 +89,7 @@ public class StudentServiceOperation implements StudentInterface {
 
     }
 
-    public void getRegisteredCourses(int studentID){
+    public List<Course> getRegisteredCourses(int studentID){
         List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
         Formatter fmt = new Formatter();
         fmt.format("%15s %15s\n", "CourseID", "CourseName");
@@ -100,8 +97,8 @@ public class StudentServiceOperation implements StudentInterface {
             fmt.format("%14s %14s\n",course.getCourseID() , course.getCourseName());
         }
         System.out.println(fmt);
+        return registeredCourses;
     }
-
 
 
     public HashMap<Course,String> viewGrades(int studentId){

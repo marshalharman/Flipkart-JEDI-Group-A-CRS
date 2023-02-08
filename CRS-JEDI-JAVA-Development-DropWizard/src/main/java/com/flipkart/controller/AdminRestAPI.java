@@ -32,7 +32,7 @@ public class AdminRestAPI {
     }
     @PUT
     @Path("/approveStudentByID")
-    public Response approveStudentByID(int studentID)
+    public Response approveStudentByID(@QueryParam("studentID") Integer studentID)
     {
         try {
             service.approveStudentRegistration(studentID);

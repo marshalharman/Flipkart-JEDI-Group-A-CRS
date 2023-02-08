@@ -6,6 +6,8 @@ import com.flipkart.exception.UserNotFoundException;
 
 public class UserServiceOperation implements UserInterface{
 
+
+
     UserDAO userDAO = new UserDAOImpl();
     @Override
     public boolean verifyCredentials(int userID, String password, String role) {
