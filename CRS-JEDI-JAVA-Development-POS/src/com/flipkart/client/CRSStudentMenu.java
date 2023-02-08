@@ -191,8 +191,8 @@ public class CRSStudentMenu {
     }
 
     public void dropCourse(int studentID){
+        viewRegisteredCourses(studentID);
         Scanner sc = new Scanner(System.in);
-
         System.out.println("Please enter the ID of the course to be dropped : ");
         int courseID = 0;
         try {
@@ -206,11 +206,12 @@ public class CRSStudentMenu {
     }
     private List<Course> viewCourses(int studentID){
         List<Course> courseList = studentServiceOperation.getCourses(studentID);
-
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
         for(int i=0;i<courseList.size();i++){
-            System.out.println(courseList.get(i).getCourseName() + "\n");
+            fmt.format("%14s %14s\n",courseList.get(i).getCourseID() , courseList.get(i).getCourseName());
         }
-
+        System.out.println(fmt);
         return courseList;
     }
     private void viewGrades(int studentID){
@@ -219,12 +220,14 @@ public class CRSStudentMenu {
             System.out.println("Grades not published yet");
             return;
         }
-
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s %15s\n", "CourseID", "CourseName", "grade");
         for(Map.Entry e: GradesInCourses.entrySet()) {
             Course course = new Course();
             course = (Course) e.getKey();
-            System.out.println(course.getCourseID()+ " "+course.getCourseName()+" "+e.getValue());
+            fmt.format("%14s %14s %14s\n",course.getCourseID() , course.getCourseName(), e.getValue());
         }
+        System.out.println(fmt);
     }
     private void payFees(int studentID) {
         paymentServiceOperation.pay(studentID);
