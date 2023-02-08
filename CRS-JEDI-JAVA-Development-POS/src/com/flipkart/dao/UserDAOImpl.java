@@ -5,6 +5,7 @@ import com.flipkart.bean.User;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.Dao;
 import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
 import java.sql.*;
@@ -13,7 +14,7 @@ import static com.flipkart.constant.Dao.*;
 
 public class UserDAOImpl implements UserDAO{
     @Override
-    public boolean login(int userID, String password, String role) throws UserNotFoundException {
+    public boolean login(int userID, String password, String role) throws UserNotFoundException{
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -41,6 +42,10 @@ public class UserDAOImpl implements UserDAO{
             int count = 0;
 
             while(rs.next()){
+                if( rs.getBoolean("isApproved") == false){
+                    throw new UserNotApprovedException(Integer.toString(userID));
+                }
+
                 if(rs.getString("Role").equalsIgnoreCase(role) && rs.getBoolean("isApproved")) {
                     count++;
                 }
@@ -48,7 +53,10 @@ public class UserDAOImpl implements UserDAO{
 
             verified = (count == 1);
 
-        }catch(SQLException se){
+        }catch (UserNotApprovedException exception){
+            System.out.println("User " + exception.getUserId() + " not registered! Contact Admin for approval");
+        }
+        catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
         }catch(Exception e){

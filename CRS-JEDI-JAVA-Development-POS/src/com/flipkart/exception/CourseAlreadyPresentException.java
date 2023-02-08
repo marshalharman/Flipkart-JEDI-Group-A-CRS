@@ -30,6 +30,6 @@ public class CourseAlreadyPresentException extends Exception{
     @Override
     public String getMessage()
     {
-        return "Course with courseCode: " + courseCode + " not found.";
+        return "Course with courseID: " + courseCode + " already present";
     }
 }

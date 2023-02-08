@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import com.flipkart.dao.UserDAO;
 import com.flipkart.dao.UserDAOImpl;
+import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
 public class UserServiceOperation implements UserInterface{
@@ -12,12 +13,13 @@ public class UserServiceOperation implements UserInterface{
 
         // find user from data with given username and password
         try {
-            return userDAO.login(userID, password, role);
+            boolean verified = userDAO.login(userID, password, role);
+            return verified;
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
             return false;
         }
-        }
+    }
     public void updatePassword(int userID,String password)
     {
          if(userDAO.getUserByID(userID) != null )
