@@ -62,7 +62,6 @@ public class AdminDAOImpl implements AdminDAO {
         PreparedStatement stmt = null;
 
 
-
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);

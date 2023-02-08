@@ -3,9 +3,7 @@ package com.flipkart.controller;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.exception.DuplicateUserException;
-import com.flipkart.exception.ProfessorNotAddedException;
-import com.flipkart.exception.StudentNotFoundForApprovalException;
+import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
@@ -99,5 +97,22 @@ public class AdminRestAPI {
     {
         service.generateGradeCard();
         return Response.status(201).entity( "Published Grade Card successfully!!!").build();
+    }
+    @DELETE
+    @Path("/removeCourse")
+    public Response removeCourse(@QueryParam("semID") Integer semID,@QueryParam("courseID") Integer courseID)
+    {
+        try {
+            service.removeCourse(semID, courseID);
+            return Response.status(201).entity( "Course removed Successfully!").build();
+        }
+        catch(CourseNotFoundException e)
+        {
+            return Response.status(201).entity( "Course can not be deleted since course is not present!").build();
+        }
+        catch (CourseNotDeletedException e)
+        {
+            return Response.status(201).entity( "Course Not deleted!").build();
+        }
     }
 }
