@@ -1,7 +1,7 @@
 package com.flipkart.exception;
 
 
-import com.flipkart.constant.Colours;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * Exception to check if course is available in catalog
@@ -32,6 +32,6 @@ public class CourseNotFoundByNameException extends Exception{
     @Override
     public String getMessage()
     {
-        return Colours.ANSI_YELLOW+"Course with Name: " + courseName + " not found."+Colours.ANSI_RESET;
+        return ColourConstant.ANSI_YELLOW+"Course with Name: " + courseName + " not found."+ ColourConstant.ANSI_RESET;
     }
 }

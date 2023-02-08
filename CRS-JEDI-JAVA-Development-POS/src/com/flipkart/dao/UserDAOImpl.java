@@ -2,22 +2,18 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.User;
 
-import com.flipkart.bean.Student;
-import com.flipkart.constant.Colours;
-import com.flipkart.constant.Dao;
-import com.flipkart.exception.DuplicateUserException;
+import com.flipkart.constant.ColourConstant;
+import com.flipkart.constant.ConnectionConstant;
 import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
 import java.sql.*;
 
-import static com.flipkart.constant.Dao.*;
-
 public class UserDAOImpl implements UserDAO{
     @Override
     public boolean login(int userID, String password, String role) throws UserNotFoundException{
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         User s=getUserByID(userID);
@@ -28,9 +24,9 @@ public class UserDAOImpl implements UserDAO{
 
         boolean verified = false;
         try{
-            Class.forName(Dao.JDBC_DRIVER);
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
 
-            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
             String sql = "SELECT * FROM User WHERE UserID=? AND Password=?";
             stmt = conn.prepareStatement(sql);
@@ -55,7 +51,7 @@ public class UserDAOImpl implements UserDAO{
             verified = (count == 1);
 
         }catch (UserNotApprovedException exception){
-            System.out.println(Colours.ANSI_YELLOW+"User " + exception.getUserId() + " not registered! Contact Admin for approval"+Colours.ANSI_RESET);
+            System.out.println(ColourConstant.ANSI_YELLOW+"User " + exception.getUserId() + " not registered! Contact Admin for approval"+ ColourConstant.ANSI_RESET);
         }
         catch(SQLException se){
             //Handle errors for JDBC
@@ -83,16 +79,16 @@ public class UserDAOImpl implements UserDAO{
 
     public void register(int userID, String userName, String password, String role, boolean isApproved){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         String sql = "INSERT INTO User VALUES (?, ?, ?, ?, ?)";
 
         try{
 
-            Class.forName(Dao.JDBC_DRIVER);
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
 
-            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userID);
@@ -126,13 +122,13 @@ public class UserDAOImpl implements UserDAO{
     }
     public void updatePassword(int userID, String password)
     {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         String sql = "UPDATE USER SET Password = ? where UserID = ?";
         try {
-            Class.forName(Dao.JDBC_DRIVER);
-            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, password);
             stmt.setInt(2, userID);
@@ -161,7 +157,7 @@ public class UserDAOImpl implements UserDAO{
 
     public User getUserByID(int userID){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         User user = null;
@@ -169,9 +165,9 @@ public class UserDAOImpl implements UserDAO{
         String sql = "SELECT * FROM User WHERE UserID=?";
 
         try{
-            Class.forName(Dao.JDBC_DRIVER);
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
 
-            conn = DriverManager.getConnection(Dao.DB_URL,Dao.USER,Dao.PASS);
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
             stmt = conn.prepareStatement(sql);
 

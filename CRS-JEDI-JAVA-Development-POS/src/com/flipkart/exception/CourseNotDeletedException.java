@@ -1,6 +1,6 @@
 package com.flipkart.exception;
 
-import com.flipkart.constant.Colours;
+import com.flipkart.constant.ColourConstant;
 
 /**
  * Exception course is deleted from catalog
@@ -30,6 +30,6 @@ public class CourseNotDeletedException extends Exception{
     @Override
     public String getMessage()
     {
-        return Colours.ANSI_YELLOW+"Course with courseCode: " + courseCode + " can not be deleted."+Colours.ANSI_RESET;
+        return ColourConstant.ANSI_YELLOW+"Course with courseCode: " + courseCode + " can not be deleted."+ ColourConstant.ANSI_RESET;
     }
 }
