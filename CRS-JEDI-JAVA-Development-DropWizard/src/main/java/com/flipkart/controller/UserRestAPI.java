@@ -10,28 +10,28 @@ import com.flipkart.service.UserServiceOperation;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import javax.validation.Validator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
 @Path("/user")
-@Consumes(MediaType.APPLICATION_JSON)
 public class UserRestAPI {
+
+    private final Validator validator;
+
+    public UserRestAPI(Validator validator) {
+        this.validator = validator;
+    }
 
     UserInterface userInterface = new UserServiceOperation();
 
-    /**
-     *
-     * @param userId
-     * @param password
-     * @param role
-     * @return
-     */
+
     @POST
     @Path("/login")
-    public Response verifyCredentials(int userId, String password, String role) throws ValidationException, UserNotFoundException {
-        boolean verified = userInterface.verifyCredentials(userId, password, role);
+    public Response verifyCredentials(@QueryParam("userID") Integer userID,@QueryParam("password") String password, @QueryParam("role") String role) throws ValidationException, UserNotFoundException {
+        boolean verified = userInterface.verifyCredentials(userID, password, role);
         if(verified)
         {
             return Response.status(200).entity("Login successful").build();
@@ -42,11 +42,7 @@ public class UserRestAPI {
         }
     }
 
-    /**
-     *
-     * @param student
-     * @return
-     */
+
     @POST
     @Path("/studentRegistration")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -62,19 +58,13 @@ public class UserRestAPI {
             return Response.status(500).entity("Something went wrong! Please try again.").build();
         }
 
-
         return Response.status(201).entity("Registration Successful for "+student.getUserID()).build();
     }
 
-    /**
-     *
-     * @param userID: email address of the user
-     * @param newPassword: new password to be stored in db.
-     * @return @return 201, if password is updated, else 500 in case of error
-     */
-    @PUT
+    @POST
     @Path("/updatePassword")
-    public Response updatePassword(int userID, String newPassword) throws ValidationException {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updatePassword(@QueryParam("userID") Integer userID, @QueryParam("newPassword") String newPassword) throws ValidationException {
         try {
             userInterface.updatePassword(userID, newPassword);
         }
@@ -84,5 +74,4 @@ public class UserRestAPI {
 
         return Response.status(201).entity("Password updated successfully! ").build();
     }
-
 }
