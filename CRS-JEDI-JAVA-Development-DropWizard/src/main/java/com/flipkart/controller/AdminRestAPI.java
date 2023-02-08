@@ -10,16 +10,22 @@ import com.flipkart.service.AdminServiceOperation;
 import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import javax.validation.Validator;
-import javax.validation.Validator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
+import javax.ws.rs.core.Response.Status;
+import java.util.*;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class AdminRestAPI {
+
+    private final Validator validator;
+
+    public AdminRestAPI(Validator validator) {
+        this.validator = validator;
+    }
 
     AdminInterface service = new AdminServiceOperation();
     @GET

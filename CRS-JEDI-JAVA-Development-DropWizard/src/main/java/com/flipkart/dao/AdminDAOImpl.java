@@ -315,9 +315,7 @@ public class AdminDAOImpl implements AdminDAO {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                Student user = new Student();
-                user.setUserID(resultSet.getInt(1));
-                user.setName(resultSet.getString(2));
+                Student user = getStudentByID(resultSet.getInt("UserID"));
                 userList.add(user);
             }
 
@@ -383,5 +381,62 @@ public class AdminDAOImpl implements AdminDAO {
                 se.printStackTrace();
             }//end finally try
         }//end tr
+    }
+
+    public Student getStudentByID(int studentID){
+
+        PreparedStatement stmt = null;
+        Connection conn = null;
+
+        Student student = null;
+
+        String sql = "Select StudentID, Name, Address, Branch, Degree, SemID FROM Student WHERE StudentID = (?)";
+
+        try{
+
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
+
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, studentID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                student = new Student();
+
+                student.setUserID(rs.getInt("StudentID"));
+                student.setName(rs.getString("Name"));
+                student.setAddress(rs.getString("Address"));
+                student.setBranch(rs.getString("Branch"));
+                student.setDegree(rs.getString("Degree"));
+                student.setSemID(rs.getInt("SemID"));
+            }
+
+            rs.close();
+
+        }catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return student;
     }
 }

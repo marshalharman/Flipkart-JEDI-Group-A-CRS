@@ -59,4 +59,6 @@ public interface AdminDAO {
      * Method to approve all unapproved students
      */
     public void approveAllStudents();
+
+    public Student getStudentByID(int studentID);
 }
