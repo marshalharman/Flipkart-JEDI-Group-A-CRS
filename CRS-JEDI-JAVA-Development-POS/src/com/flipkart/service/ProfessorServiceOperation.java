@@ -40,7 +40,15 @@ public class ProfessorServiceOperation implements ProfessorInterface {
     }
 
     public List<Student> viewEnrolledStudents(int semID , String courseName){
-        List<Student> students = professorDAO.viewEnrolledStudents(courseName);
+
+        List<Student> students = new ArrayList<>();
+
+        try {
+            students = professorDAO.viewEnrolledStudents(courseName);
+        }
+        catch (CourseNotFoundByNameException exception){
+            System.out.println(exception.getMessage());
+        }
 
         return students;
     }
