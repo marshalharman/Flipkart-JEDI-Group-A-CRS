@@ -3,6 +3,8 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.UserDAO;
+import com.flipkart.dao.UserDAOImpl;
 import com.flipkart.exception.CourseNotFoundByNameException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.service.ProfessorServiceOperation;
@@ -14,6 +16,7 @@ public class CRSProfessorMenu {
 
 
     ProfessorServiceOperation service = new ProfessorServiceOperation();
+    UserDAO userDAO = new UserDAOImpl();
     Scanner sc = new Scanner(System.in);
     public void professorMenu(int userID) throws CourseNotFoundException, CourseNotFoundByNameException {
 
@@ -22,6 +25,8 @@ public class CRSProfessorMenu {
             System.out.println("****************************************************");
             System.out.println("****************** PROFESSOR MENU ******************");
             System.out.println("****************************************************");
+            System.out.println();
+            System.out.println("Welcome "+ userDAO.getUserByID(userID).getUsername()+" !");
             System.out.println();
             System.out.println("Choose one of the options");
             System.out.println("1. View Courses");
