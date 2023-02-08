@@ -70,7 +70,7 @@ public class AdminRestAPI {
             return Response.status(201).entity( "Already Admin exists. Cannot add duplicate entry!!").build();
         }
     }
-    @DELETE
+    @POST
     @Path("/addProfessor")
     public Response addProfessor(@Valid Professor p)
     {
