@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.ConnectionConstant;
+import com.flipkart.exception.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -206,7 +207,7 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
-    public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
+    public void addProfessor(Professor professor) throws ProfessorNotAddedException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -232,7 +233,8 @@ public class AdminDAOImpl implements AdminDAO {
 
         } catch(SQLException se){
             //Handle errors for JDBC
-            throw new UserIdAlreadyInUseException(professor.getUserID());
+            se.printStackTrace();
+
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();

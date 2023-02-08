@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.*;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public interface AdminDAO {
      * @throws ProfessorNotAddedException
      * @throws UserIdAlreadyInUseException
      */
-    public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
+    public void addProfessor(Professor professor) throws ProfessorNotAddedException;
     /**
      * Method to generate grade card using SQL commands
      */

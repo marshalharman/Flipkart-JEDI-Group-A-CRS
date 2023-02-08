@@ -1,5 +1,7 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.Admin;
+import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.*;
 
@@ -25,7 +27,7 @@ public interface AdminInterface {
      * @param isApproved
      * @param name
      */
-    public void addAdmin(int userID, String userName, String password, String role, boolean isApproved, String name);
+    public void addAdmin(Admin a) throws DuplicateUserException;
     /**
      * Method to add professor to the DB
      * @param userID
@@ -38,7 +40,7 @@ public interface AdminInterface {
      * @throws UserIdAlreadyInUseException
      * @throws ProfessorNotAddedException
      */
-    public void addProfessor(int userID, String userName, String password, String role, String name, String dept, String designation) throws UserIdAlreadyInUseException, ProfessorNotAddedException;
+    public void addProfessor(Professor p) throws DuplicateUserException, ProfessorNotAddedException;
     /**
      * Method to add course to the catalog
      * @param courseID

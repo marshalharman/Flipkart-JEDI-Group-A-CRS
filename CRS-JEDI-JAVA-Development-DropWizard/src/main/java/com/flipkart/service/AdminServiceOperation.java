@@ -1,5 +1,6 @@
 package com.flipkart.service;
 
+import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -20,27 +21,23 @@ public class AdminServiceOperation implements AdminInterface {
         adminDaoImpl.approveStudent(studentID);
     }
     @Override
-    public void addAdmin(int userID, String userName, String password, String role, boolean isApproved, String name){
-
+    public void addAdmin(Admin a) throws DuplicateUserException{
         UserDAOImpl userDAO = new UserDAOImpl();
-
-        userDAO.register(userID, userName, password, role, true);
-
-        adminDaoImpl.addAdmin(userID, name);
+        if(userDAO.getUserByID(a.getUserID())==null)throw new DuplicateUserException(a.getUserID());
+        userDAO.register(a.getUserID(), a.getName(), a.getPassword(), a.getRole(), true);
+        adminDaoImpl.addAdmin(a.getUserID(), a.getName());
     }
-    public void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation) throws UserIdAlreadyInUseException, ProfessorNotAddedException {
+    public void addProfessor(Professor p) throws DuplicateUserException, ProfessorNotAddedException {
 
         UserDAOImpl userDAO = new UserDAOImpl();
-
-        userDAO.register(userID, userName, password, role, true);
-
-        Professor professor = new Professor();
-        professor.setUserID(userID);
-        professor.setName(name);
-        professor.setDepartment(dept);
-        professor.setDesignation(designation);
-
-        adminDaoImpl.addProfessor(professor);
+        if(userDAO.getUserByID(p.getUserID())==null)throw new DuplicateUserException(p.getUserID());
+        userDAO.register(p.getUserID(), p.getName(), p.getPassword(), p.getRole(), true);
+        try {
+            adminDaoImpl.addProfessor(p);
+        }catch (ProfessorNotAddedException e)
+        {
+            throw new ProfessorNotAddedException((p.getUserID()));
+        }
         System.out.println("Professor added successfully.");
     }
 
