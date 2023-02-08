@@ -4,7 +4,6 @@ public class Student extends User{
 
     private String branch;
     private String degree;
-    private boolean isApproved;
     private int semID;
 
     public String getDegree() {
@@ -21,14 +20,6 @@ public class Student extends User{
 
     public void setBranch(String branch) {
         this.branch = branch;
-    }
-
-    public boolean isApproved() {
-        return isApproved;
-    }
-
-    public void setApproved(boolean approved) {
-        isApproved = approved;
     }
 
     public int getSemID() {
