@@ -151,7 +151,6 @@ public class CRSProfessorMenu {
             System.out.println("Input should be numerical!");
             return;
         }
-        service.viewCourse(semID);
 
         System.out.println("Enter Course Name : ");
         String courseName = sc.nextLine();
