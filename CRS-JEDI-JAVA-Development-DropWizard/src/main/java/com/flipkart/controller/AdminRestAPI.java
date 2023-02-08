@@ -87,5 +87,11 @@ public class AdminRestAPI {
             return Response.status(201).entity( "Professor Not Added successfully!!!").build();
         }
     }
-
+    @PUT
+    @Path("/generateGradeCard")
+    public Response generateGradeCard()
+    {
+        service.generateGradeCard();
+        return Response.status(201).entity( "Published Grade Card successfully!!!").build();
+    }
 }
