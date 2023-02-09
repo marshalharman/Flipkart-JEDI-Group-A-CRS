@@ -9,19 +9,16 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundByNameException;
+import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.service.ProfessorServiceOperation;
 import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentServiceOperation;
 
@@ -36,26 +33,28 @@ public class StudentRestAPI {
         this.validator = validator;
     }
 
-//    @PUT
-//    @Path("/{id}")
-//    public Response updateEmployeeById(@PathParam("id") Integer id, Employee employee) {
-//        // validation
-//        Set<ConstraintViolation<Employee>> violations = validator.validate(employee);
-//        Employee e = EmployeeDB.getEmployee(employee.getId());
-//        if (violations.size() > 0) {
-//            ArrayList<String> validationMessages = new ArrayList<String>();
-//            for (ConstraintViolation<Employee> violation : violations) {
-//                validationMessages.add(violation.getPropertyPath().toString() + ": " + violation.getMessage());
-//            }
-//            return Response.status(Status.BAD_REQUEST).entity(validationMessages).build();
-//        }
-//        if (e != null) {
-//            employee.setId(id);
-//            EmployeeDB.updateEmployee(id, employee);
-//            return Response.ok(employee).build();
-//        } else
-//            return Response.status(Status.NOT_FOUND).build();
-//    }
+    @PUT
+    @Path("/registerCourse")
+    public Response registerCourse(@QueryParam("profID") int profID, @QueryParam("courseName") String courseName, @QueryParam("semID") int semID){
+
+        ProfessorServiceOperation professorService = new ProfessorServiceOperation();
+        try {
+            professorService.registerCourse(profID, courseName, semID);
+        }
+        catch (CourseNotFoundByNameException exception){
+            System.out.println(exception.getMessage());
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+
+        return Response.ok(Status.ACCEPTED).build();
+    }
+
+    @PUT
+    @Path("/semRegistration")
+    public Response semRegistration(@QueryParam("studentID") int stuID, @QueryParam("semID") int semID) {
+        studentServiceOperation.setSemID(stuID,semID);
+        return Response.ok(Status.ACCEPTED).build();
+    }
 
     @GET
     @Path("/viewCourses/{id}")
