@@ -4,9 +4,11 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.ConnectionConstant;
 import com.flipkart.exception.*;
+import com.flipkart.constant.SQLConstants;
 
 import java.sql.*;
 import java.util.*;
+
 public class AdminDAOImpl implements AdminDAO {
 
 
@@ -16,7 +18,7 @@ public class AdminDAOImpl implements AdminDAO {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO Admin VALUES (?, ?)";
+        String sql = SQLConstants.ADD_ADMIN;
 
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
@@ -63,26 +65,26 @@ public class AdminDAOImpl implements AdminDAO {
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql1 = "Select * from courses where courseId = ?";
+            String sql1 = SQLConstants.FIND_COURSE;
             stmt = conn.prepareStatement(sql1);
             stmt.setInt(1, courseID);
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()==false)  {throw new CourseNotFoundException(courseID);}
 
-            String sql = "DELETE FROM Catalog WHERE CourseId = ?";
+            String sql = SQLConstants.DELETE_FROM_CATALOG;
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
-            sql = "DELETE FROM SemRegistration WHERE CourseID = ?";
+            sql = SQLConstants.DELETE_FROM_SEM_REGISTRATION;
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
 
 
 
-            sql = "DELETE FROM Courses WHERE CourseID = ?";
+            sql = SQLConstants.DELETE_FROM_COURSES;
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, courseID);
             stmt.executeUpdate();
@@ -124,7 +126,7 @@ public class AdminDAOImpl implements AdminDAO {
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
+            String sql = SQLConstants.ADD_COURSE;
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
@@ -132,7 +134,7 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.executeUpdate();
 
 
-            sql = "INSERT INTO Catalog(CourseId, SemID) VALUES (?, ?)";
+            sql = SQLConstants.INSERT_INTO_CATALOG;
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
             stmt.setInt(2, semID);
@@ -167,7 +169,7 @@ public class AdminDAOImpl implements AdminDAO {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE User SET isApproved = 1 WHERE UserId = ?";
+        String sql = SQLConstants.APPROVE_STUDENT_BY_ID;
 
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
@@ -215,7 +217,7 @@ public class AdminDAOImpl implements AdminDAO {
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "INSERT INTO Professor(ProfId, Name, Department, Designation) values (?, ?, ?, ?)";
+            String sql = SQLConstants.ADD_PROFESSOR;
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, professor.getUserID());
@@ -258,7 +260,7 @@ public class AdminDAOImpl implements AdminDAO {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE Student SET GradesEnabled = ? WHERE GradesEnabled = ?";
+        String sql = SQLConstants.GENERATE_GRADE_CARD;
 
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
@@ -298,7 +300,7 @@ public class AdminDAOImpl implements AdminDAO {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "SELECT UserID, UserName from crs_database.User where isApproved = 0";
+        String sql = SQLConstants.VIEW_UNAPPROVED_STUDENTS;
 
         List<Student> userList = new ArrayList<Student>();
         try {
@@ -345,7 +347,7 @@ public class AdminDAOImpl implements AdminDAO {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE User SET isApproved = 1";
+        String sql = SQLConstants.APPROVE_ALL_STUDENTS;
 
         try {
             Class.forName(ConnectionConstant.JDBC_DRIVER);
