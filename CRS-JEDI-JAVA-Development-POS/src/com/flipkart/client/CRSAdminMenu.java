@@ -59,7 +59,7 @@ public class CRSAdminMenu {
                     try {
                         userID = Integer.parseInt(obj.nextLine());
                     } catch (NumberFormatException e) {
-                        System.out.println("Input should be numerical!");
+                        System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
                         break;
                     }
 
@@ -175,6 +175,19 @@ public class CRSAdminMenu {
     private void deleteCourses() throws CourseNotDeletedException, CourseNotFoundException {
         System.out.println("Enter SemId: ");
         int semId=Integer.parseInt(sc.nextLine());
+
+        List<Course> courseList = service.getCourses(semId);
+        if(courseList.size()==0)
+        {
+            System.out.println("No Courses to view\n");
+        }
+        Formatter fmt = new Formatter();
+        fmt.format("%15s %15s\n", "CourseID", "CourseName");
+        for(int i=0;i<courseList.size();i++){
+            fmt.format("%14s %14s\n",courseList.get(i).getCourseID() , courseList.get(i).getCourseName());
+        }
+        System.out.println(fmt);
+
         System.out.println("Enter courseId: ");
         int courseId=Integer.parseInt(sc.nextLine());
         service.removeCourse(semId,courseId);

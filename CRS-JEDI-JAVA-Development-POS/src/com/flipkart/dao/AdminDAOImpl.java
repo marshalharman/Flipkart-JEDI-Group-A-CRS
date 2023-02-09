@@ -163,6 +163,58 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
+    @Override
+    public List<Course> getCourses(int semID) {
+
+        java.sql.Connection conn = null;
+        PreparedStatement stmt = null;
+
+        List<Course> courseList = new ArrayList<Course>();
+        try{
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
+
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
+
+            String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
+                    "FROM crs_database.Catalog INNER JOIN crs_database.Courses ON Catalog.CourseId = Courses.CourseID " +
+                    "WHERE semID = ?";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, semID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                Course course = new Course();
+                course.setCourseID(rs.getInt("Courses.CourseID"));
+                course.setCourseName(rs.getString("Courses.Name"));
+                courseList.add(course);
+            }
+        }
+        catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        return courseList;
+    }
+
     public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;

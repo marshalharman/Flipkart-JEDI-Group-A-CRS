@@ -1,6 +1,7 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.*;
@@ -57,6 +58,14 @@ public interface AdminInterface {
      * @throws CourseNotDeletedException
      * @throws CourseNotFoundException
      */
+
+    /**
+     * Method to get all courses in a given semester
+     * @param semID
+     * @return List of all courses in a given semester
+     */
+    public List<Course> getCourses(int semID);
+
     public void removeCourse(int semId, int courseId) throws CourseNotDeletedException, CourseNotFoundException;
     /**
      * Method to generate grade card for a student
