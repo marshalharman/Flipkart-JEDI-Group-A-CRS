@@ -46,7 +46,6 @@ public class StudentServiceOperation implements StudentInterface {
         int semID = student.getSemID();
 
         HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(semID);
-        List<Integer> registeredCoursesID = new ArrayList<>();
 
         if(!courseEnrollmentCount.containsKey(courseID)){
             courseEnrollmentCount.put(courseID, 0);

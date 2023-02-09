@@ -43,8 +43,9 @@ public class StudentRestAPI {
 
     @POST
     @Path("/addCourse")
-    public Response addCourse(@QueryParam("studentID") int studID, @QueryParam("courseID") int courseID) {
-
+    public Response addCourse(@QueryParam("studentID") int stuID, @QueryParam("courseID") int courseID) {
+        studentServiceOperation.addCourse(stuID, courseID);
+        return Response.ok("Course added successfully").build();
     }
 
     @GET
