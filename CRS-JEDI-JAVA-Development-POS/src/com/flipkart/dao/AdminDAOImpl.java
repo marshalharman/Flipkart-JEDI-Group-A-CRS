@@ -148,7 +148,7 @@ public class AdminDAOImpl implements AdminDAO {
 
             sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
 
-            sql = SQLConstants.ADD_COURSE;
+//            sql = SQLConstants.ADD_COURSE;
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
