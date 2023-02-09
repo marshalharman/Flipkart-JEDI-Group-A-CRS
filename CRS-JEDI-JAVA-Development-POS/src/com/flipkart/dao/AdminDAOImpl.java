@@ -8,10 +8,7 @@ import com.flipkart.constant.SQLConstants;
 
 import java.sql.*;
 import java.util.*;
-<<<<<<< HEAD
 import java.util.concurrent.Semaphore;
-=======
->>>>>>> 11a9eaf23a5f790f2950724f4a664ceb6f2cd7e5
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -130,7 +127,6 @@ public class AdminDAOImpl implements AdminDAO {
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-<<<<<<< HEAD
             String sql = "SELECT * from Catalog WHERE SemID=?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);
@@ -151,9 +147,8 @@ public class AdminDAOImpl implements AdminDAO {
             }
 
             sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
-=======
-            String sql = SQLConstants.ADD_COURSE;
->>>>>>> 11a9eaf23a5f790f2950724f4a664ceb6f2cd7e5
+
+            sql = SQLConstants.ADD_COURSE;
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
