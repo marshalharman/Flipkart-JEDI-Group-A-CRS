@@ -55,10 +55,11 @@ public class AdminServiceOperation implements AdminInterface {
         {
             System.out.println(e.getMessage());
             return;
-        } catch (SemNotFoundException e) {
-            System.out.println(e.getMessage());
-            return;
         }
+//        catch (SemNotFoundException e) {
+//            System.out.println(e.getMessage());
+//            return;
+//        }
 //        System.out.println(courseName + " added successfully.");
     }
 
