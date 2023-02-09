@@ -48,7 +48,7 @@ public interface StudentDAO {
      * @param studentID
      * @param semID
      */
-    public void registerCourses(int studentID, List<Integer> courseID, int semID);
+    public void registerCourse(int studentID, int courseID, int semID);
     /**
      * Method to remove a course from a smeseter using sql commands
      * @param courseID
