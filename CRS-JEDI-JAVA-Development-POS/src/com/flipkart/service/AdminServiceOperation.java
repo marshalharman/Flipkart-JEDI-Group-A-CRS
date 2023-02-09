@@ -1,6 +1,8 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.*;
+import com.flipkart.dao.StudentDAO;
+import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.dao.UserDAOImpl;
 
 import com.flipkart.dao.AdminDAOImpl;
@@ -42,7 +44,7 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Professor added successfully.");
     }
 
-    public void addCourse(int courseID , String courseName, int semID) {
+    public void addCourse(int courseID , String courseName, int semID) throws CourseAlreadyPresentException, SemNotFoundException {
         Course c1=new Course();
         c1.setCourseID(courseID);
         c1.setCourseName(courseName);
@@ -53,9 +55,16 @@ public class AdminServiceOperation implements AdminInterface {
         {
             System.out.println(e.getMessage());
             return;
+        } catch (SemNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
         }
-        System.out.println(courseName + " added successfully.");
+//        System.out.println(courseName + " added successfully.");
+    }
 
+    @Override
+    public List<Course> getCourses(int semID) {
+        return adminDaoImpl.getCourses(semID);
     }
 
     public void removeCourse(int semId , int courseId) throws CourseNotDeletedException, CourseNotFoundException {

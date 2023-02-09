@@ -8,6 +8,10 @@ import com.flipkart.constant.SQLConstants;
 
 import java.sql.*;
 import java.util.*;
+<<<<<<< HEAD
+import java.util.concurrent.Semaphore;
+=======
+>>>>>>> 11a9eaf23a5f790f2950724f4a664ceb6f2cd7e5
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -117,7 +121,7 @@ public class AdminDAOImpl implements AdminDAO {
         }//end try
     }
 
-    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException {
+    public void addCourse(Course course, int semID) throws SemNotFoundException, CourseAlreadyPresentException {
 
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
@@ -126,7 +130,30 @@ public class AdminDAOImpl implements AdminDAO {
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
+<<<<<<< HEAD
+            String sql = "SELECT * from Catalog WHERE SemID=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, semID);
+            ResultSet res = stmt.executeQuery();
+            //System.out.println(res.next());
+            if(res.next()==false){
+                throw new SemNotFoundException(semID);
+
+            }
+
+            sql = "SELECT * from Catalog WHERE CourseID=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course.getCourseID());
+            res = stmt.executeQuery();
+            //System.out.println(res.next());
+            if(res.next()==true){
+                throw new CourseAlreadyPresentException(course.getCourseID());
+            }
+
+            sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
+=======
             String sql = SQLConstants.ADD_COURSE;
+>>>>>>> 11a9eaf23a5f790f2950724f4a664ceb6f2cd7e5
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
@@ -140,10 +167,67 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setInt(2, semID);
             stmt.executeUpdate();
 
-        }catch(SQLException se){
-            //Handle errors for JDBC
-            throw new CourseAlreadyPresentException(course.getCourseID());
 
+        }catch (SemNotFoundException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+        catch(CourseAlreadyPresentException e){
+            //Handle errors for JDBC
+            System.out.println(e.getMessage());
+            return;
+        }
+        catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{;
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        System.out.println(course.getCourseName() + " added successfully.");
+    }
+
+    @Override
+    public List<Course> getCourses(int semID) {
+
+        java.sql.Connection conn = null;
+        PreparedStatement stmt = null;
+
+        List<Course> courseList = new ArrayList<Course>();
+        try{
+            Class.forName(ConnectionConstant.JDBC_DRIVER);
+
+            conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
+
+            String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
+                    "FROM crs_database.Catalog INNER JOIN crs_database.Courses ON Catalog.CourseId = Courses.CourseID " +
+                    "WHERE semID = ?";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, semID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                Course course = new Course();
+                course.setCourseID(rs.getInt("Courses.CourseID"));
+                course.setCourseName(rs.getString("Courses.Name"));
+                courseList.add(course);
+            }
+        }
+        catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
         }catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -162,7 +246,7 @@ public class AdminDAOImpl implements AdminDAO {
             }//end finally try
         }//end try
 
-
+        return courseList;
     }
 
     public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
