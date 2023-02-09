@@ -85,4 +85,14 @@ public class StudentRestAPI {
         }
         return Response.status(Status.NOT_FOUND).build();
     }
+
+    @DELETE
+    @Path("/dropCourse")
+    public Response dropCourse(@QueryParam("studentID") Integer studentID, @QueryParam("courseID") Integer courseID){
+        studentServiceOperation.dropCourse(studentID, courseID);
+        return Response.ok(Status.ACCEPTED).build();
+    }
+
+
+
 }
