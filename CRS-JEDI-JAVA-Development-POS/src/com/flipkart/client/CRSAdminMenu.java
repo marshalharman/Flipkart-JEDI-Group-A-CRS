@@ -142,12 +142,25 @@ public class CRSAdminMenu {
         System.out.println("1. Approve students by ID.");
         System.out.println("2. Approve all students.");
 
-        int choice = Integer.parseInt(sc.nextLine());
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
+            return;
+        }
         switch (choice)
         {
             case 1:
                 System.out.println("Enter the student ID to approve : ");
-                service.approveStudentRegistration(Integer.parseInt(sc.nextLine()));
+                int userID = 0;
+                try {
+                    userID = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
+                    break;
+                }
+                service.approveStudentRegistration(userID);
                 break;
             case 2:
                 service.approveAllStudents();
@@ -166,16 +179,34 @@ public class CRSAdminMenu {
     }
     private void addCourses() throws CourseAlreadyPresentException, SemNotFoundException {
         System.out.println("Enter SemId: ");
-        int semID= Integer.parseInt(sc.nextLine());
+        int semID = 0;
+        try {
+            semID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
+            return;
+        }
+
         System.out.println("Enter courseId: ");
-        int courseID= Integer.parseInt(sc.nextLine());
+        int courseID= 0;
+        try {
+            courseID = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
+            return;
+        }
         System.out.println("Enter courseName: ");
         String courseName= sc.nextLine();
         service.addCourse(courseID, courseName, semID);
     }
     private void deleteCourses() throws CourseNotDeletedException, CourseNotFoundException {
         System.out.println("Enter SemId: ");
-        int semId=Integer.parseInt(sc.nextLine());
+        int semId = 0;
+        try {
+            semId = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
+        }
 
         List<Course> courseList = service.getCourses(semId);
         if(courseList.size()==0)
@@ -190,7 +221,12 @@ public class CRSAdminMenu {
         System.out.println(fmt);
 
         System.out.println("Enter courseId: ");
-        int courseId=Integer.parseInt(sc.nextLine());
+        int courseId=0;
+        try {
+            courseId = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
+        }
         service.removeCourse(semId,courseId);
     }
     private void generateReportCard(){
