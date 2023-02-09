@@ -34,22 +34,6 @@ public class StudentRestAPI {
     }
 
     @PUT
-    @Path("/registerCourse")
-    public Response registerCourse(@QueryParam("profID") int profID, @QueryParam("courseName") String courseName, @QueryParam("semID") int semID){
-
-        ProfessorServiceOperation professorService = new ProfessorServiceOperation();
-        try {
-            professorService.registerCourse(profID, courseName, semID);
-        }
-        catch (CourseNotFoundByNameException exception){
-            System.out.println(exception.getMessage());
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-
-        return Response.ok(Status.ACCEPTED).build();
-    }
-
-    @PUT
     @Path("/semRegistration")
     public Response semRegistration(@QueryParam("studentID") int stuID, @QueryParam("semID") int semID) {
         studentServiceOperation.setSemID(stuID,semID);
