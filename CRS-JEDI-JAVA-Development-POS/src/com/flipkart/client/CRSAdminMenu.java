@@ -12,6 +12,7 @@ import com.flipkart.exception.*;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminServiceOperation;
 
+import java.io.PrintStream;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class CRSAdminMenu {
     AdminInterface service = new AdminServiceOperation();
     UserDAO userDAO = new UserDAOImpl();
     Scanner sc = new Scanner(System.in);
-    public void adminMenu(int id) throws CourseAlreadyPresentException, CourseNotDeletedException, CourseNotFoundException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException {
+    public void adminMenu(int id) throws CourseAlreadyPresentException, CourseNotDeletedException, CourseNotFoundException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, SemNotFoundException {
 
         while(true) {
 
@@ -104,7 +105,7 @@ public class CRSAdminMenu {
                     addProfessor(userID, userName, password, Role.PROFESSOR, name, dept, designation);
                     break;
                 case 4:
-                    addCourses();
+                        addCourses();
                     break;
                 case 5:
                     deleteCourses();
@@ -176,7 +177,7 @@ public class CRSAdminMenu {
     private void addProfessor(int userID,String userName,String password,String role,String name,String dept,String designation) throws UserIdAlreadyInUseException, ProfessorNotAddedException {
         service.addProfessor(userID,userName,password,role,name,dept,designation);
     }
-    private void addCourses() throws CourseAlreadyPresentException {
+    private void addCourses() throws CourseAlreadyPresentException, SemNotFoundException {
         System.out.println("Enter SemId: ");
         int semID = 0;
         try {

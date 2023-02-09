@@ -44,7 +44,7 @@ public class AdminServiceOperation implements AdminInterface {
         System.out.println("Professor added successfully.");
     }
 
-    public void addCourse(int courseID , String courseName, int semID) {
+    public void addCourse(int courseID , String courseName, int semID) throws CourseAlreadyPresentException, SemNotFoundException {
         Course c1=new Course();
         c1.setCourseID(courseID);
         c1.setCourseName(courseName);
@@ -55,9 +55,11 @@ public class AdminServiceOperation implements AdminInterface {
         {
             System.out.println(e.getMessage());
             return;
+        } catch (SemNotFoundException e) {
+            System.out.println(e.getMessage());
+            return;
         }
-        System.out.println(courseName + " added successfully.");
-
+//        System.out.println(courseName + " added successfully.");
     }
 
     @Override

@@ -50,7 +50,7 @@ public interface AdminInterface {
      * @param semID
      * @throws CourseAlreadyPresentException
      */
-    public void addCourse(int courseID, String courseName, int semID) throws CourseAlreadyPresentException;
+    public void addCourse(int courseID, String courseName, int semID) throws CourseAlreadyPresentException, SemNotFoundException;
     /**
      * Method to remove course from catalog
      * @param semId

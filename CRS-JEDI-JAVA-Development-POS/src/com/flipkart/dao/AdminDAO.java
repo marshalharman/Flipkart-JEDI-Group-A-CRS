@@ -32,15 +32,7 @@ public interface AdminDAO {
      * @param semID
      * @throws CourseAlreadyPresentException
      */
-    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException;
-
-    /**
-     * Method to get all courses in a given semester
-     * @param semID
-     * @return List of all courses in a given semester
-     */
-    public List<Course> getCourses(int semID);
-
+    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException, SemNotFoundException;
     /**
      * Method to approve student using SQL commands
      * @param studentID
