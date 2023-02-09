@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class CRSApplication {
 
-    public static void main(String args[]) throws CourseNotDeletedException, CourseNotFoundException, CourseAlreadyPresentException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, CourseNotFoundByNameException {
+    public static void main(String args[]) throws CourseNotDeletedException, CourseNotFoundException, CourseAlreadyPresentException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, CourseNotFoundByNameException, SemNotFoundException {
         while(true){
 
             System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!\n");

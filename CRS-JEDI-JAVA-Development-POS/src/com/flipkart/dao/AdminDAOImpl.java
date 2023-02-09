@@ -7,6 +7,8 @@ import com.flipkart.exception.*;
 
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.Semaphore;
+
 public class AdminDAOImpl implements AdminDAO {
 
 
@@ -115,7 +117,7 @@ public class AdminDAOImpl implements AdminDAO {
         }//end try
     }
 
-    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException {
+    public void addCourse(Course course, int semID) throws SemNotFoundException, CourseAlreadyPresentException {
 
         java.sql.Connection conn = null;
         PreparedStatement stmt = null;
@@ -124,7 +126,26 @@ public class AdminDAOImpl implements AdminDAO {
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
+            String sql = "SELECT * from Catalog WHERE SemID=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, semID);
+            ResultSet res = stmt.executeQuery();
+            //System.out.println(res.next());
+            if(res.next()==false){
+                throw new SemNotFoundException(semID);
+
+            }
+
+            sql = "SELECT * from Catalog WHERE CourseID=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, course.getCourseID());
+            res = stmt.executeQuery();
+            //System.out.println(res.next());
+            if(res.next()==true){
+                throw new CourseAlreadyPresentException(course.getCourseID());
+            }
+
+            sql = "INSERT INTO Courses(CourseID, Name) VALUES (?, ?)";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, course.getCourseID());
@@ -138,16 +159,22 @@ public class AdminDAOImpl implements AdminDAO {
             stmt.setInt(2, semID);
             stmt.executeUpdate();
 
-        }catch(SQLException se){
-            //Handle errors for JDBC
-            throw new CourseAlreadyPresentException(course.getCourseID());
 
-        }catch(Exception e){
+        }catch (SemNotFoundException e){
+            System.out.println(e.getMessage());
+            return;
+        }
+        catch(CourseAlreadyPresentException e){
+            //Handle errors for JDBC
+            System.out.println(e.getMessage());
+            return;
+        }
+        catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
         }finally{
             //finally block used to close resources
-            try{
+            try{;
                 if(stmt!=null)
                     stmt.close();
             }catch(SQLException se2){
@@ -159,8 +186,7 @@ public class AdminDAOImpl implements AdminDAO {
                 se.printStackTrace();
             }//end finally try
         }//end try
-
-
+        System.out.println(course.getCourseName() + " added successfully.");
     }
 
     public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
