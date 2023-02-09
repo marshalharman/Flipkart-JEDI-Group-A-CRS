@@ -4,18 +4,19 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.constant.ConnectionConstant;
+import com.flipkart.constant.SQLConstants;
 import com.flipkart.exception.CourseNotFoundByNameException;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 //import java.sql.PreparedStatement;
 //import java.sql.Connection;
 //import java.sql.SQLException;
 
 public class ProfessorDAOImpl implements ProferssorDAO{
 
-    static Connection conn = null;
+    static java.sql.Connection conn = null;
 
     public List<Course> viewCoursesBySemID(int semID){
 
@@ -24,8 +25,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         List<Course> courseList = new ArrayList<Course>();
 
-        String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID FROM Courses " +
-                "INNER JOIN Catalog ON Courses.CourseID = Catalog.CourseId WHERE Catalog.SemID = (?)";
+        String sql = SQLConstants.VIEW_COURSES_BY_SEM_ID;
 
         try{
 
@@ -83,7 +83,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
         course = getCourseByName(courseName);
         if( course == null ){ throw new CourseNotFoundByNameException(courseName); }
 
-        String sql = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
+        String sql = SQLConstants.REGISTER_COURSE_FOR_PROFESSOR;
 
         try{
 
@@ -128,7 +128,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         Course course = getCourseByName(courseName);
         if( course == null ){ throw new CourseNotFoundByNameException(courseName); }
-        String sql = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
+        String sql = SQLConstants.DEREGISTER_COURSE_FOR_PROFESSOR;
 
         try{
 
@@ -183,8 +183,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
             throw new CourseNotFoundByNameException(courseName);
         }
 
-        String sql = "SELECT * FROM SemRegistration " +
-                "INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE SemRegistration.CourseID=?";
+        String sql = SQLConstants.VIEW_ENROLLED_STUDENTS;
 
         try{
 
@@ -243,7 +242,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         Student student = null;
 
-        String sql = "Select StudentID, Name, Address, Branch, Degree FROM Student WHERE StudentID = (?)";
+        String sql = SQLConstants.GET_STUDENT_BY_ID;
 
         try{
 
@@ -299,7 +298,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         List<Course> courseList = new ArrayList<Course>();
 
-        String sql = "Select CourseID, Name, ProfID FROM Courses WHERE ProfID = (?)";
+        String sql = SQLConstants.GET_COURSES_BY_PROFESSOR;
 
         try{
 
@@ -356,7 +355,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         Course course = getCourseByName(courseName);
 
-        String sql = "UPDATE SemRegistration SET Grade = (?) WHERE StudentID = (?) AND CourseID = (?)";
+        String sql = SQLConstants.ADD_GRADE;
 
         try{
 
@@ -401,7 +400,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         int semID = -1;
 
-        String sql = "SELECT SemID FROM Catalog WHERE CourseId = (?)";
+        String sql = SQLConstants.GET_SEM_ID_BY_COURSE_ID;
 
         try{
 
@@ -446,12 +445,12 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public Course getCourseByName(String courseName){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = null;
 
-        String sql = "SELECT CourseID, Name, ProfID FROM Courses WHERE Name=?";
+        String sql = SQLConstants.GET_COURSE_BY_NAME;
 
         try{
 
@@ -504,12 +503,12 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
     public Course getCourseByID(int courseID){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         Course course = null;
 
-        String sql = "SELECT CourseID, Name, ProfID FROM Courses WHERE CourseID=?";
+        String sql = SQLConstants.GET_COURSE_BY_ID;
 
         try{
 
@@ -568,7 +567,7 @@ public class ProfessorDAOImpl implements ProferssorDAO{
 
         PreparedStatement stmt = null;
 
-        String sql = "SELECT ProfID, Name, Department, Designation FROM Professor WHERE ProfID = (?)";
+        String sql = SQLConstants.GET_PROFESSOR_BY_ID;
 
         try{
 

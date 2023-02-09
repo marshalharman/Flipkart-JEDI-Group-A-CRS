@@ -45,7 +45,7 @@ public interface AdminDAO {
      * @throws ProfessorNotAddedException
      * @throws UserIdAlreadyInUseException
      */
-    public void addProfessor(Professor professor) throws ProfessorNotAddedException;
+    public void addProfessor(Professor professor) throws DuplicateUserException,ProfessorNotAddedException;
     /**
      * Method to generate grade card using SQL commands
      */
