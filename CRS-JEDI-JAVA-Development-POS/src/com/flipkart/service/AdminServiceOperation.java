@@ -1,6 +1,8 @@
 package com.flipkart.service;
 
 import com.flipkart.bean.*;
+import com.flipkart.dao.StudentDAO;
+import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.dao.UserDAOImpl;
 
 import com.flipkart.dao.AdminDAOImpl;
@@ -58,6 +60,11 @@ public class AdminServiceOperation implements AdminInterface {
             return;
         }
 //        System.out.println(courseName + " added successfully.");
+    }
+
+    @Override
+    public List<Course> getCourses(int semID) {
+        return adminDaoImpl.getCourses(semID);
     }
 
     public void removeCourse(int semId , int courseId) throws CourseNotDeletedException, CourseNotFoundException {

@@ -33,27 +33,19 @@ public class StudentRestAPI {
         this.validator = validator;
     }
 
-    @PUT
-    @Path("/registerCourse")
-    public Response registerCourse(@QueryParam("profID") int profID, @QueryParam("courseName") String courseName, @QueryParam("semID") int semID){
-
-        ProfessorServiceOperation professorService = new ProfessorServiceOperation();
-        try {
-            professorService.registerCourse(profID, courseName, semID);
-        }
-        catch (CourseNotFoundByNameException exception){
-            System.out.println(exception.getMessage());
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-
-        return Response.ok(Status.ACCEPTED).build();
-    }
 
     @PUT
     @Path("/semRegistration")
     public Response semRegistration(@QueryParam("studentID") int stuID, @QueryParam("semID") int semID) {
         studentServiceOperation.setSemID(stuID,semID);
         return Response.ok(Status.ACCEPTED).build();
+    }
+
+    @POST
+    @Path("/addCourse")
+    public Response addCourse(@QueryParam("studentID") int stuID, @QueryParam("courseID") int courseID) {
+        studentServiceOperation.addCourse(stuID, courseID);
+        return Response.ok("Course added successfully").build();
     }
 
     @GET
@@ -85,4 +77,14 @@ public class StudentRestAPI {
         }
         return Response.status(Status.NOT_FOUND).build();
     }
+
+    @DELETE
+    @Path("/dropCourse")
+    public Response dropCourse(@QueryParam("studentID") Integer studentID, @QueryParam("courseID") Integer courseID){
+        studentServiceOperation.dropCourse(studentID, courseID);
+        return Response.ok(Status.ACCEPTED).build();
+    }
+
+
+
 }

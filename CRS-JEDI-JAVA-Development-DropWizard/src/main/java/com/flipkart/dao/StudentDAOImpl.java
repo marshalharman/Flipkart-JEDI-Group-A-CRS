@@ -262,7 +262,7 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public void registerCourses(int studentID, List<Integer> courseIDs, int semID){
+    public void registerCourse(int studentID, int courseID, int semID){
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -275,10 +275,8 @@ public class StudentDAOImpl implements StudentDAO{
 
             stmt.setInt(1,studentID);
             stmt.setInt(3, semID);
-            for(int courseID : courseIDs){
-                stmt.setInt(2, courseID);
-                stmt.executeUpdate();
-            }
+            stmt.setInt(2, courseID);
+            stmt.executeUpdate();
         }
         catch(SQLException se){
             //Handle errors for JDBC

@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
 import com.flipkart.constant.ConnectionConstant;
 import com.flipkart.exception.*;
 
@@ -57,7 +58,7 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public void deleteCourse(int courseID) throws CourseNotDeletedException, CourseNotFoundException {
+    public void deleteCourse(int courseID) throws CourseNotDeletedException {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -70,8 +71,6 @@ public class AdminDAOImpl implements AdminDAO {
             stmt = conn.prepareStatement(sql1);
             stmt.setInt(1, courseID);
             ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()==false)  {throw new CourseNotFoundException(courseID);}
 
             String sql = "DELETE FROM Catalog WHERE CourseId = ?";
             stmt = conn.prepareStatement(sql);
@@ -95,10 +94,6 @@ public class AdminDAOImpl implements AdminDAO {
         } catch(SQLException se){
             //Handle errors for JDBC
             throw new CourseNotDeletedException(courseID);
-        } catch (CourseNotFoundException e)
-        {
-            System.out.println(e.getMessage());
-            return;
         } catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
@@ -118,7 +113,7 @@ public class AdminDAOImpl implements AdminDAO {
         }//end try
     }
 
-    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException {
+    public void addCourse(Course course, int semID){
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -143,7 +138,7 @@ public class AdminDAOImpl implements AdminDAO {
 
         }catch(SQLException se){
             //Handle errors for JDBC
-            throw new CourseAlreadyPresentException(course.getCourseID());
+            se.printStackTrace();
 
         }catch(Exception e){
             //Handle errors for Class.forName
@@ -166,12 +161,11 @@ public class AdminDAOImpl implements AdminDAO {
 
     }
 
-    public void approveStudent(int studentId) throws StudentNotFoundForApprovalException {
+    public void approveStudent(int studentId) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
         String sql = "UPDATE User SET isApproved = 1 WHERE UserId = ?";
-
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
 
@@ -180,10 +174,7 @@ public class AdminDAOImpl implements AdminDAO {
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentId);
             int row = stmt.executeUpdate();
-            if (row == 0) {
-                System.out.println("Student with " + studentId + " not found.");
-                throw new StudentNotFoundForApprovalException(studentId);
-            }
+
 
         } catch(SQLException se){
             //Handle errors for JDBC
