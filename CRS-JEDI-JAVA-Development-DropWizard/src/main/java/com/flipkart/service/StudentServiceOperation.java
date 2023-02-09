@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDAO;
 import com.flipkart.dao.StudentDAOImpl;
 import com.flipkart.exception.DuplicateUserException;
+import org.glassfish.jersey.process.internal.RequestScoped;
 
 import java.util.*;
 
@@ -23,12 +24,10 @@ public class StudentServiceOperation implements StudentInterface {
         System.out.println("Registration request sent.");
     }
     public List<Integer>  getSemesterList(int studentID){
-        StudentDAO studentDAO = new StudentDAOImpl();
         return studentDAO.getSemesterList();
     }
 
     public List<Course> getCourses(int studentID){
-        StudentDAO studentDAO = new StudentDAOImpl();
         int semID = studentDAO.getStudentByID(studentID).getSemID();
         return studentDAO.getCourses(semID);
     }
@@ -40,59 +39,39 @@ public class StudentServiceOperation implements StudentInterface {
 
         studentDAO.dropCourse(studentID, courseID);
     }
+    public void addCourse(int studentID, int courseID){
 
-    public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses){
-
-        int registeredCourseCount = 0;
-
-        StudentDAO studentDAO = new StudentDAOImpl();
 
         Student student = studentDAO.getStudentByID(studentID);
         int semID = student.getSemID();
 
         HashMap<Integer,Integer> courseEnrollmentCount =  studentDAO.getCourseEnrollmentCount(semID);
-        List<Integer> registeredCoursesID = new ArrayList<>();
 
-        for(Course course: primaryCourses){
-            if(!courseEnrollmentCount.containsKey(course.getCourseID())){
-                courseEnrollmentCount.put(course.getCourseID(), 0);
-            }
-            int currentCount = courseEnrollmentCount.get(course.getCourseID());
-            if(currentCount < 10){
-                registeredCoursesID.add(course.getCourseID());
-//                Data.registeredCourses.get(student.getUserID()).add(course);
-                currentCount++;
-                courseEnrollmentCount.put(course.getCourseID(), currentCount);
-                registeredCourseCount++;
-            }
+        if(!courseEnrollmentCount.containsKey(courseID)){
+            courseEnrollmentCount.put(courseID, 0);
         }
 
-        for(Course course: alternateCourses){
-            if(!courseEnrollmentCount.containsKey(course.getCourseID())){
-                courseEnrollmentCount.put(course.getCourseID(), 0);
-            }
-            int currentCount = courseEnrollmentCount.get(course.getCourseID());
-            if(registeredCourseCount < 4 && currentCount < 10){
-                registeredCoursesID.add(course.getCourseID());
-//                Data.registeredCourses.get(student.getUserID()).add(course);
-                currentCount++;
-                courseEnrollmentCount.put(course.getCourseID(), currentCount);
-                registeredCourseCount++;
-            }
+        int currentCount = courseEnrollmentCount.get(courseID);
+
+        if(currentCount < 10){
+            currentCount++;
+            courseEnrollmentCount.put(courseID, currentCount);
+            studentDAO.registerCourse(studentID, courseID, semID);
+        }
+        else{
+            System.out.println("Student cannot register. 0 seats left");
         }
 
-        studentDAO.registerCourses(studentID, registeredCoursesID, semID);
-        System.out.println("REGISTERED COURSES:");
-        Formatter fmt = new Formatter();
-        fmt.format("%15s\n", "CourseID");
-        for(int i=0;i<registeredCourseCount;i++){
-            fmt.format("%14s\n",registeredCoursesID.get(i));
-        }
-        System.out.println(fmt);
+//        Formatter fmt = new Formatter();
+//        fmt.format("%15s\n", "CourseID");
+//        for(int i=0;i<registeredCourseCount;i++){
+//            fmt.format("%14s\n",registeredCoursesID.get(i));
+//        }
+//        System.out.println(fmt);
 
     }
 
-    public void getRegisteredCourses(int studentID){
+    public List<Course> getRegisteredCourses(int studentID){
         List<Course> registeredCourses = studentDAO.getRegisteredCourses(studentID);
         Formatter fmt = new Formatter();
         fmt.format("%15s %15s\n", "CourseID", "CourseName");
@@ -100,8 +79,8 @@ public class StudentServiceOperation implements StudentInterface {
             fmt.format("%14s %14s\n",course.getCourseID() , course.getCourseName());
         }
         System.out.println(fmt);
+        return registeredCourses;
     }
-
 
 
     public HashMap<Course,String> viewGrades(int studentId){

@@ -1,12 +1,13 @@
 package com.flipkart.dao;
 
 import com.flipkart.constant.ConnectionConstant;
+import com.flipkart.constant.SQLConstants;
 
 import java.sql.*;
 import java.util.UUID;
 
 public class PaymentDAOImpl implements PaymentDAO{
-    Connection connection;
+    java.sql.Connection connection;
     PreparedStatement statement;
 
     public int numOfRegisteredCourses( int s_id){
@@ -16,7 +17,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             connection = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
             String mode = "";
-            String sql = "select count(*) from SemRegistration where StudentID = ?";
+            String sql = SQLConstants.NUMBER_OF_REGISTERED_COURSES;
             statement = connection.prepareStatement(sql);
             statement.setInt(1, s_id);
             ResultSet result = statement.executeQuery();
@@ -38,7 +39,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             connection = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
             statement = null;
-            String sql = "insert into UPI values(?,?)";
+            String sql = SQLConstants.ADD_UPI;
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setString(2, upiID);
@@ -58,7 +59,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             connection = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
             statement = null;
-            String sql = "insert into CardDetails values(?,?,?,?)";
+            String sql = SQLConstants.ADD_CARD;
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setString(2, cardNumber);
@@ -80,7 +81,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             connection = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
             statement = null;
-            String sql = "insert into Payment values(?,?,?,?,?)";
+            String sql = SQLConstants.SAVE_PAYMENT;
             statement = connection.prepareStatement(sql);
             statement.setString(1, transID);
             statement.setInt(2, s_id);
@@ -104,7 +105,7 @@ public class PaymentDAOImpl implements PaymentDAO{
             connection = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
             String notificationID = UUID.randomUUID().toString();
             statement = null;
-            String sql = "insert into Notification values(?,?,?)";
+            String sql = SQLConstants.SAVE_NOTIFICATION;
             statement = connection.prepareStatement(sql);
             statement.setString(1, notificationID);
             statement.setString(2,  msg);

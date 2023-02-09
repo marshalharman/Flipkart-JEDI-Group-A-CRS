@@ -1,8 +1,10 @@
 package com.flipkart.dao;
 
 import com.flipkart.bean.User;
+
 import com.flipkart.constant.ColourConstant;
 import com.flipkart.constant.ConnectionConstant;
+import com.flipkart.constant.SQLConstants;
 import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
@@ -14,7 +16,7 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public boolean login(int userID, String password, String role) throws UserNotFoundException{
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         User s=getUserByID(userID);
@@ -29,7 +31,7 @@ public class UserDAOImpl implements UserDAO{
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "SELECT * FROM User WHERE UserID=? AND Password=?";
+            String sql = SQLConstants.LOGIN;
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1, userID);
@@ -80,10 +82,10 @@ public class UserDAOImpl implements UserDAO{
 
     public void register(int userID, String userName, String password, String role, boolean isApproved){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO User VALUES (?, ?, ?, ?, ?)";
+        String sql = SQLConstants.REGISTER_USER;
 
         try{
 
@@ -123,10 +125,10 @@ public class UserDAOImpl implements UserDAO{
     }
     public void updatePassword(int userID, String password)
     {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE USER SET Password = ? where UserID = ?";
+        String sql = SQLConstants.UPDATE_PASSWORD;
         try {
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
@@ -158,12 +160,12 @@ public class UserDAOImpl implements UserDAO{
 
     public User getUserByID(int userID){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         User user = null;
 
-        String sql = "SELECT * FROM User WHERE UserID=?";
+        String sql = SQLConstants.GET_USER_BY_ID;
 
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);

@@ -24,14 +24,14 @@ public interface ProfessorInterface {
      * @param courseName
      * @param semID
      */
-    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException;
+    public void registerCourse(int profID, String courseName, int semID) throws CourseNotFoundByNameException;
     /**
      * Method to de-register the professor from the course
      * @param profID
      * @param courseName
      * @param semID
      */
-    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundException, CourseNotFoundByNameException;
+    public void deregisterCourse(int profID, String courseName, int semID) throws CourseNotFoundByNameException;
     /**
      * Method to students enrolled in a course
      * @param semID
@@ -48,5 +48,5 @@ public interface ProfessorInterface {
      */
     public void addGrade(int profID , String courseName, int studentID , String grade);
 
-    public void  viewRegisteredCourses(int profID);
+    public List<Course> viewRegisteredCourses(int profID);
 }

@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class CRSApplication {
 
-    public static void main(String args[]) throws CourseNotDeletedException, CourseNotFoundException, CourseAlreadyPresentException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, CourseNotFoundByNameException {
+    public static void main(String args[]) throws CourseNotDeletedException, CourseNotFoundException, CourseAlreadyPresentException, StudentNotFoundForApprovalException, UserIdAlreadyInUseException, ProfessorNotAddedException, CourseNotFoundByNameException, SemNotFoundException {
         while(true){
 
             System.out.println("\n\nWelcome to the CRS Application! Choose the operation given below!\n");
@@ -62,7 +62,7 @@ public class CRSApplication {
 
                         if (role.equalsIgnoreCase(Role.STUDENT)) {
                             if(verified) {
-                                System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
+                                System.out.println("\n1Welcome to the Course Registration System! Login Time: " + formatDateTime);
                                 CRSStudentMenu crsStudentMenu = new CRSStudentMenu();
                                 crsStudentMenu.studentMenu(userID);
                                 break;
@@ -72,7 +72,7 @@ public class CRSApplication {
                         } else
                             if (role.equalsIgnoreCase(Role.PROFESSOR)) {
                                 if( verified ) {
-                                    System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
+                                    System.out.println("\nWelcome to the Course Registration System! Login Time: " + formatDateTime);
                                     CRSProfessorMenu crsProfessorMenu = new CRSProfessorMenu();
                                     crsProfessorMenu.professorMenu(userID);
                                     break;
@@ -82,7 +82,7 @@ public class CRSApplication {
                         } else
                             if (role.equalsIgnoreCase(Role.ADMIN)) {
                                 if(verified) {
-                                    System.out.println("Welcome to the Course Registration System! Login Time: " + formatDateTime);
+                                    System.out.println("\nWelcome to the Course Registration System! Login Time: " + formatDateTime);
                                     CRSAdminMenu crsAdminMenu = new CRSAdminMenu();
                                     crsAdminMenu.adminMenu(userID);
                                     break;

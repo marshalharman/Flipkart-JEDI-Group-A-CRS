@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.exception.*;
 
 import java.util.List;
 
@@ -24,27 +25,27 @@ public interface AdminDAO {
      * @throws CourseNotFoundException
      * @throws CourseNotDeletedException
      */
-    public void deleteCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
+    public void deleteCourse(int courseID) throws CourseNotDeletedException;
     /**
      * Method to add course using SQL commands
      * @param course
      * @param semID
      * @throws CourseAlreadyPresentException
      */
-    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException;
+    public void addCourse(Course course, int semID);
     /**
      * Method to approve student using SQL commands
      * @param studentID
      * @throws StudentNotFoundForApprovalException
      */
-    public void approveStudent(int studentID) throws StudentNotFoundForApprovalException;
+    public void approveStudent(int studentID) throws StudentNotFoundForApprovalException, StudentAlreadyApproved;
     /**
      * Method to add professor using SQL commands
      * @param professor
      * @throws ProfessorNotAddedException
      * @throws UserIdAlreadyInUseException
      */
-    public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
+    public void addProfessor(Professor professor) throws DuplicateUserException,ProfessorNotAddedException;
     /**
      * Method to generate grade card using SQL commands
      */
@@ -58,4 +59,6 @@ public interface AdminDAO {
      * Method to approve all unapproved students
      */
     public void approveAllStudents();
+
+    public Student getStudentByID(int studentID);
 }
