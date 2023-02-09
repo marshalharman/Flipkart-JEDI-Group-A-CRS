@@ -105,7 +105,7 @@ public class AdminRestAPI {
 
         try {
             service.addCourse(courseID, courseName, semID);
-            return Response.ok("Course added Successfulle!").build();
+            return Response.ok("Course added Successfully!").build();
         }
         catch (CourseAlreadyPresentException exception){
             return Response.status(201).entity("Course is Already presesnt. Cannot be added").build();
