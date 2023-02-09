@@ -33,11 +33,19 @@ public class StudentRestAPI {
         this.validator = validator;
     }
 
+
     @PUT
     @Path("/semRegistration")
     public Response semRegistration(@QueryParam("studentID") int stuID, @QueryParam("semID") int semID) {
         studentServiceOperation.setSemID(stuID,semID);
         return Response.ok(Status.ACCEPTED).build();
+    }
+
+    @POST
+    @Path("/addCourse")
+    public Response addCourse(@QueryParam("studentID") int stuID, @QueryParam("courseID") int courseID) {
+        studentServiceOperation.addCourse(stuID, courseID);
+        return Response.ok("Course added successfully").build();
     }
 
     @GET

@@ -25,20 +25,20 @@ public interface AdminDAO {
      * @throws CourseNotFoundException
      * @throws CourseNotDeletedException
      */
-    public void deleteCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
+    public void deleteCourse(int courseID) throws CourseNotDeletedException;
     /**
      * Method to add course using SQL commands
      * @param course
      * @param semID
      * @throws CourseAlreadyPresentException
      */
-    public void addCourse(Course course, int semID) throws CourseAlreadyPresentException;
+    public void addCourse(Course course, int semID);
     /**
      * Method to approve student using SQL commands
      * @param studentID
      * @throws StudentNotFoundForApprovalException
      */
-    public void approveStudent(int studentID) throws StudentNotFoundForApprovalException;
+    public void approveStudent(int studentID) throws StudentNotFoundForApprovalException, StudentAlreadyApproved;
     /**
      * Method to add professor using SQL commands
      * @param professor

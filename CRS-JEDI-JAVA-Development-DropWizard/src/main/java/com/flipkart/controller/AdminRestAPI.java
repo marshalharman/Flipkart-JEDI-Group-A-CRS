@@ -1,6 +1,7 @@
 package com.flipkart.controller;
 
 import com.flipkart.bean.Admin;
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.*;
@@ -32,17 +33,22 @@ public class AdminRestAPI {
     @Path("/unapprovedStudents")
     public Response getUnapprovedStudents()
     {
-        return Response.ok(service.viewUnapprovedStudents()).build();
+        List<Student> s=service.viewUnapprovedStudents();
+        if(s.size()==0)return Response.ok("No Students to approve ").build();
+        return Response.ok(s).build();
     }
     @PUT
     @Path("/approveStudentByID")
     public Response approveStudentByID(@QueryParam("studentID") Integer studentID) {
         try {
-
             service.approveStudentRegistration(studentID);
             return Response.ok("Approved Student " + studentID + " successfully").build();
 
         } catch (StudentNotFoundForApprovalException e) {
+            return Response.status(400).entity(e.getMessage()).build();
+        }
+        catch (StudentAlreadyApproved e)
+        {
             return Response.status(400).entity(e.getMessage()).build();
         }
 //        return Response.status(500).entity("Something went wrong, please try again!").build();
