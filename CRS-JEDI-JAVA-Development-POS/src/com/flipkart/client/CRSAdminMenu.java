@@ -4,6 +4,7 @@ package com.flipkart.client;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
+import com.flipkart.constant.ColourConstant;
 import com.flipkart.constant.Role;
 import com.flipkart.dao.UserDAO;
 import com.flipkart.dao.UserDAOImpl;
@@ -81,7 +82,7 @@ public class CRSAdminMenu {
                     try {
                         userID = Integer.parseInt(sc.nextLine());
                     } catch (NumberFormatException e) {
-                        System.out.println("Input should be numerical!");
+                        System.out.println( ColourConstant.ANSI_YELLOW+"Input should be numerical!" + ColourConstant.ANSI_RESET);
                         break;
                     }
 
@@ -140,12 +141,12 @@ public class CRSAdminMenu {
         System.out.println("1. Approve students by ID.");
         System.out.println("2. Approve all students.");
 
-        int choice = sc.nextInt();
+        int choice = Integer.parseInt(sc.nextLine());
         switch (choice)
         {
             case 1:
                 System.out.println("Enter the student ID to approve : ");
-                service.approveStudentRegistration(sc.nextInt());
+                service.approveStudentRegistration(Integer.parseInt(sc.nextLine()));
                 break;
             case 2:
                 service.approveAllStudents();
@@ -164,18 +165,18 @@ public class CRSAdminMenu {
     }
     private void addCourses() throws CourseAlreadyPresentException {
         System.out.println("Enter SemId: ");
-        int semID=sc.nextInt();
+        int semID= Integer.parseInt(sc.nextLine());
         System.out.println("Enter courseId: ");
-        int courseID=sc.nextInt();
+        int courseID= Integer.parseInt(sc.nextLine());
         System.out.println("Enter courseName: ");
-        String courseName=sc.next();
+        String courseName= sc.nextLine();
         service.addCourse(courseID, courseName, semID);
     }
     private void deleteCourses() throws CourseNotDeletedException, CourseNotFoundException {
         System.out.println("Enter SemId: ");
-        int semId=sc.nextInt();
+        int semId=Integer.parseInt(sc.nextLine());
         System.out.println("Enter courseId: ");
-        int courseId=sc.nextInt();
+        int courseId=Integer.parseInt(sc.nextLine());
         service.removeCourse(semId,courseId);
     }
     private void generateReportCard(){
