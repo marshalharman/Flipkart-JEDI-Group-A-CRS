@@ -17,7 +17,7 @@ public interface AdminInterface {
      * @param studentID
      * @throws StudentNotFoundForApprovalException
      */
-    public void approveStudentRegistration(int studentID) throws StudentNotFoundForApprovalException;
+    public void approveStudentRegistration(int studentID) throws StudentNotFoundForApprovalException, StudentAlreadyApproved;
     /**
      * Method to add admin user to the DB
      * @param userID
