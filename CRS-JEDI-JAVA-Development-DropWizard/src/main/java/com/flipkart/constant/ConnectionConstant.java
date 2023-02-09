@@ -6,5 +6,5 @@ public class ConnectionConstant {
 
     //  Database credentials
     public static final String USER = "root";
-    public static final String PASS = "root1234";
+    public static final String PASS = "Fk!_186819";
 }

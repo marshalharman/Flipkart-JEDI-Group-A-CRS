@@ -49,10 +49,9 @@ public interface StudentInterface {
     /**
      * Method for a student to submit course preference
      * @param studentID
-     * @param primaryCourses
-     * @param alternateCourses
+     * @param courseID
      */
-    public void submitPreferences(int studentID, List<Course> primaryCourses, List<Course> alternateCourses);
+    public void addCourse(int studentID, int courseID);
     /**
      * Method for a student to get all the courses they are registered in
      * @param studentID
