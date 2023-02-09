@@ -31,6 +31,7 @@ public class StudentServiceOperation implements StudentInterface {
     public List<Course> getCourses(int studentID){
         StudentDAO studentDAO = new StudentDAOImpl();
         int semID = studentDAO.getStudentByID(studentID).getSemID();
+//        int semID = 1;
         return studentDAO.getCourses(semID);
     }
 

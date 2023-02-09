@@ -231,5 +231,6 @@ public class CRSAdminMenu {
     }
     private void generateReportCard(){
     	service.generateGradeCard();
+        System.out.println("Grades Released!");
     }
 }

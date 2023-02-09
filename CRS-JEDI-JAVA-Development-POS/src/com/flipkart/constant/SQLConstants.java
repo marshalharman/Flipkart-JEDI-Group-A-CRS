@@ -31,7 +31,7 @@ public class SQLConstants {
     public static final String REGISTER_COURSE_FOR_PROFESSOR = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
     public static final String DEREGISTER_COURSE_FOR_PROFESSOR = "UPDATE Courses SET ProfID = (?) WHERE CourseID = (?)";
     public static final String VIEW_ENROLLED_STUDENTS = "SELECT * FROM SemRegistration INNER JOIN Student ON SemRegistration.StudentID = Student.StudentID WHERE SemRegistration.CourseID=?";
-    public static final String GET_STUDENT_BY_ID = "Select StudentID, Name, Address, Branch, Degree FROM Student WHERE StudentID = (?)";
+    public static final String GET_STUDENT_BY_ID = "Select StudentID, Name, Address, Branch, Degree, SemID FROM Student WHERE StudentID = (?)";
     public static final String GET_COURSES_BY_PROFESSOR = "Select CourseID, Name, ProfID FROM Courses WHERE ProfID = (?)";
     public static final String ADD_GRADE = "UPDATE SemRegistration SET Grade = (?) WHERE StudentID = (?) AND CourseID = (?)";
     public static final String GET_SEM_ID_BY_COURSE_ID = "SELECT SemID FROM Catalog WHERE CourseId = (?)";
