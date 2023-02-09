@@ -5,6 +5,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constant.ConnectionConstant;
 import com.flipkart.constant.Role;
+import com.flipkart.constant.SQLConstants;
 import com.flipkart.exception.DuplicateUserException;
 
 import java.sql.*;
@@ -17,7 +18,7 @@ public class StudentDAOImpl implements StudentDAO{
     UserDAO userDAO = new UserDAOImpl();
 
     public void register(int studentID, String name, String address, String username, String password, String branch, String degree) throws DuplicateUserException {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
         User u=userDAO.getUserByID(studentID);
         if(u!=null)
@@ -26,9 +27,9 @@ public class StudentDAOImpl implements StudentDAO{
         }
 
         String role = Role.STUDENT;
-        String sql1 = "INSERT INTO User VALUES (?,?,?,?,?);";
+        String sql1 = SQLConstants.REGISTER_USER;
 
-        String sql2 = "INSERT INTO Student (StudentID, Name, Address, Branch, Degree) VALUES (?,?,?,?,?);";
+        String sql2 = SQLConstants.REGISTER_STUDENT;
 
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
@@ -77,7 +78,7 @@ public class StudentDAOImpl implements StudentDAO{
     }
     @Override
     public List<Integer> getSemesterList() {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         List<Integer> semList = new ArrayList<Integer>();
@@ -86,7 +87,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql1 = "SELECT DISTINCT semID FROM Catalog";
+            String sql1 = SQLConstants.GET_SEMESTER_LIST;
             stmt = conn.prepareStatement(sql1);
             ResultSet rs = stmt.executeQuery();
 
@@ -120,10 +121,10 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     public void setSemIDforStudent(int studentID, int semID){
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE Student SET SemID = ? WHERE StudentID = ?";
+        String sql = SQLConstants.SET_SEM_ID;
 
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
@@ -163,7 +164,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public List<Course> getCourses(int semID) {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         List<Course> courseList = new ArrayList<Course>();
@@ -172,9 +173,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
-                    "FROM crs_database.Catalog INNER JOIN crs_database.Courses ON Catalog.CourseId = Courses.CourseID " +
-                    "WHERE semID = ? AND ProfID IS NOT NULL AND ProfID != -1";
+            String sql = SQLConstants.GET_COURSES;
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, semID);
@@ -218,7 +217,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public HashMap<Integer, Integer> getCourseEnrollmentCount(int semID) {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         HashMap<Integer, Integer> courseEnrollmentCount = new HashMap<>();
@@ -227,7 +226,7 @@ public class StudentDAOImpl implements StudentDAO{
 
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "SELECT CourseID, COUNT(studentID) AS Frequency FROM SemRegistration GROUP BY CourseID";
+            String sql = SQLConstants.GET_COURSE_ENROLLMENT_COUNT;
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
@@ -264,13 +263,13 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public void registerCourse(int studentID, int courseID, int semID){
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
             conn = DriverManager.getConnection(ConnectionConstant.DB_URL, ConnectionConstant.USER, ConnectionConstant.PASS);
 
-            String sql = "INSERT INTO SemRegistration (`StudentID`, `CourseID`, `SemID`) VALUES  (?, ?, ?)";
+            String sql = SQLConstants.REGISTER_COURSES;
             stmt = conn.prepareStatement(sql);
 
             stmt.setInt(1,studentID);
@@ -303,10 +302,10 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public void dropCourse(int studentID, int courseID) {
 
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
-        String sql = "DELETE FROM SemRegistration WHERE CourseID = (?) AND StudentID = (?)";
+        String sql = SQLConstants.DROP_COURSE;
 
         try{
 
@@ -346,14 +345,13 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public List<Course> getRegisteredCourses(int studentID) {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
 
         List<Course> registeredCourse = new ArrayList<>();
 
-        String sql = "SELECT Courses.CourseID, Courses.Name, Courses.ProfID " +
-                "FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID=?";
+        String sql = SQLConstants.GET_REGISTERED_COURSE;
         try{
             Class.forName(ConnectionConstant.JDBC_DRIVER);
 
@@ -401,15 +399,15 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public HashMap<Course, String> viewGrades(int studentID) {
-        Connection conn = null;
+        java.sql.Connection conn = null;
         PreparedStatement stmt = null;
 
         HashMap<Course, String> GradesInCourses = new HashMap<>() ;
 
-        String sql1 = "select GradesEnabled from Student where StudentID=(?);";
+        String sql1 = SQLConstants.CHECK_GRADES_ENABLED;
 
 
-        String sql = "SELECT Courses.CourseID AS CourseID, Grade, Name AS CourseName FROM SemRegistration INNER JOIN Courses ON SemRegistration.CourseID = Courses.CourseID WHERE StudentID = ?;";
+        String sql = SQLConstants.VIEW_GRADES;
 
         try{
 
@@ -472,11 +470,11 @@ public class StudentDAOImpl implements StudentDAO{
     public Student getStudentByID(int studentID){
 
         PreparedStatement stmt = null;
-        Connection conn = null;
+        java.sql.Connection conn = null;
 
         Student student = null;
 
-        String sql = "Select StudentID, Name, Address, Branch, Degree, SemID FROM Student WHERE StudentID = (?)";
+        String sql = SQLConstants.GET_STUDENT_BY_ID;
 
         try{
 
